@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Debit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:background="@color/blue_200">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pemantauan Debit A\ir"
+            android:layout_margin="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:text="Pilihan Gedung :"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginLeft="10dp"/>
+
+           <Spinner
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:id="@+id/listgedung"
+               android:entries="@array/list_gedung" />
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tanggal1"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:drawableEnd="@drawable/ic_date_range"
+            android:drawableRight="@drawable/ic_date_range"
+            android:focusable="true"
+            android:layout_alignParentLeft="true"
+            android:hint="Tanggal"
+            android:textSize="15dp"
+            android:textColor="@color/black"/>
+        <View
+            android:id="@+id/strip"
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/black" />
+        <EditText
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tanggal2"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:drawableEnd="@drawable/ic_date_range"
+            android:drawableRight="@drawable/ic_date_range"
+            android:layout_alignParentRight="true"
+            android:focusable="true"
+            android:hint="Tanggal"
+            android:textSize="15dp"
+            android:textColor="@color/black"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <Button
+        android:id="@+id/btn_logout"
+        app:backgroundTint="@null"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@color/blue_200"
+        android:text="TAMPILKAN"
+        android:textColor="#ffff"
+        android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="GRAFIK PENGGUNAAN AIR"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+</RelativeLayout>
