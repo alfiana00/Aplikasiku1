@@ -48,7 +48,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#448AFF" />
+            android:background="#5e5e5e" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#448AFF" />
+            android:background="#5e5e5e" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#448AFF" />
+            android:background="#5e5e5e" />
 
         <Button
             android:id="@+id/btn_logout"

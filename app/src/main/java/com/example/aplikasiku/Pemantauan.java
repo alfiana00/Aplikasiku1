@@ -41,7 +41,7 @@ public class Pemantauan extends AppCompatActivity {
         Panah3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent I = new Intent(Pemantauan.this, Rate.class);
+                Intent I = new Intent(Pemantauan.this, Kebocoran.class);
                 startActivity(I);
                 finish();
             }

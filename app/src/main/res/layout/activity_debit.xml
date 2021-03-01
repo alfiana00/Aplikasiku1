@@ -6,21 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Debit">
 
-    <LinearLayout
+    <android.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        android:background="@color/blue_200">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pemantauan Debit A\ir"
-            android:layout_margin="10dp"
-            android:textSize="20dp"
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"
+        app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
 
         <LinearLayout
             android:layout_width="match_parent"
