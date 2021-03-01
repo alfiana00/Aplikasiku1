@@ -106,7 +106,7 @@
             android:layout_height="30dp"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="GRAFIK PENGGUNAAN AIR"
+            android:text="GRAFIK PENGGUNAAN AIR DALAM KURUN WAKTU TERTENTU"
             android:textSize="16dp"
             android:textColor="@color/black"/>
 

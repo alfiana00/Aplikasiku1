@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="100dp"
-                    android:text="KECEPATAN RATE AIR"
+                    android:text="PEMANTAUAN REALTIME"
                     android:textColor="#5e5e5e"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
                     android:layout_marginLeft="100dp"
-                    android:text="GRAFIK KECEPATAN RATE AIR"
+                    android:text="GRAFIK REALTIME PENGGUNAAN AIR"
                     android:textColor="#5e5e5e"
                     android:textSize="12dp" />
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="100dp"
-                    android:text="DEBIT AIR"
+                    android:text="PEMANTAUAN PER WAKTU"
                     android:textColor="#5e5e5e"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -119,7 +119,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
                     android:layout_marginLeft="100dp"
-                    android:text="KECEPATAN RATE AIR"
+                    android:text="GRAFIK PENGGUNAAN AIR DALAM
+                    KURUN WAKTU TERTENTU"
                     android:textColor="#5e5e5e"
                     android:textSize="12dp" />
 
@@ -185,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
                     android:layout_marginLeft="100dp"
-                    android:text="KECEPATAN RATE AIR"
+                    android:text="TABEL DATA KEBOCORAN AIR"
                     android:textColor="#5e5e5e"
                     android:textSize="12dp" />
 
