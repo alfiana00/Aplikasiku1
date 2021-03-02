@@ -1,14 +1,14 @@
-package com.example.aplikasiku;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.aplikasiku.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.aplikasiku.R;
 
 public class Tentang extends AppCompatActivity {
 

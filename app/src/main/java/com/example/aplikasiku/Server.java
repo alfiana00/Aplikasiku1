@@ -5,5 +5,5 @@ package com.example.aplikasiku;
  */
 
 public class Server {
-    public static final String URL = "http://pantaukendaliair.com/apps/loginapp.php/";
+    public static final String URL = "http://pantaukendaliair.com/loginapp.php/";
 }

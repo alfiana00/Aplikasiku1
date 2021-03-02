@@ -1,4 +1,4 @@
-package com.example.aplikasiku;
+package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toolbar;
+
+import com.example.aplikasiku.activity.Debit;
+import com.example.aplikasiku.activity.Kebocoran;
+import com.example.aplikasiku.R;
+import com.example.aplikasiku.activity.Rate;
 
 public class Pemantauan extends AppCompatActivity {
     ImageView Panah1, Panah2, Panah3;

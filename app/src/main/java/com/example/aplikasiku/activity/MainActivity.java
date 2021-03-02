@@ -1,4 +1,4 @@
-package com.example.aplikasiku;
+package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+
+import com.example.aplikasiku.activity.Akun;
+import com.example.aplikasiku.activity.Pemantauan;
+import com.example.aplikasiku.activity.Pengendalian;
+import com.example.aplikasiku.R;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.aplikasiku;
+package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,16 +11,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import com.example.aplikasiku.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class Debit extends AppCompatActivity  {
+
+    ImageView btnHome, btnBack;
 
     Calendar inputTanggal1;
     Calendar inputTanggal2;
@@ -38,10 +43,27 @@ public class Debit extends AppCompatActivity  {
         mToolbar.setTitle("DEBIT AIR");
         mToolbar.setTitleTextColor(Color.WHITE);
 
-        final Spinner List = findViewById(R.id.listgedung);
+        final Spinner List = findViewById(R.id.cv_gd);
 
-        tanggal1 = findViewById(R.id.tanggal1);
-        tanggal2 = findViewById(R.id.tanggal2);
+        tanggal1 = findViewById(R.id.tglawal);
+        tanggal2 = findViewById(R.id.tglakhir);
+        btnBack = findViewById(R.id.btn_back);
+        btnHome = findViewById(R.id.btn_home);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Debit.this, Pemantauan.class);
+                startActivity(i);
+            }
+        });
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Debit.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         inputTanggal1 = Calendar.getInstance();
         datestart = new DatePickerDialog.OnDateSetListener() {
@@ -51,7 +73,7 @@ public class Debit extends AppCompatActivity  {
                 inputTanggal1.set(Calendar.MONTH, monthOfYear);
                 inputTanggal1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                EditText tanggalawal = findViewById(R.id.tanggal1);
+                EditText tanggalawal = findViewById(R.id.tglawal);
                 String myFormat = "dd-MMMM-yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 tanggalawal.setText(sdf.format(inputTanggal1.getTime()));
@@ -65,7 +87,7 @@ public class Debit extends AppCompatActivity  {
                 inputTanggal2.set(Calendar.MONTH, monthOfYear);
                 inputTanggal2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                EditText tanggalakhir = findViewById(R.id.tanggal2);
+                EditText tanggalakhir = findViewById(R.id.tglakhir);
                 String myFormat = "dd-MMMM-yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                 tanggalakhir.setText(sdf.format(inputTanggal2.getTime()));

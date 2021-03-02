@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Akun">
+    tools:context=".activity.Akun">
 
     <LinearLayout
+        android:id="@+id/lylogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,10 +18,10 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@drawable/logota" />
+            android:background="@drawable/ic_dashboard" />
 
         <TextView
-            android:id="@+id/TextView2"
+            android:id="@+id/txt_akun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,36 +36,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="240dp">
+        android:layout_below="@+id/lylogo"
+        android:layout_marginTop="3dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:id="@+id/txt_id"
+            android:id="@+id/et_id"
             android:text="ID" />
         <View
             android:id="@+id/View1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#5e5e5e" />
+            android:background="#448AFF" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:id="@+id/txt_user"
+            android:id="@+id/et_username"
             android:text="USERNAME" />
         <View
             android:id="@+id/View2"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#5e5e5e" />
+            android:background="#448AFF" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_nama"
+            android:id="@+id/et_nama"
             android:layout_margin="10dp"
             android:text="NAMA"/>
         <View
@@ -72,7 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#5e5e5e" />
+            android:background="#448AFF" />
 
         <Button
             android:id="@+id/btn_logout"

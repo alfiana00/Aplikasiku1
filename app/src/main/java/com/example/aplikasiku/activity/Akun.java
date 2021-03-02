@@ -1,4 +1,4 @@
-package com.example.aplikasiku;
+package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import com.example.aplikasiku.R;
 
 public class Akun extends AppCompatActivity {
     Button btn_logout;
@@ -29,12 +31,12 @@ public class Akun extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akun);
 
-        txt_id = (TextView) findViewById(R.id.txt_id);
-        txt_user = (TextView) findViewById(R.id.txt_user);
-        txt_nama = (TextView) findViewById(R.id.txt_nama);
+        txt_id = (TextView) findViewById(R.id.et_id);
+        txt_user = (TextView) findViewById(R.id.et_username);
+        txt_nama = (TextView) findViewById(R.id.et_nama);
 
         btn_logout = (Button) findViewById(R.id.btn_logout);
-        sharedpreferences = getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(Login.ACCOUNT_SERVICE, Context.MODE_PRIVATE);
 
         ID = getIntent().getStringExtra(TAG_ID);
         username = getIntent().getStringExtra(TAG_USERNAME);
@@ -57,10 +59,10 @@ public class Akun extends AppCompatActivity {
                             public void onClick(DialogInterface arg0, int arg1) {
 
                                 //Getting out sharedpreferences
-                                sharedpreferences = getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
+                                sharedpreferences = getSharedPreferences(Login.ACCESSIBILITY_SERVICE, Context.MODE_PRIVATE);
                                 //Getting editor
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putBoolean(Login.session_status, false);
+                                editor.putBoolean(Login.ACCOUNT_SERVICE, false);
                                 //Saving the sharedpreferences
                                 editor.commit();
 

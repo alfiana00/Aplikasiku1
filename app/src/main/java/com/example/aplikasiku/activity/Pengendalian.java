@@ -1,4 +1,4 @@
-package com.example.aplikasiku;
+package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,9 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import com.example.aplikasiku.R;
+import com.example.aplikasiku.activity.MainActivity;
 
 public class Pengendalian extends AppCompatActivity {
 

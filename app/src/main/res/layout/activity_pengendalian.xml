@@ -4,15 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pengendalian">
+    tools:context=".activity.Pengendalian">
 
-    <android.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/lytoolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:minHeight="?attr/actionBarSize"
-        app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="vertical">
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:minHeight="?attr/actionBarSize"
+            android:outlineAmbientShadowColor="@color/black"
+            app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PENGENDALIAN"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:layout_marginStart="16dp"/>
+        <!--        <ImageView-->
+        <!--            android:id="@+id/btn_home"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_alignParentRight="true"-->
+        <!--            android:src="@drawable/ic_baseline_home_24"-->
+        <!--            android:layout_marginEnd="16dp"/>-->
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +75,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/kontrol"/>
+                    android:src="@drawable/ic_kontrol"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -102,7 +134,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/kontrol"/>
+                    android:src="@drawable/ic_kontrol"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -160,7 +192,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/kontrol"/>
+                    android:src="@drawable/ic_kontrol"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -218,7 +250,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/kontrol"/>
+                    android:src="@drawable/ic_kontrol"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -276,7 +308,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/kontrol"/>
+                    android:src="@drawable/ic_kontrol"/>
 
                 <TextView
                     android:layout_width="match_parent"

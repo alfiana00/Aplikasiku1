@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F3F3"
-    tools:context=".activity.Kebocoran">
+    tools:context=".activity.TableRateActivity">
+
     <RelativeLayout
         android:id="@+id/lytoolbar"
         android:layout_width="match_parent"
@@ -22,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATA KEBOCORAN"
+            android:text="KECEPATAN RATE AIR"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:layout_centerVertical="true"
@@ -123,16 +125,16 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
                         >
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="--Pilih Tanggal Awal--"
-                            android:textSize="12dp"
-                            android:drawableRight="@drawable/ic_date_range"
-                            android:padding="3dp"
-                            android:background="@drawable/bg_spinner"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="--Pilih Tanggal Awal--"
+                        android:textSize="12dp"
+                        android:drawableRight="@drawable/ic_date_range"
+                        android:padding="3dp"
+                        android:background="@drawable/bg_spinner"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -231,7 +233,7 @@
                 android:layout_columnWeight="1"
                 android:text="Waktu"/>
             <TextView
-                android:id="@+id/title_status"
+                android:id="@+id/title_rate"
                 android:gravity="center_horizontal"
                 android:textSize="14sp"
                 android:layout_width="180dp"
@@ -241,7 +243,7 @@
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Status"/>
+                android:text="Rate"/>
         </GridLayout>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
@@ -261,4 +263,5 @@
         android:layout_margin="6dp"
         android:layout_gravity="center"
         />
+
 </RelativeLayout>

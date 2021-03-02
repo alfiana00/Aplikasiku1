@@ -4,213 +4,257 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pemantauan">
+    tools:context=".activity.Pemantauan">
 
-    <android.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/lytoolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
-        android:minHeight="?attr/actionBarSize"
-        app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_height="?attr/actionBarSize"
         android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Rate"
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="3dp">
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:minHeight="?attr/actionBarSize"
+            android:outlineAmbientShadowColor="@color/black"
+            app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PEMANTAUAN"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:layout_marginStart="16dp"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/btn_home"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:src="@drawable/ic_baseline_home_24"-->
+<!--            android:layout_marginEnd="16dp"/>-->
 
-            <RelativeLayout
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lytoolbar">
+
+        <LinearLayout
+            android:id="@+id/lyutama"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lytoolbar"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="PEMANTAUAN REALTIME"
-                    android:textColor="#5e5e5e"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="3dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="55dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="GRAFIK REALTIME PENGGUNAAN AIR"
-                    android:textColor="#5e5e5e"
-                    android:textSize="12dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp">
 
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_margin="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/realtime" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="KECEPATAN RATE AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/panah1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_arrow_right" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="KECEPATAN RATE AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="12dp" />
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                        <ImageView
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_margin="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_realtime" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/panah1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_arrow_right" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Debit"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="3dp">
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="PEMANTAUAN PER WAKTU"
-                    android:textColor="#5e5e5e"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Debit"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="3dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="55dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="GRAFIK PENGGUNAAN AIR DALAM
-                    KURUN WAKTU TERTENTU"
-                    android:textColor="#5e5e5e"
-                    android:textSize="12dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp">
 
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_margin="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/kontrol" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="DEBIT AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/panah2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_arrow_right" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="KECEPATAN RATE AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="12dp" />
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                        <ImageView
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_margin="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_realtime" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="310dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/panah2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_arrow_right" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Kebocoran"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="3dp">
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="KEBOCORAN AIR"
-                    android:textColor="#5e5e5e"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Kebocoran"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="3dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="55dp"
-                    android:layout_marginLeft="100dp"
-                    android:text="TABEL DATA KEBOCORAN AIR"
-                    android:textColor="#5e5e5e"
-                    android:textSize="12dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp">
 
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_margin="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/bocor" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="KEBOCORAN AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/panah3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_arrow_right" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="55dp"
+                            android:layout_marginLeft="100dp"
+                            android:text="KECEPATAN RATE AIR"
+                            android:textColor="#5e5e5e"
+                            android:textSize="12dp" />
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                        <ImageView
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_margin="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_bocor" />
+
+                        <ImageView
+                            android:id="@+id/panah3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_arrow_right" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

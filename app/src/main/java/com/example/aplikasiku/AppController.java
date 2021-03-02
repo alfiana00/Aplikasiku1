@@ -9,11 +9,11 @@ import com.android.volley.toolbox.Volley;
 
 public class AppController extends Application {
 
-    public static final String TAG = com.example.aplikasiku.AppController.class.getSimpleName();
+    public static final String TAG = AppController.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
 
-    private static com.example.aplikasiku.AppController mInstance;
+    private static AppController mInstance;
 
     @Override
     public void onCreate() {
@@ -21,7 +21,7 @@ public class AppController extends Application {
         mInstance = this;
     }
 
-    public static synchronized com.example.aplikasiku.AppController getInstance() {
+    public static synchronized AppController getInstance() {
         return mInstance;
     }
 
