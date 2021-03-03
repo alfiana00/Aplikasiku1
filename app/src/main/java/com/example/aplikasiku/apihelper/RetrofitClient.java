@@ -5,6 +5,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.aplikasiku.apihelper.UtillsApi.BASE_URL_API;
+
 public class RetrofitClient {
     private static Retrofit retrofit = null;
     public static Retrofit getClient(String baseUrl){
@@ -19,6 +21,13 @@ public class RetrofitClient {
                     .client(client)
                     .build();
         }
+        return retrofit;
+    }
+    public static Retrofit getClient1() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL_API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         return retrofit;
     }
 }

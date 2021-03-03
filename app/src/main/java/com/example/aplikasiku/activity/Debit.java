@@ -42,76 +42,26 @@ public class Debit extends AppCompatActivity  {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("DEBIT AIR");
         mToolbar.setTitleTextColor(Color.WHITE);
-
-        final Spinner List = findViewById(R.id.cv_gd);
-
-        tanggal1 = findViewById(R.id.tglawal);
-        tanggal2 = findViewById(R.id.tglakhir);
-        btnBack = findViewById(R.id.btn_back);
-        btnHome = findViewById(R.id.btn_home);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        mToolbar.setSubtitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Debit.this, Pemantauan.class);
-                startActivity(i);
+                startActivity(new Intent(getApplicationContext(), Pemantauan.class));
+                finish();
             }
         });
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        btnHome = findViewById(R.id.btn_home);
+
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Debit.this, MainActivity.class);
                 startActivity(i);
-            }
-        });
-
-        inputTanggal1 = Calendar.getInstance();
-        datestart = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                inputTanggal1.set(Calendar.YEAR, year);
-                inputTanggal1.set(Calendar.MONTH, monthOfYear);
-                inputTanggal1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                EditText tanggalawal = findViewById(R.id.tglawal);
-                String myFormat = "dd-MMMM-yyyy";
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                tanggalawal.setText(sdf.format(inputTanggal1.getTime()));
-            }
-        };
-        inputTanggal2 = Calendar.getInstance();
-        dateend = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                inputTanggal2.set(Calendar.YEAR, year);
-                inputTanggal2.set(Calendar.MONTH, monthOfYear);
-                inputTanggal2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                EditText tanggalakhir = findViewById(R.id.tglakhir);
-                String myFormat = "dd-MMMM-yyyy";
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                tanggalakhir.setText(sdf.format(inputTanggal2.getTime()));
-
-            }
-        };
-
-        tanggal1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Debit.this, datestart,
-                        inputTanggal1.get(Calendar.YEAR),
-                        inputTanggal1.get(Calendar.MONTH),
-                        inputTanggal1.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        tanggal2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Debit.this, dateend,
-                        inputTanggal2.get(Calendar.YEAR),
-                        inputTanggal2.get(Calendar.MONTH),
-                        inputTanggal2.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 

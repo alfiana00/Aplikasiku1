@@ -1,6 +1,7 @@
 package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,15 +16,15 @@ import com.example.aplikasiku.R;
 import com.example.aplikasiku.activity.Rate;
 
 public class Pemantauan extends AppCompatActivity {
-    ImageView Panah1, Panah2, Panah3;
+    CardView cvRate, cvDebit, cvKebocoran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pemantauan);
 
-        Panah1 = (ImageView) findViewById(R.id.panah1);
-        Panah1.setOnClickListener(new View.OnClickListener() {
+        cvRate = findViewById(R.id.Rate);
+        cvRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent I = new Intent(Pemantauan.this, Rate.class);
@@ -32,8 +33,8 @@ public class Pemantauan extends AppCompatActivity {
             }
         });
 
-        Panah2 = (ImageView) findViewById(R.id.panah2);
-        Panah2.setOnClickListener(new View.OnClickListener() {
+        cvDebit = findViewById(R.id.Debit);
+        cvDebit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent I = new Intent(Pemantauan.this, Debit.class);
@@ -42,8 +43,8 @@ public class Pemantauan extends AppCompatActivity {
             }
         });
 
-        Panah3 = (ImageView) findViewById(R.id.panah3);
-        Panah3.setOnClickListener(new View.OnClickListener() {
+        cvKebocoran =  findViewById(R.id.Kebocoran);
+        cvKebocoran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent I = new Intent(Pemantauan.this, Kebocoran.class);

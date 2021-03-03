@@ -23,17 +23,21 @@ public class Kebocoran extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("KEBOCORAN AIR");
         mToolbar.setTitleTextColor(Color.WHITE);
-
-        btnBack = findViewById(R.id.btn_back);
-        btnHome = findViewById(R.id.btn_home);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        mToolbar.setSubtitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Kebocoran.this, Pemantauan.class);
-                startActivity(i);
+                startActivity(new Intent(getApplicationContext(), Pemantauan.class));
+                finish();
             }
         });
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        btnHome = findViewById(R.id.btn_home);
+
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

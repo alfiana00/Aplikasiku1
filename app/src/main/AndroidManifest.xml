@@ -13,6 +13,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aplikasiku"
-        android:usesCleartextTraffic="true"></application>
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SplashScreen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.Kebocoran"/>
+        <activity android:name=".activity.Debit"/>
+        <activity android:name=".activity.Rate"/>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.Pengendalian"/>
+        <activity android:name=".activity.Pemantauan"/>
+        <activity android:name=".activity.Akun"/>
+        <activity android:name=".activity.Tentang"/>
+        <activity android:name=".activity.Login"/>
+        <activity android:name=".activity.ActivityShowChart"/>
+        <activity android:name=".activity.Notifikasi"/>
+        <activity android:name=".activity.TableRateActivity"/>
+
+    </application>
 
 </manifest>

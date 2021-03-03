@@ -20,7 +20,8 @@ public class Akun extends AppCompatActivity {
     Button btn_logout;
     TextView txt_id, txt_user, txt_nama;
     String ID, username, nama;
-    SharedPreferences sharedpreferences;
+    SharedPreferences sharedPreferences;
+    boolean sudahLogin;
 
     public static final String TAG_ID = "ID";
     public static final String TAG_USERNAME = "username";
@@ -36,11 +37,12 @@ public class Akun extends AppCompatActivity {
         txt_nama = (TextView) findViewById(R.id.et_nama);
 
         btn_logout = (Button) findViewById(R.id.btn_logout);
-        sharedpreferences = getSharedPreferences(Login.ACCOUNT_SERVICE, Context.MODE_PRIVATE);
 
-        ID = getIntent().getStringExtra(TAG_ID);
-        username = getIntent().getStringExtra(TAG_USERNAME);
-        nama = getIntent().getStringExtra(TAG_NAMA);
+        sharedPreferences = getSharedPreferences("data_user", Context.MODE_PRIVATE);
+
+        ID = sharedPreferences.getString("id", null);
+        username = sharedPreferences.getString("username", null);
+        nama = sharedPreferences.getString("nama", null);
 
         txt_id.setText("ID : " + ID);
         txt_user.setText("USERNAME :" + username);
@@ -58,13 +60,11 @@ public class Akun extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
 
-                                //Getting out sharedpreferences
-                                sharedpreferences = getSharedPreferences(Login.ACCESSIBILITY_SERVICE, Context.MODE_PRIVATE);
-                                //Getting editor
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putBoolean(Login.ACCOUNT_SERVICE, false);
-                                //Saving the sharedpreferences
-                                editor.commit();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean("sudahLogin", false);
+                                editor.putString("nama", null);
+                                editor.putString("username", null);
+                                editor.apply();
 
                                 //Starting login activity
                                 Intent intent = new Intent(Akun.this, Login.class);
