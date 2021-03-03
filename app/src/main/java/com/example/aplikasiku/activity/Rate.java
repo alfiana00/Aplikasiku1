@@ -1,6 +1,8 @@
 package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,11 +29,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Rate extends AppCompatActivity {
+    CardView cvA, cvB, cvC, cvD, cvP;
     ImageView btnHome, btnBack, btnGdp, btnGdA, btnGdB, btnGdC, btnGdD;
     TextView txtRateP,txtRateA, txtRateB,txtRateC,txtRateD;
     String namaGedung, gedungA, gedungB, gedungC, gedungD, gedungP;
     Handler mHandler;
     ProgressDialog pDialog;
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +58,17 @@ public class Rate extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        btnGdA = findViewById(R.id.panaha);
-        btnGdB = findViewById(R.id.panahb);
-        btnGdC = findViewById(R.id.panahc);
-        btnGdD = findViewById(R.id.panahd);
-        btnGdp = findViewById(R.id.panah1);
-        txtRateP = findViewById(R.id.txt_gdpusat);
-        txtRateA = findViewById(R.id.txt_gda);
-        txtRateB = findViewById(R.id.txt_gdb);
-        txtRateC = findViewById(R.id.txt_gdc);
-        txtRateD = findViewById(R.id.txt_gdd);
+        cvA=findViewById(R.id.cv_ga);
+        cvB=findViewById(R.id.cv_gb);
+        cvC=findViewById(R.id.cv_gc);
+        cvD = findViewById(R.id.cv_gd);
+        cvP = findViewById(R.id.cv_gp);
 
+        txtRateP = findViewById(R.id.txt_rapusat);
+        txtRateA = findViewById(R.id.txt_raa);
+        txtRateB = findViewById(R.id.txt_rab);
+        txtRateC = findViewById(R.id.txt_rac);
+        txtRateD = findViewById(R.id.txt_rad);
         btnHome = findViewById(R.id.btn_home);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -75,62 +79,139 @@ public class Rate extends AppCompatActivity {
                 finish();
             }
         });
-//        this.mHandler = new Handler();
-//        this.mHandler.postDelayed(m_Runnable,5000);
         gedungA = "rateA";
         gedungB = "rateB";
         gedungC = "rateC";
         gedungD = "rateD";
         gedungP = "rateP";
-        pDialog = new ProgressDialog(Rate.this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Loading ...");
-        pDialog.show();
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RealtimeResponse> call = service.getRealtime(gedungA);
-        call.enqueue(new Callback<RealtimeResponse>() {
+        getData();
+        swipeLayout = findViewById(R.id.swipeContainer);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onResponse(Call<RealtimeResponse> call, Response<RealtimeResponse> response) {
-                if(response.body().isSuccess()){
-                    JsonParser parser = new JsonParser();
-                    final JsonObject jsonObject = (JsonObject) parser.parse(response.body().getData().getRate());
-                    txtRateA.setText(jsonObject.get(gedungA).getAsString());
-                }
-                else {
-                    String resp = response.body().getMessage().toString();
-                    Log.d("fff", "resp : "+resp);
-                }
-                pDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<RealtimeResponse> call, Throwable t) {
-
-                String resp = t.getMessage();
-                Log.d("fff", "resp : "+resp);
-                pDialog.dismiss();
+            public void onRefresh() {
+                getData();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 4000); // Delay in millis
             }
         });
 
+        swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_blue_bright));
     }
-    private final Runnable m_Runnable = new Runnable()
-    {
-        public void run()
 
-        {
-            Toast.makeText(Rate.this,"Data Diperbarui",Toast.LENGTH_SHORT).show();
+    private void getData(){
 
-            Rate.this.mHandler.postDelayed(m_Runnable, 5000);
+    BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+    Call<RealtimeResponse> callp = service.getRealtime("rateP");
+    callp.enqueue(new Callback<RealtimeResponse>() {
+        @Override
+        public void onResponse(Call<RealtimeResponse> callp, Response<RealtimeResponse> response) {
+            if(response.body().isSuccess()){
+                String dtP = response.body().getData().getRate().toString();
+                txtRateP.setText(dtP);
+            }
+            else {
+                String resp = response.body().getMessage().toString();
+                Log.d("fff", "resp : "+resp);
+                Toast.makeText(Rate.this,"Gagal mengambil Data! "+resp,Toast.LENGTH_LONG).show();
+            }
         }
 
-    };
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mHandler.removeCallbacks(m_Runnable);
-        finish();
+        @Override
+        public void onFailure(Call<RealtimeResponse> call, Throwable t) {
 
-    }
+            String resp = t.getMessage();
+            Log.d("fff", "resp : "+resp);
+            Toast.makeText(Rate.this,"Gagal mengambil Data! "+resp,Toast.LENGTH_LONG).show();
+        }
+    });
+    Call<RealtimeResponse> call = service.getRealtime("rateA");
+    call.enqueue(new Callback<RealtimeResponse>() {
+        @Override
+        public void onResponse(Call<RealtimeResponse> call, Response<RealtimeResponse> response) {
+            if(response.body().isSuccess()){
+                String dtA = response.body().getData().getRate().toString();
+                txtRateA.setText(dtA);
+            }
+            else {
+                String resp = response.body().getMessage().toString();
+                Log.d("fff", "resp : "+resp);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RealtimeResponse> call, Throwable t) {
+
+            String resp = t.getMessage();
+            Log.d("fff", "resp : "+resp);
+        }
+    });
+    Call<RealtimeResponse> callb = service.getRealtime("rateB");
+    callb.enqueue(new Callback<RealtimeResponse>() {
+        @Override
+        public void onResponse(Call<RealtimeResponse> call, Response<RealtimeResponse> response) {
+            if (response.body().isSuccess()){
+                String dtB = response.body().getData().getRate();
+                txtRateB.setText(dtB);
+            }
+            else {
+                String resp = response.body().getMessage().toString();
+                Log.d("fff", "resp : "+resp);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RealtimeResponse> call, Throwable t) {
+
+            String resp = t.getMessage();
+            Log.d("fff", "resp : "+resp);
+        }
+    });
+    Call<RealtimeResponse> callc = service.getRealtime("rateC");
+    callc.enqueue(new Callback<RealtimeResponse>() {
+        @Override
+        public void onResponse(Call<RealtimeResponse> call, Response<RealtimeResponse> response) {
+            if (response.body().isSuccess()){
+                String dtC = response.body().getData().getRate();
+                txtRateC.setText(dtC);
+            }
+            else {
+                String resp = response.body().getMessage().toString();
+                Log.d("fff", "resp : "+resp);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RealtimeResponse> call, Throwable t) {
+
+            String resp = t.getMessage();
+            Log.d("fff", "resp : "+resp);
+        }
+    });
+    Call<RealtimeResponse> calld = service.getRealtime("rateD");
+    calld.enqueue(new Callback<RealtimeResponse>() {
+        @Override
+        public void onResponse(Call<RealtimeResponse> call, Response<RealtimeResponse> response) {
+            if (response.body().isSuccess()){
+                String dtD = response.body().getData().getRate();
+                txtRateD.setText(dtD);
+            }
+            else {
+                String resp = response.body().getMessage().toString();
+                Log.d("fff", "resp : "+resp);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<RealtimeResponse> call, Throwable t) {
+
+            String resp = t.getMessage();
+            Log.d("fff", "resp : "+resp);
+        }
+    });
+}
     @Override
     public void onBackPressed()
     {

@@ -1,18 +1,14 @@
 package com.example.aplikasiku.apiinterface;
 
-import android.os.Debug;
-
-import com.example.aplikasiku.model.DebitModel;
-import com.example.aplikasiku.model.KebocoranModel;
+import com.example.aplikasiku.model.KebocoranResponse;
 import com.example.aplikasiku.model.LoginResponse;
-import com.example.aplikasiku.model.RateAir;
+import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
+import com.example.aplikasiku.model.StatusButtonResponse;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,15 +21,16 @@ public interface BaseApiService {
     Call<LoginResponse>loginRequest(@Field("username")String username,
                                     @Field("password")String password);
     @GET("realtime.php")
-    Call<RealtimeResponse>getRealtime(@Query("rateA")String rateA,
-                                      @Query("rateB")String rateB,
-                                      @Query("rateC")String rateC,
-                                      @Query("rateD")String rateD,
-                                      @Query("rateP")String rateP);
-    @GET("rate.php")
-    Call<List<RateAir>>getRateAir();
-    @GET("debit.php")
-    Call<List<DebitModel>>getDebitAir();
+    Call<RealtimeResponse>getRealtime(@Query("gedung")String gedung);
+    @GET("rate-air.php")
+    Call<List<RateResponse>>getRateAir(@Query("gedung")String gedung,
+                                       @Query("waktu1")String waktu1,
+                                       @Query("waktu2")String waktu2);
     @GET("kebocoran.php")
-    Call<List<KebocoranModel>>getKebocoranAir();
+    Call<List<KebocoranResponse>>getKebocoranAir(@Query("gedung")String gedung,
+                                                 @Query("waktu1")String waktu1,
+                                                 @Query("waktu2")String waktu2);
+    @GET("status-button.php")
+    Call<StatusButtonResponse>getStatusButton(@Query("gedung")String gedung);
+
 }
