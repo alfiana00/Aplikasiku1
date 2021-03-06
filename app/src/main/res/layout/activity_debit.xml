@@ -82,23 +82,30 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/spn_edung"
+                        android:id="@+id/spn_gedung"
                         android:layout_width="160dp"
                         android:layout_height="50dp"
                         app:cardCornerRadius="6dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
                         >
-                        <TextView
+                        <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="--Pilih Gedung--"
-                            android:textSize="12dp"
-                            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                            android:padding="3dp"
-                            android:background="@drawable/bg_spinner"
+                            android:entries="@array/list_gedung"
+                            android:id="@+id/lst_gedung"
+                            android:padding="15dp"/>
+                        <TextView
+                            android:id="@+id/pilihangedung"
+                            android:layout_width="match_parent"
+                            android:layout_height="43dp"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:background="@drawable/bg_spinner"
+                            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="--Pilih Gedung--"
+                            android:textSize="12dp" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -119,20 +126,21 @@
                         android:id="@+id/tglawal"
                         android:layout_width="160dp"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="6dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
-                        >
+                        app:cardCornerRadius="6dp">
+
                         <TextView
+                            android:id="@+id/tvtglawal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="--Pilih Tanggal Awal--"
-                            android:textSize="12dp"
-                            android:drawableRight="@drawable/ic_date_range"
-                            android:padding="3dp"
-                            android:background="@drawable/bg_spinner"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:background="@drawable/bg_spinner"
+                            android:drawableRight="@drawable/ic_date_range"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="--Pilih Tanggal Awal--"
+                            android:textSize="12dp" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -159,6 +167,7 @@
                         android:layout_marginEnd="6dp"
                         >
                         <TextView
+                            android:id="@+id/tvtglakhir"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="--Pilih Tanggal Akhir--"

@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="100dp"
-                            android:text="KECEPATAN RATE AIR"
+                            android:text="REALTIME"
                             android:textColor="#5e5e5e"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -151,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="100dp"
-                            android:text="DEBIT AIR"
+                            android:text="PEMANTAUAN PERWAKTU"
                             android:textColor="#5e5e5e"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -227,7 +227,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="55dp"
                             android:layout_marginLeft="100dp"
-                            android:text="KECEPATAN RATE AIR"
+                            android:text="STATUS KEBOCORAN AIR"
                             android:textColor="#5e5e5e"
                             android:textSize="12dp" />
 
