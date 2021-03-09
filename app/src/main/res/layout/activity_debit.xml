@@ -90,13 +90,18 @@
                         android:layout_marginEnd="6dp"
                         >
                         <Spinner
+
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:entries="@array/list_gedung"
                             android:id="@+id/lst_gedung"
-                            android:padding="15dp"/>
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_spinner"
+                            android:paddingLeft="10dp"
+                            />
                         <TextView
                             android:id="@+id/pilihangedung"
+                            android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="43dp"
                             android:layout_gravity="center"
@@ -134,7 +139,7 @@
                             android:id="@+id/tvtglawal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
+                            android:layout_gravity="left"
                             android:background="@drawable/bg_spinner"
                             android:drawableRight="@drawable/ic_date_range"
                             android:gravity="center"
@@ -175,7 +180,7 @@
                             android:drawableRight="@drawable/ic_date_range"
                             android:padding="3dp"
                             android:background="@drawable/bg_spinner"
-                            android:layout_gravity="center"
+                            android:layout_gravity="left"
                             android:gravity="center"/>
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
@@ -240,7 +245,7 @@
                 android:layout_columnWeight="1"
                 android:text="Waktu"/>
             <TextView
-                android:id="@+id/title_debit"
+                android:id="@+id/title_rate"
                 android:gravity="center_horizontal"
                 android:textSize="14sp"
                 android:layout_width="180dp"
@@ -250,13 +255,23 @@
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Debit"/>
+                android:text="Rate Air"/>
         </GridLayout>
     </androidx.cardview.widget.CardView>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvNull"
+        android:text="Data Tidak Ditemukan"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_below="@+id/lb_tabel"/>
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="invisible"
         android:id="@+id/rv_datarate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="7dp"
         android:layout_below="@+id/lb_tabel"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

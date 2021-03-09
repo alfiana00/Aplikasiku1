@@ -13,6 +13,7 @@ public interface DataInterface {
     final public static SimpleDateFormat DateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("id","ID"));
     final public static SimpleDateFormat simpleDate = new SimpleDateFormat("ddMMyyyy", java.util.Locale.getDefault());
     final public static SimpleDateFormat formatwaktu = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+    final public static SimpleDateFormat DateDataFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("id","ID"));
 
 
     public static String formateDateFromstring(String inputFormat, String outputFormat, String inputDate){

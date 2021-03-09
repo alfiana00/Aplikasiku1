@@ -23,7 +23,7 @@ public interface BaseApiService {
     @GET("realtime.php")
     Call<RealtimeResponse>getRealtime(@Query("gedung")String gedung);
     @GET("rate-air.php")
-    Call<List<RateResponse>>getRateAir(@Query("gedung")String gedung,
+    Call<RateResponse>getRateAir(@Query("gedung")String gedung,
                                        @Query("waktu1")String waktu1,
                                        @Query("waktu2")String waktu2);
     @GET("kebocoran.php")

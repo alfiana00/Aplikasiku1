@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Aplikasiku</string>
     <string-array name="lst_gedung">
+        <item> </item>
         <item>Gednung Pusat</item>
         <item>Gednung A</item>
         <item>Gednung B</item>

@@ -1,5 +1,6 @@
 package com.example.aplikasiku.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aplikasiku.R;
+import com.example.aplikasiku.model.DataRate;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
+import static com.example.aplikasiku.apiinterface.DataInterface.DateDataFormat;
+import static com.example.aplikasiku.apiinterface.DataInterface.DateFormat;
 import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.ViewHolder> {
-    private ArrayList<Float> listdata;
-    private ArrayList<Long> listwaktu;
-    private String satuan;
+    private List<DataRate> listdata;
+    private Context context;
 
-    public RecyclerDataAdapter(ArrayList<Float> listdata, String satuan, ArrayList<Long> listwaktu) {
+    public RecyclerDataAdapter(List<DataRate> listdata, Context context) {
         this.listdata = listdata;
-        this.satuan = satuan;
-        this.listwaktu = listwaktu;
+        this.context = context;
     }
 
     @NonNull
@@ -37,14 +41,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerDataAdapter.ViewHolder holder, final int position) {
-        final Float Data = listdata.get(position);
-        final Long Waktu = listwaktu.get(position);
-        Date date = new Date(Waktu);
-        formatwaktu.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        String formattedDate = formatwaktu.format(date);
-        //Memasukan Nilai/Value kedalam View (TextView)
-        holder.waktu.setText(formattedDate);
-        holder.data.setText(Data.toString() + " " + satuan);
+        final String dataRate = listdata.get(position).getRate();
+        final String Waktu = listdata.get(position).getWaktu();
+
+        holder.data.setText(dataRate + " m³/s");
+        holder.waktu.setText(Waktu);
     }
 
     @Override
