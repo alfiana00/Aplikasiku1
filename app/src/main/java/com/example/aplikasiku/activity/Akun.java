@@ -2,6 +2,7 @@ package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ public class Akun extends AppCompatActivity {
     String ID, username, nama;
     SharedPreferences sharedPreferences;
     boolean sudahLogin;
+    CardView cvPassword;
 
     public static final String TAG_ID = "ID";
     public static final String TAG_USERNAME = "username";
@@ -31,6 +33,33 @@ public class Akun extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akun);
+
+        cvPassword = findViewById(R.id.ubahpswd);
+        cvPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(Akun.this, UbahPswd.class);
+                startActivity(I);
+                finish();
+            }
+        });
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("AKUN");
+        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setSubtitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Pemantauan.class));
+                finish();
+            }
+        });
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
 
         txt_id = (TextView) findViewById(R.id.et_id);
         txt_user = (TextView) findViewById(R.id.et_username);
@@ -83,6 +112,14 @@ public class Akun extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+
     @Override
     public void onBackPressed()
     {

@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="100dp"
-                            android:text="REALTIME"
+                            android:text="PEMANTAUAN REALTIME"
                             android:textColor="#5e5e5e"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -95,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="55dp"
                             android:layout_marginLeft="100dp"
-                            android:text="KECEPATAN RATE AIR"
+                            android:text="Grafik realtime penggunaan air"
                             android:textColor="#5e5e5e"
                             android:textSize="12dp" />
 
@@ -151,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="100dp"
-                            android:text="PEMANTAUAN \nPERWAKTU"
+                            android:text="PEMANTAUAN PERWAKTU"
                             android:textColor="#5e5e5e"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -161,7 +161,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="55dp"
                             android:layout_marginLeft="100dp"
-                            android:text="KECEPATAN RATE AIR"
+                            android:text="Grafik penggunaan air berdasarkan
+                             kurun waktu tertentu"
                             android:textColor="#5e5e5e"
                             android:textSize="12dp" />
 
@@ -227,7 +228,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="55dp"
                             android:layout_marginLeft="100dp"
-                            android:text="STATUS KEBOCORAN AIR"
+                            android:text="Tabel data status kebocoran air"
                             android:textColor="#5e5e5e"
                             android:textSize="12dp" />
 
