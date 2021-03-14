@@ -108,15 +108,15 @@
                             android:layout_marginEnd="10dp"
                             android:src="@drawable/ic_realtime" />
 
-                        <ImageView
-                            android:id="@+id/panah1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_arrow_right" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/panah1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:layout_marginTop="25dp"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:src="@drawable/ic_arrow_right" />-->
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -175,15 +175,15 @@
                             android:layout_marginEnd="10dp"
                             android:src="@drawable/ic_realtime" />
 
-                        <ImageView
-                            android:id="@+id/panah2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_arrow_right" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/panah2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:layout_marginTop="25dp"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:src="@drawable/ic_arrow_right" />-->
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -241,15 +241,15 @@
                             android:layout_marginEnd="10dp"
                             android:src="@drawable/ic_bocor" />
 
-                        <ImageView
-                            android:id="@+id/panah3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_arrow_right" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/panah3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:layout_marginTop="25dp"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:src="@drawable/ic_arrow_right" />-->
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>

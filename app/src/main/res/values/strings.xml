@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Aplikasiku</string>
+    <string name="app_name">Fluid</string>
     <string-array name="lst_gedung">
-        <item> </item>
+        <item>--Pilih Gedung--</item>
         <item>Gednung Pusat</item>
         <item>Gednung A</item>
         <item>Gednung B</item>

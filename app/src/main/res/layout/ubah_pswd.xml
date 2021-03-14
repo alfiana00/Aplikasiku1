@@ -14,24 +14,58 @@
         android:layout_centerInParent="true"
         android:layout_margin="30dp"
         android:orientation="vertical">
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/old_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:hint="Password Lama" />
-
+            android:password="true"
+            android:hint="Password Lama"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/new_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:password="true"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
             android:hint="Password Baru" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:passwordToggleEnabled="true">
+        <EditText
+            android:id="@+id/renew_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Password Baru"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
+            android:password="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_logout"
+            android:id="@+id/btn_save"
             android:layout_width="230dp"
             android:layout_height="50dp"
             android:layout_margin="20dp"
@@ -39,7 +73,7 @@
             android:background="@drawable/button_save"
             android:text="SAVE"
             android:textColor="#ffff"
-            app:backgroundTint="@null"/>
+            android:onClick="updatePsw"/>
 
 
     </LinearLayout>

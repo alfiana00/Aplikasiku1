@@ -9,6 +9,7 @@ public interface DataInterface {
     // Init format
     final public static SimpleDateFormat myDateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("id","ID"));
     final public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyHHmm", java.util.Locale.getDefault());
+    final public static SimpleDateFormat DateFormatChart = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("id","ID"));
     // Init format
     final public static SimpleDateFormat DateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("id","ID"));
     final public static SimpleDateFormat simpleDate = new SimpleDateFormat("ddMMyyyy", java.util.Locale.getDefault());

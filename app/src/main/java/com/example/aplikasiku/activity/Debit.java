@@ -6,14 +6,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -29,18 +36,40 @@ import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.html.WebColors;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import com.opencsv.CSVWriter;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.FileHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,7 +87,7 @@ public class Debit extends AppCompatActivity  {
     TextView tvTglAkhir;
     Calendar mCalendar;
     ImageView btnHome;
-    Button btnPilih;
+    Button btnPilih, btnDownload;
     CardView spnGedung, inputTanggal1, inputTanggal2;
     TextView tvTgl1, tvTgl2, titleRate;
     TextView tvNull;
@@ -66,15 +95,15 @@ public class Debit extends AppCompatActivity  {
     private String[] judul = {"Rate Air (m³/s)"};
     LayoutInflater layoutInflater;
     RecyclerView.LayoutManager layoutManager;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, rvContainer;
     List<DataRate> dataList;
-    private ArrayList<Float> listRate;
-    private ArrayList<Long> listWaktu;
-    private GridLayoutManager gridLayoutManager;
-    private RecyclerDataAdapter recyclerDataAdapter;
+    private ArrayList<String> listRate;
+    private ArrayList<String> listWaktu;
+    String waktu1, waktu2, gedung;
     ProgressDialog progressDialog;
-
-
+    private int width, height;
+    List<String[]> da;
+    FloatingActionButton fabChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +133,12 @@ public class Debit extends AppCompatActivity  {
         btnHome = findViewById(R.id.btn_home);
         btnPilih = findViewById(R.id.btn_pilih);
         listGedung = findViewById(R.id.lst_gedung);
-        final TextView tvGedung = findViewById(R.id.pilihangedung);
         tvNull = findViewById(R.id.tvNull);
         titleRate = findViewById(R.id.title_rate);
         Date c = Calendar.getInstance().getTime();
-
+        rvContainer = findViewById(R.id.rv_datarate);
+        btnDownload = findViewById(R.id.btn_cetak);
+        fabChart = findViewById(R.id.btnchart);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,15 +152,16 @@ public class Debit extends AppCompatActivity  {
         mCalendar = Calendar.getInstance();
         String tglIni = DateDataFormat.format(c).toString();
         Log.i("tgl", "sekarang tanggal : "+tglIni);
-        tvGedung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spnGedung.isShown();
-                tvGedung.setVisibility(View.GONE);
-            }
-        });
+        String[] listGdg = new String[]{"--Pilih Gedung--","Gedung Pusat", "Gedung A", "Gedung B", "Gedung C", "Gedung D"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                R.layout.list_item_spn, listGdg);
+        arrayAdapter.setDropDownViewResource(R.layout.list_item_spn);
+        listGedung.setAdapter(arrayAdapter);
 
-        showTable("rateP", tglIni, tglIni);
+        waktu1 = tglIni;
+        waktu2 = tglIni;
+        gedung = "Gedung Pusat";
+        showTable("rateP", waktu1, waktu2);
         cvTglAwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,10 +198,10 @@ public class Debit extends AppCompatActivity  {
         btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String waktu1 = tvTglAwal.getText().toString();
-                String waktu2 = tvTglAkhir.getText().toString();
-                String gedung = listGedung.getSelectedItem().toString();
-                if (gedung.equals("Pusat")){
+                waktu1 = tvTglAwal.getText().toString();
+                waktu2 = tvTglAkhir.getText().toString();
+                gedung = listGedung.getSelectedItem().toString();
+                if (gedung.equals("Gedung Pusat")){
                     showTable("rateP", waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung Pusat)");
                 }
@@ -201,19 +232,29 @@ public class Debit extends AppCompatActivity  {
             }
         });
 
+        fabChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Debit.this, ActivityShowChart.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void showTable(String gedung, String waktu1, String waktu2){
+        progressDialog = new ProgressDialog(Debit.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Memuat Data ...");
+        progressDialog.show();
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
         Call<RateResponse> call = service.getRateAir(gedung, waktu1, waktu2);
         call.enqueue(new Callback<RateResponse>() {
             @Override
             public void onResponse(Call<RateResponse> call, Response<RateResponse> response) {
+                listRate = new ArrayList<>();
+                listWaktu = new ArrayList<>();
 
-                progressDialog = new ProgressDialog(Debit.this);
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage("Memuat Data ...");
-                progressDialog.show();
                 if (response.body().isSuccess()){
                     if (response.body().getData() != null) {
                         dataList = response.body().getData();
@@ -224,6 +265,14 @@ public class Debit extends AppCompatActivity  {
                         RecyclerDataAdapter adapter = new RecyclerDataAdapter(dataList, getApplicationContext());
                         recyclerView.setAdapter(adapter);
                         tvNull.setVisibility(View.GONE);
+
+                        for (int i = 0; i < dataList.size(); i++){
+                            listRate.add(dataList.get(i).getRate());
+                            listWaktu.add(dataList.get(i).getWaktu());
+                        }
+
+                        Log.i("cekdata", listRate.toArray().toString());
+
                     }
                     else {
                         recyclerView = findViewById(R.id.rv_datarate);
@@ -241,10 +290,113 @@ public class Debit extends AppCompatActivity  {
                 recyclerView = findViewById(R.id.rv_datarate);
                 tvNull.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
+
+                progressDialog.dismiss();
             }
         });
+
+        progressDialog.dismiss();
     }
 
+    public void pdfdownload(View view) {
+        new SweetAlertDialog(Debit.this, SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
+                .setConfirmText("Simpan")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                        progressDialog = new ProgressDialog(Debit.this);
+                        progressDialog.setCancelable(false);
+                        progressDialog.setMessage("Memuat Data ...");
+                        progressDialog.show();
+                        Document document = new Document();
+                        PdfPTable table = new PdfPTable(new float[] { 2, 1 });
+                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.getDefaultCell().setFixedHeight(20);
+                        table.addCell("Waktu");
+                        table.addCell("Rate");
+                        table.setHeaderRows(1);
+                        PdfPCell[] cells = table.getRow(0).getCells();
+                        for (int j=0;j<cells.length;j++){
+                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
+                            cells[j].setBackgroundColor(myColor);
+                        }
+                        for (int i=0;i<listRate.size();i++){
+                            table.addCell(listWaktu.get(i));
+                            table.addCell(listRate.get(i));
+                        }
+                        try {
+                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
+                            if (!folder.exists())
+                                folder.mkdir();
+                            final String pdf = folder.toString() + "/Rate Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
+                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            fileNotFoundException.printStackTrace();
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.open();
+                        try {
+
+                            document.add(JudulText("Data Pemantauan Rate Air"));
+                            document.add(JudulText(gedung));
+                            document.add(JudulText(waktu1+ " - " +waktu2));
+                            document.add(table);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.close();
+                        progressDialog.dismiss();
+
+                        sweetAlertDialog.dismissWithAnimation();
+                        Toast.makeText(Debit.this, "Data pemantauan Rate Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                    }
+
+                })
+        .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        }).show();
+
+
+    }
+
+    public Paragraph JudulText(String text){
+        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
+        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
+        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
+        mOrderDetailsTitleParagraph.setSpacingAfter(7);
+        return mOrderDetailsTitleParagraph;
+    }
+
+    public void downloadCsv(View view){
+        da = new ArrayList<String[]>();
+        da.add(new String[]{"Data Monitoring Rate Air"});
+        da.add(new String[]{""});
+        da.add(new String[]{"Waktu","Rate Air"});
+
+        for (int j = 0; j < listRate.size(); j++){
+            da.add(new String[]{listWaktu.get(j), listRate.get(j)});
+        }
+
+        File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
+        if (!folder.exists())
+            folder.mkdir();
+        final String csv = folder.toString() + "/Fluid.csv";
+
+        CSVWriter writer = null;
+        try {
+            writer = new CSVWriter(new FileWriter(csv));
+            writer.writeAll(da); // data is adding to csv
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onBackPressed()

@@ -61,9 +61,9 @@ public class Akun extends AppCompatActivity {
         }
 
 
-        txt_id = (TextView) findViewById(R.id.et_id);
-        txt_user = (TextView) findViewById(R.id.et_username);
-        txt_nama = (TextView) findViewById(R.id.et_nama);
+        txt_id = (TextView) findViewById(R.id.txt_id);
+        txt_user = (TextView) findViewById(R.id.txt_username);
+        txt_nama = (TextView) findViewById(R.id.txt_nama);
 
         btn_logout = (Button) findViewById(R.id.btn_logout);
 
@@ -73,9 +73,9 @@ public class Akun extends AppCompatActivity {
         username = sharedPreferences.getString("username", null);
         nama = sharedPreferences.getString("nama", null);
 
-        txt_id.setText("ID : " + ID);
-        txt_user.setText("USERNAME :" + username);
-        txt_nama.setText("NAMA :" + nama);
+        txt_id.setText(ID);
+        txt_user.setText(username);
+        txt_nama.setText(nama);
 
         Intent in = getIntent();
         String string = in.getStringExtra("message");

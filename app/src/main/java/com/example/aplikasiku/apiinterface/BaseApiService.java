@@ -1,11 +1,15 @@
 package com.example.aplikasiku.apiinterface;
 
+import com.example.aplikasiku.model.ControllResponse;
 import com.example.aplikasiku.model.KebocoranResponse;
 import com.example.aplikasiku.model.LoginResponse;
+import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
+import com.example.aplikasiku.model.UpdatePasswordResponse;
 
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,17 +24,29 @@ public interface BaseApiService {
     @POST("login.php")
     Call<LoginResponse>loginRequest(@Field("username")String username,
                                     @Field("password")String password);
+    @FormUrlEncoded
+    @POST("update-password.php")
+    Call<UpdatePasswordResponse>updatePassword(@Field("username")String username,
+                                               @Field("password")String password,
+                                               @Field("password_baru")String passwordbaru);
+
     @GET("realtime.php")
     Call<RealtimeResponse>getRealtime(@Query("gedung")String gedung);
     @GET("rate-air.php")
     Call<RateResponse>getRateAir(@Query("gedung")String gedung,
                                        @Query("waktu1")String waktu1,
                                        @Query("waktu2")String waktu2);
-    @GET("kebocoran.php")
-    Call<List<KebocoranResponse>>getKebocoranAir(@Query("gedung")String gedung,
+    @GET("bocor.php")
+    Call<KebocoranResponse>getKebocoranAir(@Query("gedung")String gedung,
                                                  @Query("waktu1")String waktu1,
                                                  @Query("waktu2")String waktu2);
     @GET("status-button.php")
     Call<StatusButtonResponse>getStatusButton(@Query("gedung")String gedung);
+
+    @POST("button-control.php")
+    Call<ControllResponse>setStatusButton(@Query("status")String status,
+                                          @Query("id")String idGedung);
+    @GET("realtime-chart.php")
+    Call<RateRealtimeResponse>getRealtimeRate();
 
 }

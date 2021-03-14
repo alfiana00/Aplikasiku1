@@ -88,6 +88,7 @@
                         app:cardCornerRadius="6dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
+
                         >
                         <Spinner
 
@@ -95,22 +96,24 @@
                             android:layout_height="match_parent"
                             android:entries="@array/list_gedung"
                             android:id="@+id/lst_gedung"
-                            android:layout_gravity="center"
-                            android:background="@drawable/bg_spinner"
-                            android:paddingLeft="10dp"
+                            android:layout_gravity="left|center_vertical"
+                            android:background="@drawable/ic_bgspn"
+                            android:paddingLeft="6dp"
+
                             />
-                        <TextView
-                            android:id="@+id/pilihangedung"
-                            android:visibility="visible"
-                            android:layout_width="match_parent"
-                            android:layout_height="43dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/bg_spinner"
-                            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="--Pilih Gedung--"
-                            android:textSize="12dp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/pilihangedung"-->
+<!--                            android:visibility="visible"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="43dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/bg_spinner"-->
+<!--                            android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"-->
+<!--                            android:gravity="center"-->
+<!--                            android:padding="3dp"-->
+<!--                            android:text="&#45;&#45;Pilih Gedung&#45;&#45;"-->
+<!--                            android:textSize="12dp" />-->
+
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -132,6 +135,8 @@
                         android:layout_width="160dp"
                         android:layout_height="50dp"
                         android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_spinner"
+                        android:backgroundTint="#F6F6F6"
                         android:layout_marginEnd="6dp"
                         app:cardCornerRadius="6dp">
 
@@ -142,8 +147,8 @@
                             android:layout_gravity="left"
                             android:background="@drawable/bg_spinner"
                             android:drawableRight="@drawable/ic_date_range"
-                            android:gravity="center"
-                            android:padding="3dp"
+                            android:gravity="left|center_vertical"
+                            android:layout_marginLeft="6dp"
                             android:text="--Pilih Tanggal Awal--"
                             android:textSize="12dp" />
                     </androidx.cardview.widget.CardView>
@@ -170,6 +175,8 @@
                         app:cardCornerRadius="6dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
+                        android:backgroundTint="#F6F6F6"
+
                         >
                         <TextView
                             android:id="@+id/tvtglakhir"
@@ -180,8 +187,8 @@
                             android:drawableRight="@drawable/ic_date_range"
                             android:padding="3dp"
                             android:background="@drawable/bg_spinner"
-                            android:layout_gravity="left"
-                            android:gravity="center"/>
+                            android:layout_marginLeft="6dp"
+                            android:gravity="left|center_vertical"/>
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -201,6 +208,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="6dp"
                         android:backgroundTint="#95D698"
+                        android:onClick="pdfdownload"
                         />
                     <Button
                         android:id="@+id/btn_pilih"

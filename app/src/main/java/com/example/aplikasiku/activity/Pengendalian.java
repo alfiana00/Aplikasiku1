@@ -2,10 +2,13 @@ package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -17,6 +20,7 @@ import com.example.aplikasiku.R;
 import com.example.aplikasiku.activity.MainActivity;
 import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
+import com.example.aplikasiku.model.ControllResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
 
@@ -25,7 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Pengendalian extends AppCompatActivity {
-    Switch swP, swA, swB, swC, swD;
+    SwitchCompat swP, swA, swB, swC, swD;
+    SwipeRefreshLayout swipeLayout;
 
 
     @Override
@@ -47,6 +52,21 @@ public class Pengendalian extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        getData();
+        swipeLayout = findViewById(R.id.swipeContainer);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 4000); // Delay in millis
+            }
+        });
+
+        swipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_blue_bright));
 
         swA = findViewById(R.id.switchBtnA);
         swB = findViewById(R.id.switchBtnB);
@@ -57,7 +77,61 @@ public class Pengendalian extends AppCompatActivity {
         swA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (swA.isChecked()){
+                    setData("21", "1");
+                }
+                else {
 
+                    setData("11", "1");
+                }
+            }
+        });
+        swB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (swB.isChecked()){
+                    setData("22", "2");
+                }
+                else {
+
+                    setData("12", "2");
+                }
+            }
+        });
+        swC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (swA.isChecked()){
+                    setData("23", "3");
+                }
+                else {
+
+                    setData("13", "3");
+                }
+            }
+        });
+        swD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (swA.isChecked()){
+                    setData("24", "4");
+                }
+                else {
+
+                    setData("24", "4");
+                }
+            }
+        });
+        swP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (swA.isChecked()){
+                    setData("25", "5");
+                }
+                else {
+
+                    setData("15", "5");
+                }
             }
         });
     }
@@ -125,7 +199,7 @@ public class Pengendalian extends AppCompatActivity {
                         swB.setChecked(false);
                     }
                     else {
-                        swC.setChecked(true);
+                        swB.setChecked(true);
                     }
                 }
             }
@@ -169,6 +243,24 @@ public class Pengendalian extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<StatusButtonResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void setData(String status, String idGedung){
+        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+        Call<ControllResponse> callButton = service.setStatusButton(status, idGedung);
+        callButton.enqueue(new Callback<ControllResponse>() {
+            @Override
+            public void onResponse(Call<ControllResponse> call, Response<ControllResponse> response) {
+                if (response.body().isSuccess()){
+                    Log.i("cobaa", response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ControllResponse> call, Throwable t) {
 
             }
         });
