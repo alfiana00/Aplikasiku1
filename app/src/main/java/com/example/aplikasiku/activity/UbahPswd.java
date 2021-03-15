@@ -145,4 +145,12 @@ public class UbahPswd extends AppCompatActivity {
                     }).show();
         }
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent i = new Intent(UbahPswd.this, Akun.class);
+        finish();
+        startActivity(i);
+        super.onBackPressed();
+    }
 }
