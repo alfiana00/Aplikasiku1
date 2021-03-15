@@ -9,6 +9,7 @@
         android:layout_centerHorizontal="true"
         android:text=""
         android:textSize="16sp"
+        android:lines="2"
         android:padding="2dp"
         android:background="@color/white"
         android:textColor="@color/blue_200"

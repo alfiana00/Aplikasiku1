@@ -97,9 +97,9 @@ public class Debit extends AppCompatActivity  {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView, rvContainer;
     List<DataRate> dataList;
-    private ArrayList<String> listRate;
-    private ArrayList<String> listWaktu;
-    String waktu1, waktu2, gedung;
+    public ArrayList<String> listRate;
+    public ArrayList<String> listWaktu;
+    String waktu1, waktu2, gedung, rate;
     ProgressDialog progressDialog;
     private int width, height;
     List<String[]> da;
@@ -161,7 +161,8 @@ public class Debit extends AppCompatActivity  {
         waktu1 = tglIni;
         waktu2 = tglIni;
         gedung = "Gedung Pusat";
-        showTable("rateP", waktu1, waktu2);
+        rate = "rateP";
+        showTable(rate, waktu1, waktu2);
         cvTglAwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,26 +203,31 @@ public class Debit extends AppCompatActivity  {
                 waktu2 = tvTglAkhir.getText().toString();
                 gedung = listGedung.getSelectedItem().toString();
                 if (gedung.equals("Gedung Pusat")){
-                    showTable("rateP", waktu1, waktu2);
+                    rate = "rateP";
+                    showTable(rate, waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung Pusat)");
                 }
                 else if (gedung.equals("Gedung A")){
-                    showTable("rateA", waktu1, waktu2);
+                    rate = "rateA";
+                    showTable(rate, waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung A)");
 
                 }
                 else if (gedung.equals("Gedung B")){
-                    showTable("rateB", waktu1, waktu2);
+                    rate = "rateB";
+                    showTable(rate, waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung B)");
 
                 }
                 else if (gedung.equals("Gedung C")){
-                    showTable("rateC", waktu1, waktu2);
+                    rate = "rateC";
+                    showTable(rate, waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung C)");
 
                 }
                 else if (gedung.equals("Gedung D")){
-                    showTable("rateD", waktu1, waktu2);
+                    rate = "rateD";
+                    showTable(rate, waktu1, waktu2);
                     titleRate.setText("Rate Air (Gedung D)");
 
                 }
@@ -235,7 +241,11 @@ public class Debit extends AppCompatActivity  {
         fabChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Debit.this, ActivityShowChart.class);
+                Intent intent = new Intent(Debit.this, RatePerwaktuChart.class);
+                intent.putExtra("nama", gedung);
+                intent.putExtra("gedung", rate);
+                intent.putExtra("waktu1", waktu1);
+                intent.putExtra("waktu2", waktu2);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,7 @@
 package com.example.aplikasiku;
 
 import android.content.Context;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -25,7 +26,7 @@ public class MyMarkerView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
         Date date = new Date((long)e.getX());
         DateFormatChart.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        tvContent.setText("" +formatwaktu.format(date)+ "\n" +e.getY());
+        tvContent.setText(Html.fromHtml(DateFormatChart.format(date)+ " |\n\n" +e.getY()));
         super.refreshContent(e, highlight);
     }
 

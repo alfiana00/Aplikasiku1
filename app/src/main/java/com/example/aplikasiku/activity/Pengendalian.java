@@ -257,11 +257,14 @@ public class Pengendalian extends AppCompatActivity {
                 if (response.body().isSuccess()){
                     Log.i("cobaa", response.body().getMessage());
                 }
+
+                Log.i("cobaa", response.body().getMessage());
             }
 
             @Override
             public void onFailure(Call<ControllResponse> call, Throwable t) {
 
+                Log.i("cobaa", t.getMessage());
             }
         });
     }
