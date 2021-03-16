@@ -88,7 +88,6 @@ public class Login extends Activity {
                         editor.putString("nama", response.body().getData().getNama());
                         editor.putString("username", response.body().getData().getUsername());
                         editor.putString("id", response.body().getData().getId());
-                        editor.putString("password", password);
                         editor.apply();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);

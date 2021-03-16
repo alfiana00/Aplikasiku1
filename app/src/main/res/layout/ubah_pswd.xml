@@ -72,8 +72,7 @@
             android:layout_gravity="center"
             android:background="@drawable/button_save"
             android:text="SAVE"
-            android:textColor="#ffff"
-            android:onClick="updatePsw"/>
+            android:textColor="#ffff"/>
 
 
     </LinearLayout>

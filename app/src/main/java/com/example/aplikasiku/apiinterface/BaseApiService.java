@@ -43,9 +43,10 @@ public interface BaseApiService {
     @GET("status-button.php")
     Call<StatusButtonResponse>getStatusButton(@Query("gedung")String gedung);
 
+    @FormUrlEncoded
     @POST("button-control.php")
-    Call<ControllResponse>setStatusButton(@Query("status")String status,
-                                          @Query("id_gedung")String idGedung);
+    Call<ControllResponse>setStatusButton(@Field("status") String status,
+                                          @Field("gedung") String idGedung);
     @GET("realtime-chart.php")
     Call<RateRealtimeResponse>getRealtimeRate();
 

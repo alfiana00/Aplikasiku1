@@ -68,16 +68,16 @@ public class UbahPswd extends AppCompatActivity {
 
         Log.i("passs",op+np+rnp);
 
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePsw();
+            }
+        });
 
 
     }
-    public void updatePsw(View view){
+    public void updatePsw(){
         op = oldPsw.getText().toString();
         np = newPsw.getText().toString();
         rnp = renewPsw.getText().toString();
@@ -98,6 +98,7 @@ public class UbahPswd extends AppCompatActivity {
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                            username = sharedPreferences.getString("username", null);
                             BaseApiService baseApiService = RetrofitClient.getClient1().create(BaseApiService.class);
                             Call<UpdatePasswordResponse> call = baseApiService.updatePassword(username,op,rnp);
                             call.enqueue(new Callback<UpdatePasswordResponse>() {
@@ -111,6 +112,7 @@ public class UbahPswd extends AppCompatActivity {
                                         Toast.makeText(UbahPswd.this, "Anda harus login terlebih dahulu!", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(UbahPswd.this, Login.class);
                                         startActivity(intent);
+                                        finish();
                                         sweetAlertDialog.dismissWithAnimation();
                                     }
                                     else {
@@ -128,7 +130,15 @@ public class UbahPswd extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<UpdatePasswordResponse> call, Throwable t) {
-
+                                    new SweetAlertDialog(UbahPswd.this, SweetAlertDialog.NORMAL_TYPE)
+                                            .setTitleText(t.getMessage())
+                                            .setConfirmText("Kembali").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                            .show();
                                 }
                             });
 
