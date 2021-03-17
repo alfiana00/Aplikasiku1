@@ -134,7 +134,6 @@ public class Kebocoran extends AppCompatActivity {
         Date c = Calendar.getInstance().getTime();
         rvContainer = findViewById(R.id.rv_databocor);
         btnDownload = findViewById(R.id.btn_cetak);
-        fabChart = findViewById(R.id.btnchart);
 
         ButterKnife.bind(this);
         mCalendar = Calendar.getInstance();

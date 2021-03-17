@@ -283,15 +283,15 @@
         android:layout_height="match_parent"
         android:layout_margin="7dp"
         android:layout_below="@+id/lb_tabel"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnchart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_baseline_show_chart_24"
-        android:tint="@color/white"
-        android:layout_margin="6dp"
-        android:layout_gravity="center"
-        />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btnchart"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:src="@drawable/ic_baseline_show_chart_24"-->
+<!--        android:tint="@color/white"-->
+<!--        android:layout_margin="6dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        />-->
 </RelativeLayout>
