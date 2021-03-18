@@ -44,7 +44,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         final String dataRate = listdata.get(position).getRate();
         final String Waktu = listdata.get(position).getWaktu();
 
-        holder.data.setText(dataRate + " m³/s");
+        holder.data.setText(dataRate + " l/min");
         holder.waktu.setText(Waktu);
     }
 

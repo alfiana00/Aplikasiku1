@@ -90,7 +90,7 @@ public class Kebocoran extends AppCompatActivity {
     ProgressDialog progressDialog;
     private int width, height;
     List<String[]> da;
-    FloatingActionButton fabChart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,13 +219,6 @@ public class Kebocoran extends AppCompatActivity {
             }
         });
 
-        fabChart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Kebocoran.this, ActivityShowChart.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void showTable(String gedung, String waktu1, String waktu2) {

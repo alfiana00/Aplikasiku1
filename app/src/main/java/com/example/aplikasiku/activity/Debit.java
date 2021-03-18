@@ -110,7 +110,7 @@ public class Debit extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debit);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("KECEPATAN RATE AIR");
+        mToolbar.setTitle("PEMANTAUAN PER WAKTU");
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setSubtitleTextColor(Color.WHITE);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);

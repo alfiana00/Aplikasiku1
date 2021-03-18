@@ -79,7 +79,6 @@ public class Pengendalian extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swA.isChecked()){
                     setData("21", "1");
-                    Toast.makeText(Pengendalian.this, "Menyala",Toast.LENGTH_LONG).show();
                 }
                 else {
 

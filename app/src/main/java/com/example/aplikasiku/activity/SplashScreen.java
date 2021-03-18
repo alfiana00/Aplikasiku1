@@ -14,7 +14,7 @@ public class SplashScreen extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     boolean sudahLogin;
 
-    private int splashtime = 2000;
+    private int splashtime = 1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -31,7 +31,7 @@ public class Rate extends AppCompatActivity {
         setContentView(R.layout.activity_rate);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("KECEPATAN RATE AIR");
+        mToolbar.setTitle("PEMANTAUAN REALTIME");
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setSubtitleTextColor(Color.WHITE);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);

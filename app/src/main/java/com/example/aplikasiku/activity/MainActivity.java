@@ -21,7 +21,7 @@ import com.example.aplikasiku.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    ImageView akun, notifikasi;
+    ImageView akun;
 
     CardView Controlling, Monitoring, About , Help;
     @Override
@@ -34,15 +34,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent I = new Intent(MainActivity.this, Akun.class);
-            startActivity(I);
-            finish();
-        }
-    });
-    notifikasi = (ImageView) findViewById(R.id.Notifikasi);
-    notifikasi.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent I = new Intent(MainActivity.this, Notifikasi.class);
             startActivity(I);
             finish();
         }
