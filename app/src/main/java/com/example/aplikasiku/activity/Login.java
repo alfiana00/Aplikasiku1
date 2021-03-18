@@ -18,6 +18,11 @@ import com.example.aplikasiku.apihelper.UtillsApi;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.LoginResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +51,11 @@ public class Login extends Activity {
         password = sharedPreferences.getString("password", null);
         boolean sudahLogin = sharedPreferences.getBoolean("sudahLogin", false);
 
+
+        Loading = new ProgressDialog(Login.this);
+        Loading.setCancelable(false);
+        Loading.setMessage("Loading ...");
+
     }
 
     private void initComponents() {
@@ -65,9 +75,6 @@ public class Login extends Activity {
     }
 
     private void requestLogin(){
-        Loading = new ProgressDialog(Login.this);
-        Loading.setCancelable(false);
-        Loading.setMessage("Loading ...");
         Loading.show();
         username = etUsername.getText().toString();
         password = etPassword.getText().toString();
@@ -80,8 +87,8 @@ public class Login extends Activity {
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    Log.i("aaaaa", String.valueOf(response.body().getData()));
                     if (response.body().isSuccess()) {
+                        Loading.dismiss();
                         sharedPreferences = getSharedPreferences("data_user", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("sudahLogin", true);
@@ -94,17 +101,24 @@ public class Login extends Activity {
                         Toast.makeText(Login.this, "Login Succes", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(Login.this, "Login gagal", Toast.LENGTH_SHORT).show();
+                        Loading.dismiss();
+                        Loading.cancel();
+                        Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     }
                     Loading.dismiss();
+                    Loading.cancel();
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     Toast.makeText(Login.this, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                    Loading.dismiss();
                     Loading.cancel();
                 }
+
             });
+            Loading.cancel();
+            Loading.dismiss();
         }
 
     }
