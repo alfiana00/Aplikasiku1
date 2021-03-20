@@ -20,7 +20,6 @@
             android:configChanges="orientation"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".activity.VolumeRealtimeChart" />
         <activity
             android:name=".activity.RateRealtimeChart"
             android:configChanges="orientation"
@@ -48,7 +47,7 @@
         <activity android:name=".activity.Tentang" />
         <activity android:name=".activity.Login" />
         <activity
-            android:name=".activity.ActivityShowChart"
+            android:name=".activity.VolumeChart"
             android:configChanges="orientation"
             android:screenOrientation="landscape" />
         <activity android:name=".activity.TableRateActivity" />

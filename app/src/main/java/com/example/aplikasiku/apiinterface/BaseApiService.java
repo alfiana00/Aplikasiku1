@@ -8,6 +8,7 @@ import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
+import com.example.aplikasiku.model.VolumeResponse;
 
 import java.util.Calendar;
 import java.util.List;
@@ -49,5 +50,7 @@ public interface BaseApiService {
                                           @Field("gedung") String idGedung);
     @GET("realtime-chart.php")
     Call<RateRealtimeResponse>getRealtimeRate();
+    @GET("volume.php")
+    Call<VolumeResponse>getVolumeChart();
 
 }
