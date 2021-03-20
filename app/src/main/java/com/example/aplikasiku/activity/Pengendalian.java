@@ -101,7 +101,7 @@ public class Pengendalian extends AppCompatActivity {
         swC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (swA.isChecked()){
+                if (swC.isChecked()){
                     setData("23", "3");
                 }
                 else {
@@ -113,7 +113,7 @@ public class Pengendalian extends AppCompatActivity {
         swD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (swA.isChecked()){
+                if (swD.isChecked()){
                     setData("24", "4");
                 }
                 else {
@@ -125,7 +125,7 @@ public class Pengendalian extends AppCompatActivity {
         swP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (swA.isChecked()){
+                if (swP.isChecked()){
                     setData("25", "5");
                 }
                 else {
