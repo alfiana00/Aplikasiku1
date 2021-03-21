@@ -132,12 +132,12 @@ public class RatePerwaktuChart extends AppCompatActivity {
         leftaxisy.setDrawZeroLine(true);
         leftaxisy.setDrawLimitLinesBehindData(true);
         leftaxisy.setLabelCount(7,false);
-        leftaxisy.setDrawGridLines(false);
+        leftaxisy.setDrawGridLines(true);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
+        xAxis.setDrawGridLines(true);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -156,7 +156,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
         lineDataSet.setValueTextSize(0f);
         lineDataSet.setDrawFilled(true);
         lineDataSet.setFormLineWidth(1f);
-        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSet.setMode(LineDataSet.Mode.LINEAR);
         lineDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSet.setFormSize(15.f);
         lineDataSet.setFillColor(Color.rgb(3,169,244));

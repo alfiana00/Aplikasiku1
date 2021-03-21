@@ -2,11 +2,15 @@ package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.aplikasiku.MyMarkerView;
 import com.example.aplikasiku.R;
@@ -14,6 +18,7 @@ import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.apiinterface.DataInterface;
 import com.example.aplikasiku.model.DataRateRealtime;
+import com.example.aplikasiku.model.DataVolume;
 import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.github.mikephil.charting.animation.Easing;
@@ -29,7 +34,21 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.html.WebColors;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +57,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +81,13 @@ public class RateRealtimeChart extends AppCompatActivity {
     LimitLine upper, lower;
     Calendar mCalendar;
     List<DataRateRealtime> dataRateRealtimes;
+    public ArrayList<String> listRateA;
+    public ArrayList<String> listRateB;
+    public ArrayList<String> listRateC;
+    public ArrayList<String> listRateD;
+    public ArrayList<String> listRateP;
+    public ArrayList<String> listWaktu;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +101,7 @@ public class RateRealtimeChart extends AppCompatActivity {
 
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
-        tglIni = DateDataFormat.format(c).toString();
+        tglIni = myDateFormat.format(c).toString();
         getData();
 
 
@@ -87,11 +114,25 @@ public class RateRealtimeChart extends AppCompatActivity {
         ArrayList<Entry> DataValsC = new ArrayList<Entry>();
         ArrayList<Entry> DataValsD = new ArrayList<Entry>();
         ArrayList<Entry> DataValsP = new ArrayList<Entry>();
+        listRateA = new ArrayList<>();
+        listRateB = new ArrayList<>();
+        listRateC = new ArrayList<>();
+        listRateD = new ArrayList<>();
+        listRateP = new ArrayList<>();
+        listWaktu = new ArrayList<>();
         call.enqueue(new Callback<RateRealtimeResponse>() {
             @Override
             public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
                 if (response.body().isSuccess()){
                     dataRateRealtimes = response.body().getData();
+                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+                        listRateA.add(dataRateRealtimes.get(i).getRateA());
+                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+                        listRateC.add(dataRateRealtimes.get(i).getRateC());
+                        listRateD.add(dataRateRealtimes.get(i).getRateD());
+                        listRateP.add(dataRateRealtimes.get(i).getRateP());
+                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+                    }
                     Log.i("adaa22", response.body().getData().toString());
                         for (int i = 0; i < dataRateRealtimes.size(); i++) {
                             DataRateRealtime x = dataRateRealtimes.get(i);
@@ -150,14 +191,11 @@ public class RateRealtimeChart extends AppCompatActivity {
         YAxis leftaxisy = lineChart.getAxisLeft();
         leftaxisy.removeAllLimitLines();
 
-        leftaxisy.setAxisMaximum(100f);
-        leftaxisy.setAxisMinimum(0f);
-
         leftaxisy.enableGridDashedLine(10f,10f,0f);
         leftaxisy.setDrawZeroLine(true);
         leftaxisy.setDrawLimitLinesBehindData(true);
         leftaxisy.setLabelCount(7,false);
-        leftaxisy.setDrawGridLines(false);
+        leftaxisy.setDrawGridLines(true);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -181,7 +219,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetA.setValueTextSize(0f);
         lineDataSetA.setDrawFilled(true);
         lineDataSetA.setFormLineWidth(1f);
-        lineDataSetA.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetA.setFormSize(15.f);
         lineDataSetA.setFillColor(Color.rgb(3,169,244));
@@ -196,7 +234,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetB.setValueTextSize(0f);
         lineDataSetB.setDrawFilled(true);
         lineDataSetB.setFormLineWidth(1f);
-        lineDataSetB.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSetB.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetB.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetB.setFormSize(15.f);
         lineDataSetB.setFillColor(Color.BLUE);
@@ -211,7 +249,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetC.setValueTextSize(0f);
         lineDataSetC.setDrawFilled(true);
         lineDataSetC.setFormLineWidth(1f);
-        lineDataSetC.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSetC.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetC.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetC.setFormSize(15.f);
         lineDataSetC.setFillColor(Color.YELLOW);
@@ -226,7 +264,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetD.setValueTextSize(0f);
         lineDataSetD.setDrawFilled(true);
         lineDataSetD.setFormLineWidth(1f);
-        lineDataSetD.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSetD.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetD.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetD.setFormSize(15.f);
         lineDataSetD.setFillColor(Color.CYAN);
@@ -241,7 +279,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetP.setValueTextSize(0f);
         lineDataSetP.setDrawFilled(true);
         lineDataSetP.setFormLineWidth(1f);
-        lineDataSetP.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSetP.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetP.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetP.setFormSize(15.f);
         lineDataSetP.setFillColor(Color.MAGENTA);
@@ -271,5 +309,88 @@ public class RateRealtimeChart extends AppCompatActivity {
     public LineDataSet setLineDataSet(ArrayList<Entry> DataVals, String color){
         LineDataSet l = new LineDataSet(null,null);
         return l;
+    }
+    public void pdfdownload(View view) {
+        new SweetAlertDialog(RateRealtimeChart.this, SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air ?")
+                .setConfirmText("Simpan")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                        progressDialog = new ProgressDialog(RateRealtimeChart.this);
+                        progressDialog.setCancelable(false);
+                        progressDialog.setMessage("Memuat Data ...");
+                        progressDialog.show();
+                        Document document = new Document();
+                        PdfPTable table = new PdfPTable(new float[] { 3, 1,1,1,1,1 });
+                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.getDefaultCell().setFixedHeight(20);
+                        table.addCell("Waktu");
+                        table.addCell("Gedung A");
+                        table.addCell("Gedung B");
+                        table.addCell("Gedung C");
+                        table.addCell("Gedung D");
+                        table.addCell("Gedung P");
+                        table.setHeaderRows(1);
+                        PdfPCell[] cells = table.getRow(0).getCells();
+                        for (int j=0;j<cells.length;j++){
+                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
+                            cells[j].setBackgroundColor(myColor);
+                        }
+                        for (int i=0;i<listWaktu.size();i++){
+
+                            Log.i("dddd", listWaktu.get(i));
+
+                            table.addCell(listWaktu.get(i));
+                            table.addCell(listRateA.get(i));
+                            table.addCell(listRateB.get(i));
+                            table.addCell(listRateC.get(i));
+                            table.addCell(listRateD.get(i));
+                            table.addCell(listRateP.get(i));
+                        }
+                        try {
+                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
+                            if (!folder.exists())
+                                folder.mkdir();
+                            final String pdf = folder.toString() + "/Rate Air_" +tglIni+ ".pdf";
+                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            fileNotFoundException.printStackTrace();
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.open();
+                        try {
+
+                            document.add(JudulText("Data Pemantauan Rate Air"));
+                            document.add(JudulText(tglIni));
+                            document.add(table);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.close();
+                        progressDialog.dismiss();
+
+                        sweetAlertDialog.dismissWithAnimation();
+                        Toast.makeText(RateRealtimeChart.this, "Data pemantauan Volume Air Tanggal "+tglIni+" berhasil disimpan , Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                    }
+
+                })
+                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                }).show();
+
+
+    }
+    public Paragraph JudulText(String text){
+        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
+        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
+        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
+        mOrderDetailsTitleParagraph.setSpacingAfter(7);
+        return mOrderDetailsTitleParagraph;
     }
 }

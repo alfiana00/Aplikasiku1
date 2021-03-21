@@ -135,7 +135,6 @@ public class Debit extends AppCompatActivity  {
         listGedung = findViewById(R.id.lst_gedung);
         tvNull = findViewById(R.id.tvNull);
         titleRate = findViewById(R.id.title_rate);
-        Date c = Calendar.getInstance().getTime();
         rvContainer = findViewById(R.id.rv_datarate);
         btnDownload = findViewById(R.id.btn_cetak);
         fabChart = findViewById(R.id.btnchart);
@@ -149,6 +148,7 @@ public class Debit extends AppCompatActivity  {
         });
 
         ButterKnife.bind(this);
+        Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
         String tglIni = DateDataFormat.format(c).toString();
         Log.i("tgl", "sekarang tanggal : "+tglIni);

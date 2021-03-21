@@ -8,8 +8,22 @@
     android:padding="10dp"
     android:background="@color/cardview_shadow_end_color"
     >
+
+    <Button
+        android:id="@+id/btn_cetak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cetak"
+        android:drawableLeft="@drawable/ic_baseline_cloud_download_24"
+        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="6dp"
+        android:backgroundTint="#95D698"
+        android:onClick="pdfdownload"
+        />
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
+        android:layout_below="@+id/btn_cetak"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
