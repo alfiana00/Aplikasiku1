@@ -322,7 +322,7 @@ public class VolumeChart extends AppCompatActivity {
                         progressDialog.setMessage("Memuat Data ...");
                         progressDialog.show();
                         Document document = new Document();
-                        PdfPTable table = new PdfPTable(new float[] { 3, 1,1,1,1,1 });
+                        PdfPTable table = new PdfPTable(new float[] { 2, 1,1,1,1,1 });
                         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                         table.getDefaultCell().setFixedHeight(20);
                         table.addCell("Waktu");

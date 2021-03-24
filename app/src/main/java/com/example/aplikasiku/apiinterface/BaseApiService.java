@@ -8,6 +8,7 @@ import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
+import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.example.aplikasiku.model.VolumeResponse;
 
 import java.util.Calendar;
@@ -33,10 +34,14 @@ public interface BaseApiService {
 
     @GET("realtime.php")
     Call<RealtimeResponse>getRealtime(@Query("gedung")String gedung);
+//    @GET("rate-air.php")
+//    Call<RateResponse>getRateAir(@Query("gedung")String gedung,
+//                                       @Query("waktu1")String waktu1,
+//                                       @Query("waktu2")String waktu2);
     @GET("rate-air.php")
-    Call<RateResponse>getRateAir(@Query("gedung")String gedung,
-                                       @Query("waktu1")String waktu1,
-                                       @Query("waktu2")String waktu2);
+    Call<VolumePerwaktuResponse>getVolumeAir(@Query("gedung")String gedung,
+                                           @Query("waktu1")String waktu1,
+                                           @Query("waktu2")String waktu2);
     @GET("bocor.php")
     Call<KebocoranResponse>getKebocoranAir(@Query("gedung")String gedung,
                                                  @Query("waktu1")String waktu1,

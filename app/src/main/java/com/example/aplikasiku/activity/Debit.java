@@ -34,8 +34,11 @@ import com.example.aplikasiku.adapter.RecyclerDataAdapter;
 import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
+import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
+import com.example.aplikasiku.model.VolumePerwaktuItem;
+import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -88,15 +91,16 @@ public class Debit extends AppCompatActivity  {
     Calendar mCalendar;
     ImageView btnHome;
     Button btnPilih, btnDownload;
-    CardView spnGedung, inputTanggal1, inputTanggal2;
-    TextView tvTgl1, tvTgl2, titleRate;
+    CardView spnGedung, inputTanggal1, inputTanggal2, cvTotal;
+    TextView tvTgl1, tvTgl2, titleRate, tvTotal;
     TextView tvNull;
     Spinner listGedung;
-    private String[] judul = {"Rate Air (m³/s)"};
+//    private String[] judul = {"Rate Air (m³/s)"};
+    private String[] judul = {"Volume Air (liter)"};
     LayoutInflater layoutInflater;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView, rvContainer;
-    List<DataRate> dataList;
+    List<VolumePerwaktuItem> dataList;
     public ArrayList<String> listRate;
     public ArrayList<String> listWaktu;
     String waktu1, waktu2, gedung, rate;
@@ -138,6 +142,8 @@ public class Debit extends AppCompatActivity  {
         rvContainer = findViewById(R.id.rv_datarate);
         btnDownload = findViewById(R.id.btn_cetak);
         fabChart = findViewById(R.id.btnchart);
+        tvTotal = findViewById(R.id.tvtotal);
+        cvTotal = findViewById(R.id.cv_total);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,30 +211,30 @@ public class Debit extends AppCompatActivity  {
                 if (gedung.equals("Gedung Pusat")){
                     rate = "rateP";
                     showTable(rate, waktu1, waktu2);
-                    titleRate.setText("Rate Air (Gedung Pusat)");
+                    titleRate.setText("Volume Air (Gedung Pusat)");
                 }
                 else if (gedung.equals("Gedung A")){
                     rate = "rateA";
                     showTable(rate, waktu1, waktu2);
-                    titleRate.setText("Rate Air (Gedung A)");
+                    titleRate.setText("Volume Air (Gedung A)");
 
                 }
                 else if (gedung.equals("Gedung B")){
                     rate = "rateB";
                     showTable(rate, waktu1, waktu2);
-                    titleRate.setText("Rate Air (Gedung B)");
+                    titleRate.setText("Volume Air (Gedung B)");
 
                 }
                 else if (gedung.equals("Gedung C")){
                     rate = "rateC";
                     showTable(rate, waktu1, waktu2);
-                    titleRate.setText("Rate Air (Gedung C)");
+                    titleRate.setText("Volume Air (Gedung C)");
 
                 }
                 else if (gedung.equals("Gedung D")){
                     rate = "rateD";
                     showTable(rate, waktu1, waktu2);
-                    titleRate.setText("Rate Air (Gedung D)");
+                    titleRate.setText("Volume Air (Gedung D)");
 
                 }
                 else {
@@ -258,16 +264,19 @@ public class Debit extends AppCompatActivity  {
         progressDialog.setMessage("Memuat Data ...");
         progressDialog.show();
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateResponse> call = service.getRateAir(gedung, waktu1, waktu2);
-        call.enqueue(new Callback<RateResponse>() {
+        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
+        call.enqueue(new Callback<VolumePerwaktuResponse>() {
             @Override
-            public void onResponse(Call<RateResponse> call, Response<RateResponse> response) {
+            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
                 listRate = new ArrayList<>();
                 listWaktu = new ArrayList<>();
 
                 if (response.body().isSuccess()){
-                    if (response.body().getData() != null) {
-                        dataList = response.body().getData();
+                    String total = response.body().getDataVolumeRatePerwaktu().getTotal();
+                    Log.i("asasa", total);
+                    tvTotal.setText("Total : "+total+" Liter");
+                    if (response.body().getDataVolumeRatePerwaktu().getRate() != null) {
+                        dataList = (List<VolumePerwaktuItem>) response.body().getDataVolumeRatePerwaktu().getRate();
                         recyclerView = findViewById(R.id.rv_datarate);
                         recyclerView.setVisibility(View.VISIBLE);
                         recyclerView.setHasFixedSize(true);
@@ -285,6 +294,7 @@ public class Debit extends AppCompatActivity  {
 
                     }
                     else {
+                        tvTotal.setText(response.body().getMessage());
                         recyclerView = findViewById(R.id.rv_datarate);
                         tvNull.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
@@ -295,8 +305,8 @@ public class Debit extends AppCompatActivity  {
             }
 
             @Override
-            public void onFailure(Call<RateResponse> call, Throwable t) {
-
+            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
+                tvTotal.setText(t.getMessage().toString());
                 recyclerView = findViewById(R.id.rv_datarate);
                 tvNull.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
@@ -310,7 +320,7 @@ public class Debit extends AppCompatActivity  {
 
     public void pdfdownload(View view) {
         new SweetAlertDialog(Debit.this, SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
+                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
                 .setConfirmText("Simpan")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -324,7 +334,7 @@ public class Debit extends AppCompatActivity  {
                         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                         table.getDefaultCell().setFixedHeight(20);
                         table.addCell("Waktu");
-                        table.addCell("Rate");
+                        table.addCell("Volume");
                         table.setHeaderRows(1);
                         PdfPCell[] cells = table.getRow(0).getCells();
                         for (int j=0;j<cells.length;j++){
@@ -339,7 +349,7 @@ public class Debit extends AppCompatActivity  {
                             File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
                             if (!folder.exists())
                                 folder.mkdir();
-                            final String pdf = folder.toString() + "/Rate Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
+                            final String pdf = folder.toString() + "/Volume Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
                             PdfWriter.getInstance(document, new FileOutputStream(pdf));
                         } catch (FileNotFoundException fileNotFoundException) {
                             fileNotFoundException.printStackTrace();
@@ -349,7 +359,7 @@ public class Debit extends AppCompatActivity  {
                         document.open();
                         try {
 
-                            document.add(JudulText("Data Pemantauan Rate Air"));
+                            document.add(JudulText("Data Pemantauan Volume Air"));
                             document.add(JudulText(gedung));
                             document.add(JudulText(waktu1+ " - " +waktu2));
                             document.add(table);
@@ -360,7 +370,7 @@ public class Debit extends AppCompatActivity  {
                         progressDialog.dismiss();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(Debit.this, "Data pemantauan Rate Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Debit.this, "Data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })

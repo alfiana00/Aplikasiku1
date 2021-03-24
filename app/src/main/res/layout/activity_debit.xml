@@ -262,8 +262,16 @@
                 android:text="Rate Air"/>
         </GridLayout>
     </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="invisible"
+        android:id="@+id/rv_datarate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_below="@+id/lb_tabel"/>
     <TextView
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/tvNull"
         android:text="Data Tidak Ditemukan"
         android:gravity="center"
@@ -271,13 +279,25 @@
         android:layout_height="match_parent"
         android:layout_margin="7dp"
         android:layout_below="@+id/lb_tabel"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:visibility="invisible"
-        android:id="@+id/rv_datarate"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_total"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="7dp"
-        android:layout_below="@+id/lb_tabel"/>
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/cardview_light_background"
+        android:layout_margin="6dp"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="2dp">
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/tvtotal"
+            android:text="Data Tidak Ditemukan"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:layout_below="@+id/lb_tabel"/>
+    </androidx.cardview.widget.CardView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnchart"
         android:layout_width="wrap_content"

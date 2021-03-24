@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aplikasiku.R;
 import com.example.aplikasiku.model.DataRate;
+import com.example.aplikasiku.model.VolumePerwaktuItem;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.ViewHolder> {
-    private List<DataRate> listdata;
+    private List<VolumePerwaktuItem> listdata;
     private Context context;
 
-    public RecyclerDataAdapter(List<DataRate> listdata, Context context) {
+    public RecyclerDataAdapter(List<VolumePerwaktuItem> listdata, Context context) {
         this.listdata = listdata;
         this.context = context;
     }

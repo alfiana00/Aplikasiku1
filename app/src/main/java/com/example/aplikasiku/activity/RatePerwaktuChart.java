@@ -16,8 +16,11 @@ import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.DataRateRealtime;
+import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
 import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RateResponse;
+import com.example.aplikasiku.model.VolumePerwaktuItem;
+import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -52,11 +55,11 @@ public class RatePerwaktuChart extends AppCompatActivity {
     String gedung, waktu1, waktu2, tglIni, nama;
     LimitLine upper, lower;
     Calendar mCalendar;
-    List<DataRateRealtime> dataRateRealtimes;
+    List<DataVolumeRatePerwaktu> dataRateRealtimes;
     Debit dataRate;
     public ArrayList<String> listRate;
     public ArrayList<String> listWaktu;
-    List<DataRate> dataList;
+    List<VolumePerwaktuItem> dataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,19 +82,19 @@ public class RatePerwaktuChart extends AppCompatActivity {
     }
     public void getData(String gedung, String waktu1, String waktu2){
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateResponse> call = service.getRateAir(gedung, waktu1, waktu2);
+        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
         ArrayList<Entry> DataVals = new ArrayList<Entry>();
-        call.enqueue(new Callback<RateResponse>() {
+        call.enqueue(new Callback<VolumePerwaktuResponse>() {
             @Override
-            public void onResponse(Call<RateResponse> call, Response<RateResponse> response) {
+            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
                 listRate = new ArrayList<>();
                 listWaktu = new ArrayList<>();
 
                 if (response.body().isSuccess()){
-                    if (response.body().getData() != null) {
-                        dataList = response.body().getData();
+                    if (response.body().getDataVolumeRatePerwaktu().getRate() != null) {
+                        dataList = (List<VolumePerwaktuItem>) response.body().getDataVolumeRatePerwaktu().getRate();
                         for (int i = 0; i < dataList.size(); i++){
-                            DataRate x = dataList.get(i);
+                            VolumePerwaktuItem x = dataList.get(i);
                             Float air = Float.parseFloat(x.getRate());
 
                             Date newDate = null;
@@ -112,7 +115,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RateResponse> call, Throwable t) {
+            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
 
             }
         });
