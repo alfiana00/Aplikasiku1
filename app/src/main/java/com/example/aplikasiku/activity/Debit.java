@@ -35,6 +35,7 @@ import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
+import com.example.aplikasiku.model.RateItem;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.VolumePerwaktuItem;
@@ -100,7 +101,7 @@ public class Debit extends AppCompatActivity  {
     LayoutInflater layoutInflater;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView, rvContainer;
-    List<VolumePerwaktuItem> dataList;
+    List<RateItem> dataList;
     public ArrayList<String> listRate;
     public ArrayList<String> listWaktu;
     String waktu1, waktu2, gedung, rate;
@@ -272,11 +273,11 @@ public class Debit extends AppCompatActivity  {
                 listWaktu = new ArrayList<>();
 
                 if (response.body().isSuccess()){
-                    String total = response.body().getDataVolumeRatePerwaktu().getTotal();
-                    Log.i("asasa", total);
+                    String total = response.body().getData().getTotal();
+                    Log.i("asasa", response.body().getMessage());
                     tvTotal.setText("Total : "+total+" Liter");
-                    if (response.body().getDataVolumeRatePerwaktu().getRate() != null) {
-                        dataList = (List<VolumePerwaktuItem>) response.body().getDataVolumeRatePerwaktu().getRate();
+                    if (response.body().getData() != null) {
+                        dataList = (List<RateItem>) response.body().getData().getRate();
                         recyclerView = findViewById(R.id.rv_datarate);
                         recyclerView.setVisibility(View.VISIBLE);
                         recyclerView.setHasFixedSize(true);
@@ -294,7 +295,7 @@ public class Debit extends AppCompatActivity  {
 
                     }
                     else {
-                        tvTotal.setText(response.body().getMessage());
+                        tvTotal.setText(response.body().getMessage().toString());
                         recyclerView = findViewById(R.id.rv_datarate);
                         tvNull.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);

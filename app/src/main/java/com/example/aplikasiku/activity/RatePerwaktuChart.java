@@ -17,6 +17,7 @@ import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.DataRateRealtime;
 import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
+import com.example.aplikasiku.model.RateItem;
 import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.VolumePerwaktuItem;
@@ -44,6 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.aplikasiku.apiinterface.DataInterface.DateDataFormat;
+import static com.example.aplikasiku.apiinterface.DataInterface.DateFormat;
 import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
 
 public class RatePerwaktuChart extends AppCompatActivity {
@@ -59,7 +61,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
     Debit dataRate;
     public ArrayList<String> listRate;
     public ArrayList<String> listWaktu;
-    List<VolumePerwaktuItem> dataList;
+    List<RateItem> dataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,15 +93,15 @@ public class RatePerwaktuChart extends AppCompatActivity {
                 listWaktu = new ArrayList<>();
 
                 if (response.body().isSuccess()){
-                    if (response.body().getDataVolumeRatePerwaktu().getRate() != null) {
-                        dataList = (List<VolumePerwaktuItem>) response.body().getDataVolumeRatePerwaktu().getRate();
+                    if (response.body().getData() != null) {
+                        dataList = (List<RateItem>) response.body().getData().getRate();
                         for (int i = 0; i < dataList.size(); i++){
-                            VolumePerwaktuItem x = dataList.get(i);
+                            RateItem x = dataList.get(i);
                             Float air = Float.parseFloat(x.getRate());
 
                             Date newDate = null;
                             try {
-                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+                                newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

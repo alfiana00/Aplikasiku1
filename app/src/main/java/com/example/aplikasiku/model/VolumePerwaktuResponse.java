@@ -1,12 +1,12 @@
 package com.example.aplikasiku.model;
 
 public class VolumePerwaktuResponse{
-	private DataVolumeRatePerwaktu dataVolumeRatePerwaktu;
+	private Data data;
 	private boolean success;
 	private String message;
 
-	public DataVolumeRatePerwaktu getDataVolumeRatePerwaktu(){
-		return dataVolumeRatePerwaktu;
+	public Data getData(){
+		return data;
 	}
 
 	public boolean isSuccess(){
