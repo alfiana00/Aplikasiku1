@@ -165,7 +165,7 @@ public class Debit extends AppCompatActivity  {
         arrayAdapter.setDropDownViewResource(R.layout.list_item_spn);
         listGedung.setAdapter(arrayAdapter);
 
-        waktu1 = tglIni;
+        waktu1 = "2021-01-01";
         waktu2 = tglIni;
         gedung = "Gedung Pusat";
         rate = "rateP";
