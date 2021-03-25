@@ -99,6 +99,22 @@ public class RatePerwaktuChart extends AppCompatActivity {
                             RateItem x = dataList.get(i);
                             Float air = Float.parseFloat(x.getRate());
 
+                            if (gedung.equals("rateP")){
+                                lineDataSet.setLabel("Volume Gedung Pusat");
+                            }
+                            else if (gedung.equals("rateA")){
+                                lineDataSet.setLabel("Volume Gedung A");
+                            }
+                            else if (gedung.equals("rateB")){
+                                lineDataSet.setLabel("Volume Gedung B");
+                            }
+                            else if (gedung.equals("rateC")){
+                                lineDataSet.setLabel("Volume Gedung C");
+                            }
+                            else if (gedung.equals("rateD")){
+                                lineDataSet.setLabel("Volume Gedung D");
+                            }
+
                             Date newDate = null;
                             try {
                                 newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
@@ -129,9 +145,6 @@ public class RatePerwaktuChart extends AppCompatActivity {
 
         YAxis leftaxisy = lineChart.getAxisLeft();
         leftaxisy.removeAllLimitLines();
-
-        leftaxisy.setAxisMaximum(100f);
-        leftaxisy.setAxisMinimum(0f);
 
         leftaxisy.enableGridDashedLine(10f,10f,0f);
         leftaxisy.setDrawZeroLine(true);
@@ -170,9 +183,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
         iLineDataSets.clear();
         iLineDataSets.add(lineDataSet);
         lineData = new LineData(iLineDataSets);
-        Description description = lineChart.getDescription();
-        description.setText(nama);
-        description.setTextSize(12f);
+
 
         lineChart.clear();
         lineChart.setData(lineData);
@@ -181,7 +192,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
         lineChart.setScaleEnabled(true);
         lineChart.setPinchZoom(false);
         lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(true);
+        lineChart.getDescription().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateX(2000, Easing.EaseInOutBounce);
         lineChart.invalidate();

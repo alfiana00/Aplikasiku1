@@ -259,7 +259,7 @@
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:text="Rate Air"/>
+                android:text="Volume"/>
         </GridLayout>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
