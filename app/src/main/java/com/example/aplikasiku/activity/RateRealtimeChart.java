@@ -200,7 +200,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
+        xAxis.setDrawGridLines(true);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -300,7 +300,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineChart.setScaleEnabled(true);
         lineChart.setPinchZoom(false);
         lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(true);
+        lineChart.getDescription().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateX(2000, Easing.EaseInOutBounce);
         lineChart.invalidate();
@@ -322,15 +322,15 @@ public class RateRealtimeChart extends AppCompatActivity {
                         progressDialog.setMessage("Memuat Data ...");
                         progressDialog.show();
                         Document document = new Document();
-                        PdfPTable table = new PdfPTable(new float[] { 3, 1,1,1,1,1 });
+                        PdfPTable table = new PdfPTable(new float[] { 5, 2,2,2,2,2 });
                         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                         table.getDefaultCell().setFixedHeight(20);
                         table.addCell("Waktu");
-                        table.addCell("Gedung A");
-                        table.addCell("Gedung B");
-                        table.addCell("Gedung C");
-                        table.addCell("Gedung D");
-                        table.addCell("Gedung P");
+                        table.addCell("GedungA");
+                        table.addCell("GedungB");
+                        table.addCell("GedungC");
+                        table.addCell("GedungD");
+                        table.addCell("Pusat");
                         table.setHeaderRows(1);
                         PdfPCell[] cells = table.getRow(0).getCells();
                         for (int j=0;j<cells.length;j++){
@@ -362,7 +362,7 @@ public class RateRealtimeChart extends AppCompatActivity {
                         document.open();
                         try {
 
-                            document.add(JudulText("Data Pemantauan Rate Air"));
+                            document.add(JudulText("Data Pemantauan Laju Penggunaan Air"));
                             document.add(JudulText(tglIni));
                             document.add(table);
                         } catch (DocumentException e) {

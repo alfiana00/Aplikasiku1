@@ -113,12 +113,12 @@
                             <TextView
                                 android:id="@+id/txt_rapusat"
                                 android:layout_width="wrap_content"
-                                android:layout_height="65dp"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="6dp"
-                                android:text="Rate Air "
+                                android:text="Laju Penggunaan Air "
                                 android:textStyle="bold"
-                                android:textSize="30dp"
+                                android:textSize="25dp"
                                 android:layout_centerInParent="true"
                                 android:layout_marginEnd="10dp" />
                             <TextView
@@ -192,12 +192,12 @@
                             <TextView
                                 android:id="@+id/txt_raa"
                                 android:layout_width="wrap_content"
-                                android:layout_height="65dp"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="6dp"
-                                android:text="Volume Air"
+                                android:text="Volume Penggunaan Air"
                                 android:textStyle="bold"
-                                android:textSize="30dp"
+                                android:textSize="25dp"
                                 android:layout_centerInParent="true"
                                 android:layout_marginEnd="10dp" />
                             <TextView
