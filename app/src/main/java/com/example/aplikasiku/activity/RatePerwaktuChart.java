@@ -98,6 +98,21 @@ public class RatePerwaktuChart extends AppCompatActivity {
                         for (int i = 0; i < dataList.size(); i++){
                             RateItem x = dataList.get(i);
                             Float air = Float.parseFloat(x.getRate());
+                            if (gedung.equals("rateP")){
+                                lineDataSet.setLabel("Volume Gedung Pusat");
+                            }
+                            else if (gedung.equals("rateA")){
+                                lineDataSet.setLabel("Volume Gedung A");
+                            }
+                            else if (gedung.equals("rateB")){
+                                lineDataSet.setLabel("Volume Gedung B");
+                            }
+                            else if (gedung.equals("rateC")){
+                                lineDataSet.setLabel("Volume Gedung C");
+                            }
+                            else if (gedung.equals("rateD")){
+                                lineDataSet.setLabel("Volume Gedung D");
+                            }
 
                             Date newDate = null;
                             try {
