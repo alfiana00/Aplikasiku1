@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.aplikasiku.IndexAxisValueFormatter;
 import com.example.aplikasiku.MyMarkerView;
 import com.example.aplikasiku.R;
 import com.example.aplikasiku.apihelper.RetrofitClient;
@@ -201,7 +202,7 @@ public class VolumeChart extends AppCompatActivity {
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
-        xAxis.setValueFormatter(new ValueFormatter() {
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 Date date = new Date((long)value);
@@ -219,7 +220,7 @@ public class VolumeChart extends AppCompatActivity {
         lineDataSetA.setValueTextSize(0f);
         lineDataSetA.setDrawFilled(true);
         lineDataSetA.setFormLineWidth(1f);
-        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
+        lineDataSetA.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetA.setFormSize(15.f);
         lineDataSetA.setFillColor(Color.rgb(3,169,244));

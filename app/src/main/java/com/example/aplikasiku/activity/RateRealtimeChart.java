@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.aplikasiku.IndexAxisValueFormatter;
 import com.example.aplikasiku.MyMarkerView;
 import com.example.aplikasiku.R;
 import com.example.aplikasiku.apihelper.RetrofitClient;
@@ -201,7 +202,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
-        xAxis.setValueFormatter(new ValueFormatter() {
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 Date date = new Date((long)value);
@@ -217,9 +218,9 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetA.setCircleRadius(4f);
         lineDataSetA.setDrawCircleHole(false);
         lineDataSetA.setValueTextSize(0f);
-        lineDataSetA.setDrawFilled(true);
+        lineDataSetA.setDrawFilled(false);
         lineDataSetA.setFormLineWidth(1f);
-        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
+        lineDataSetA.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetA.setFormSize(15.f);
         lineDataSetA.setFillColor(Color.rgb(3,169,244));
@@ -232,7 +233,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetB.setCircleRadius(4f);
         lineDataSetB.setDrawCircleHole(false);
         lineDataSetB.setValueTextSize(0f);
-        lineDataSetB.setDrawFilled(true);
+        lineDataSetB.setDrawFilled(false);
         lineDataSetB.setFormLineWidth(1f);
         lineDataSetB.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetB.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
@@ -247,7 +248,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetC.setCircleRadius(4f);
         lineDataSetC.setDrawCircleHole(false);
         lineDataSetC.setValueTextSize(0f);
-        lineDataSetC.setDrawFilled(true);
+        lineDataSetC.setDrawFilled(false);
         lineDataSetC.setFormLineWidth(1f);
         lineDataSetC.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetC.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
@@ -262,7 +263,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetD.setCircleRadius(4f);
         lineDataSetD.setDrawCircleHole(false);
         lineDataSetD.setValueTextSize(0f);
-        lineDataSetD.setDrawFilled(true);
+        lineDataSetD.setDrawFilled(false);
         lineDataSetD.setFormLineWidth(1f);
         lineDataSetD.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetD.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
@@ -277,7 +278,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetP.setCircleRadius(4f);
         lineDataSetP.setDrawCircleHole(false);
         lineDataSetP.setValueTextSize(0f);
-        lineDataSetP.setDrawFilled(true);
+        lineDataSetP.setDrawFilled(false);
         lineDataSetP.setFormLineWidth(1f);
         lineDataSetP.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetP.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
