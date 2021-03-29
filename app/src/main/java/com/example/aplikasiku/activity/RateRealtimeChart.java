@@ -220,7 +220,7 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineDataSetA.setValueTextSize(0f);
         lineDataSetA.setDrawFilled(false);
         lineDataSetA.setFormLineWidth(1f);
-        lineDataSetA.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
         lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSetA.setFormSize(15.f);
         lineDataSetA.setFillColor(Color.rgb(3,169,244));
