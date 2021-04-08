@@ -174,9 +174,9 @@ public class RatePerwaktuChart extends AppCompatActivity {
         lineDataSet.setCircleRadius(4f);
         lineDataSet.setDrawCircleHole(false);
         lineDataSet.setValueTextSize(0f);
-        lineDataSet.setDrawFilled(true);
+        lineDataSet.setDrawFilled(false);
         lineDataSet.setFormLineWidth(1f);
-        lineDataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        lineDataSet.setMode(LineDataSet.Mode.LINEAR);
         lineDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         lineDataSet.setFormSize(15.f);
         lineDataSet.setFillColor(Color.rgb(3,169,244));
@@ -185,9 +185,6 @@ public class RatePerwaktuChart extends AppCompatActivity {
         iLineDataSets.clear();
         iLineDataSets.add(lineDataSet);
         lineData = new LineData(iLineDataSets);
-        Description description = lineChart.getDescription();
-        description.setText(nama);
-        description.setTextSize(12f);
 
         lineChart.clear();
         lineChart.setData(lineData);
@@ -196,7 +193,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
         lineChart.setScaleEnabled(true);
         lineChart.setPinchZoom(false);
         lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(true);
+        lineChart.getDescription().setEnabled(false);
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateX(2000, Easing.EaseInOutBounce);
         lineChart.invalidate();

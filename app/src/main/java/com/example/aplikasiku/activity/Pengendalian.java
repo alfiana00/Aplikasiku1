@@ -78,11 +78,11 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swA.isChecked()){
-                    setData("21", "1");
+                    setData("11", "1");
                 }
                 else {
 
-                    setData("11", "1");
+                    setData("21", "1");
                 }
             }
         });
@@ -90,11 +90,11 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swB.isChecked()){
-                    setData("22", "2");
+                    setData("12", "2");
                 }
                 else {
 
-                    setData("12", "2");
+                    setData("22", "2");
                 }
             }
         });
@@ -102,11 +102,11 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swC.isChecked()){
-                    setData("23", "3");
+                    setData("13", "3");
                 }
                 else {
 
-                    setData("13", "3");
+                    setData("23", "3");
                 }
             }
         });
@@ -114,11 +114,11 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swD.isChecked()){
-                    setData("24", "4");
+                    setData("14", "4");
                 }
                 else {
 
-                    setData("14", "4");
+                    setData("24", "4");
                 }
             }
         });
@@ -126,11 +126,11 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (swP.isChecked()){
-                    setData("25", "5");
+                    setData("15", "5");
                 }
                 else {
 
-                    setData("15", "5");
+                    setData("25", "5");
                 }
             }
         });
@@ -146,7 +146,7 @@ public class Pengendalian extends AppCompatActivity {
             public void onResponse(Call<StatusButtonResponse> call, Response<StatusButtonResponse> response) {
                 if (response.body().isSuccess()){
                     String dtP = response.body().getData().getStatus();
-                    if (dtP.equals("15")){
+                    if (dtP.equals("25")){
                         swP.setChecked(false);
                     }
                     else {
@@ -171,7 +171,7 @@ public class Pengendalian extends AppCompatActivity {
             public void onResponse(Call<StatusButtonResponse> call, Response<StatusButtonResponse> response) {
                 if (response.body().isSuccess()){
                     String dtP = response.body().getData().getStatus();
-                    if (dtP.equals("11")){
+                    if (dtP.equals("21")){
                         swA.setChecked(false);
                     }
                     else {
@@ -195,7 +195,7 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusButtonResponse> call, Response<StatusButtonResponse> response) {
                 if (response.body().isSuccess()){
-                    if (response.body().getData().getStatus().equals("12")){
+                    if (response.body().getData().getStatus().equals("22")){
                         swB.setChecked(false);
                     }
                     else {
@@ -214,7 +214,7 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusButtonResponse> call, Response<StatusButtonResponse> response) {
                 String dtC = response.body().getData().getStatus();
-                if (dtC.equals("13")){
+                if (dtC.equals("23")){
                     swC.setChecked(false);
                 }
                 else {
@@ -232,7 +232,7 @@ public class Pengendalian extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusButtonResponse> call, Response<StatusButtonResponse> response) {
                 String dtD = response.body().getData().getStatus();
-                if (dtD.equals("14")){
+                if (dtD.equals("24")){
                     swD.setChecked(false);
                 }
                 else
