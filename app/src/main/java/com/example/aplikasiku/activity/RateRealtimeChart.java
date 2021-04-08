@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.aplikasiku.ClaimsXAxisValueFormatter;
 import com.example.aplikasiku.IndexAxisValueFormatter;
 import com.example.aplikasiku.MyMarkerView;
 import com.example.aplikasiku.R;
@@ -157,6 +158,9 @@ public class RateRealtimeChart extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            XAxis xAxis = lineChart.getXAxis();
+                            xAxis.setValueFormatter(new ClaimsXAxisValueFormatter(List<String>dates);
+
                             DataValsA.add(new Entry(newDate.getTime(), rateA));
                             DataValsB.add(new Entry(newDate.getTime(), rateB));
                             DataValsC.add(new Entry(newDate.getTime(), rateC));
@@ -193,22 +197,30 @@ public class RateRealtimeChart extends AppCompatActivity {
         leftaxisy.removeAllLimitLines();
 
         leftaxisy.enableGridDashedLine(10f,10f,0f);
-        leftaxisy.setDrawZeroLine(true);
-        leftaxisy.setDrawLimitLinesBehindData(true);
+        //leftaxisy.setDrawZeroLine(true);
+        leftaxisy.setDrawLimitLinesBehindData(false);
         leftaxisy.setLabelCount(7,false);
         leftaxisy.setDrawGridLines(true);
+        leftaxisy.setDrawZeroLine(false);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularityEnabled(true);
+        xAxis.setGranularity(7f);
+        xAxis.setLabelRotationAngle(315f);
         xAxis.setDrawGridLines(true);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                Date date = new Date((long)value);
-                return DateFormatChart.format(date);
-            }
-        });
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setLabelCount(6,true);
+        xAxis.setDrawLimitLinesBehindData(true);
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                Date date = new Date((long)value);
+//                return DateFormatChart.format(date);
+//            }
+//        });
+
         int[] color = new int[]{3, 169, 244};
 
         lineDataSetA.setValues(DataValsA);
