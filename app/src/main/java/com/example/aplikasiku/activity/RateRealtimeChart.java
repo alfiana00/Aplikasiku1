@@ -70,7 +70,7 @@ import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 import static com.example.aplikasiku.apiinterface.DataInterface.myDateFormat;
 
 public class RateRealtimeChart extends AppCompatActivity {
-    LineChart lineChart;
+    LineChart lineChart, lineChartB;
     LineDataSet lineDataSetA = new LineDataSet(null,null);
     LineDataSet lineDataSetB = new LineDataSet(null,null);
     LineDataSet lineDataSetC = new LineDataSet(null,null);
@@ -97,8 +97,12 @@ public class RateRealtimeChart extends AppCompatActivity {
         setContentView(R.layout.activity_rate_realtime_chart);
 
         lineChart = findViewById(R.id.chart);
+        lineChartB = findViewById(R.id.chartB);
         lineChart.setNoDataText("Data Grafik Tidak Tersedia.");
         lineChart.setNoDataTextColor(Color.rgb(3,169,244));
+
+        lineChartB.setNoDataText("Data Grafik Tidak Tersedia.");
+        lineChartB.setNoDataTextColor(Color.rgb(3,169,244));
 
 
         Date c = Calendar.getInstance().getTime();
@@ -146,7 +150,7 @@ public class RateRealtimeChart extends AppCompatActivity {
                             lineDataSetP.setLabel("Rate Air Pusat");
                             upper = new LimitLine(10f, "Batas Atas");
                             lower = new LimitLine(0f, "Batas Bawah");
-                            final Float rateA = Float.parseFloat(x.getRateA());
+                            Float rateA = Float.parseFloat(x.getRateA());
                             Float rateB = Float.parseFloat(x.getRateB());
                             Float rateC = Float.parseFloat(x.getRateC());
                             Float rateD = Float.parseFloat(x.getRateD());
@@ -158,8 +162,6 @@ public class RateRealtimeChart extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            XAxis xAxis = lineChart.getXAxis();
-                            xAxis.setValueFormatter(new ClaimsXAxisValueFormatter(List<String>dates);
 
                             DataValsA.add(new Entry(newDate.getTime(), rateA));
                             DataValsB.add(new Entry(newDate.getTime(), rateB));
@@ -179,6 +181,59 @@ public class RateRealtimeChart extends AppCompatActivity {
                 }
                 ShowChart(DataValsA, DataValsB, DataValsC, DataValsD, DataValsP);
                 }
+
+
+            @Override
+            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+    public void getDataB(){
+        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+        Call<RateRealtimeResponse> call = service.getRealtimeRate();
+        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
+        listRateB = new ArrayList<>();
+        call.enqueue(new Callback<RateRealtimeResponse>() {
+            @Override
+            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
+                if (response.body().isSuccess()){
+                    dataRateRealtimes = response.body().getData();
+                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+                    }
+                    Log.i("adaa22", response.body().getData().toString());
+                    for (int i = 0; i < dataRateRealtimes.size(); i++) {
+                        DataRateRealtime x = dataRateRealtimes.get(i);
+
+                        lineDataSetA.setLabel("Rate Air A");
+                        lineDataSetB.setLabel("Rate Air B");
+                        lineDataSetC.setLabel("Rate Air C");
+                        lineDataSetD.setLabel("Rate Air D");
+                        lineDataSetP.setLabel("Rate Air Pusat");
+                        upper = new LimitLine(10f, "Batas Atas");
+                        lower = new LimitLine(0f, "Batas Bawah");
+                        Float rateB = Float.parseFloat(x.getRateB());
+
+                        Date newDate = null;
+                        try {
+                            newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        DataValsB.add(new Entry(newDate.getTime(), rateB));
+
+                    }
+                }
+                else {
+
+                    DataValsB.add(null);
+                }
+                ShowChart(null, DataValsB, null,null, null);
+            }
 
 
             @Override
@@ -213,13 +268,13 @@ public class RateRealtimeChart extends AppCompatActivity {
         xAxis.setCenterAxisLabels(true);
         xAxis.setLabelCount(6,true);
         xAxis.setDrawLimitLinesBehindData(true);
-//        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                Date date = new Date((long)value);
-//                return DateFormatChart.format(date);
-//            }
-//        });
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                Date date = new Date((long)value);
+                return DateFormatChart.format(date);
+            }
+        });
 
         int[] color = new int[]{3, 169, 244};
 
@@ -317,6 +372,18 @@ public class RateRealtimeChart extends AppCompatActivity {
         lineChart.getAxisRight().setEnabled(false);
         lineChart.animateX(2000, Easing.EaseInOutBounce);
         lineChart.invalidate();
+
+        lineChartB.clear();
+        lineChartB.setData(lineData);
+        lineChartB.setTouchEnabled(true);
+        lineChartB.setDragEnabled(true);
+        lineChartB.setScaleEnabled(true);
+        lineChartB.setPinchZoom(false);
+        lineChartB.setDrawGridBackground(false);
+        lineChartB.getDescription().setEnabled(false);
+        lineChartB.getAxisRight().setEnabled(false);
+        lineChartB.animateX(2000, Easing.EaseInOutBounce);
+        lineChartB.invalidate();
     }
 
     public LineDataSet setLineDataSet(ArrayList<Entry> DataVals, String color){

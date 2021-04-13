@@ -15,17 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aplikasiku"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ChartActivity"></activity>
         <activity
             android:name=".activity.RatePerwaktuChart"
             android:configChanges="orientation"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.RateRealtimeChart"
             android:configChanges="orientation"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.UbahPswd" />
         <activity
             android:name=".activity.SplashScreen"

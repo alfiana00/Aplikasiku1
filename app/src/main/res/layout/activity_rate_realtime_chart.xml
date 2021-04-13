@@ -31,10 +31,41 @@
         android:textSize="20dp"
         android:gravity="center" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+    <HorizontalScrollView
         android:layout_below="@+id/btn_cetak"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                app:cardCornerRadius="3dp"
+                >
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="3dp"
+                android:padding="6dp">
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+
 
 </RelativeLayout>
