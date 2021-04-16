@@ -1,6 +1,10 @@
 package com.example.aplikasiku.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -9,7 +13,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aplikasiku.ClaimsXAxisValueFormatter;
@@ -19,6 +25,11 @@ import com.example.aplikasiku.R;
 import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.apiinterface.DataInterface;
+import com.example.aplikasiku.fragment.ChartA;
+import com.example.aplikasiku.fragment.ChartB;
+import com.example.aplikasiku.fragment.ChartC;
+import com.example.aplikasiku.fragment.ChartD;
+import com.example.aplikasiku.fragment.ChartPusat;
 import com.example.aplikasiku.model.DataRateRealtime;
 import com.example.aplikasiku.model.DataVolume;
 import com.example.aplikasiku.model.RateRealtimeResponse;
@@ -36,6 +47,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -70,7 +82,8 @@ import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 import static com.example.aplikasiku.apiinterface.DataInterface.myDateFormat;
 
 public class RateRealtimeChart extends AppCompatActivity {
-    LineChart lineChart, lineChartB;
+//    LineChart lineChart;
+//    LineChart lineChartB;
     LineDataSet lineDataSetA = new LineDataSet(null,null);
     LineDataSet lineDataSetB = new LineDataSet(null,null);
     LineDataSet lineDataSetC = new LineDataSet(null,null);
@@ -90,301 +103,404 @@ public class RateRealtimeChart extends AppCompatActivity {
     public ArrayList<String> listRateP;
     public ArrayList<String> listWaktu;
     ProgressDialog progressDialog;
+    ViewPager viewPager;
+    TabLayout tabLayout;
+    ViewPagerAdapter viewPagerAdapter;
+    int index;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_realtime_chart);
 
-        lineChart = findViewById(R.id.chart);
-        lineChartB = findViewById(R.id.chartB);
-        lineChart.setNoDataText("Data Grafik Tidak Tersedia.");
-        lineChart.setNoDataTextColor(Color.rgb(3,169,244));
+//        lineChart = findViewById(R.id.chart);
+////        lineChartB = findViewById(R.id.chartB);
+//        lineChart.setNoDataText("Data Grafik Tidak Tersedia.");
+//        lineChart.setNoDataTextColor(Color.rgb(3,169,244));
 
-        lineChartB.setNoDataText("Data Grafik Tidak Tersedia.");
-        lineChartB.setNoDataTextColor(Color.rgb(3,169,244));
+//        lineChartB.setNoDataText("Data Grafik Tidak Tersedia.");
+//        lineChartB.setNoDataTextColor(Color.rgb(3,169,244));
 
+        tabLayout = findViewById(R.id.tabLayoutKode);
+        viewPager = findViewById(R.id.viewPagerKode);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        setupTabIcons();
+
+        //custom color icon and text tab layout
+        index= tabLayout.getSelectedTabPosition();
+        ((TextView) tabLayout.getTabAt(index).getCustomView()).setTextColor(getResources().getColor(R.color.white));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ((TextView) tab.getCustomView()).setTextColor(getResources().getColor(R.color.white));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ((TextView) tab.getCustomView()).setTextColor(getResources().getColor(R.color.black));
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
         tglIni = myDateFormat.format(c).toString();
-        getData();
+//        getData();
 
 
     }
-    public void getData(){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
-        listRateA = new ArrayList<>();
-        listRateB = new ArrayList<>();
-        listRateC = new ArrayList<>();
-        listRateD = new ArrayList<>();
-        listRateP = new ArrayList<>();
-        listWaktu = new ArrayList<>();
-        call.enqueue(new Callback<RateRealtimeResponse>() {
-            @Override
-            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-                if (response.body().isSuccess()){
-                    dataRateRealtimes = response.body().getData();
-                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-                        listRateA.add(dataRateRealtimes.get(i).getRateA());
-                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-                        listRateC.add(dataRateRealtimes.get(i).getRateC());
-                        listRateD.add(dataRateRealtimes.get(i).getRateD());
-                        listRateP.add(dataRateRealtimes.get(i).getRateP());
-                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-                    }
-                    Log.i("adaa22", response.body().getData().toString());
-                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
-                            DataRateRealtime x = dataRateRealtimes.get(i);
 
-                            lineDataSetA.setLabel("Rate Air A");
-                            lineDataSetB.setLabel("Rate Air B");
-                            lineDataSetC.setLabel("Rate Air C");
-                            lineDataSetD.setLabel("Rate Air D");
-                            lineDataSetP.setLabel("Rate Air Pusat");
-                            upper = new LimitLine(10f, "Batas Atas");
-                            lower = new LimitLine(0f, "Batas Bawah");
-                            Float rateA = Float.parseFloat(x.getRateA());
-                            Float rateB = Float.parseFloat(x.getRateB());
-                            Float rateC = Float.parseFloat(x.getRateC());
-                            Float rateD = Float.parseFloat(x.getRateD());
-                            Float rateP = Float.parseFloat(x.getRateP());
+    private void setupTabIcons() {
+        TextView tv_chart_a = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tv_chart_a.setText("Chart A");
+        tv_chart_a.setTextSize(16);
+//        tv_chart_a.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_koupon, 0, 0, 0);
+        tabLayout.getTabAt(0).setCustomView(tv_chart_a);
 
-                            Date newDate = null;
-                            try {
-                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+        TextView tv_chart_b = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tv_chart_b.setText("Chart B");
+        tv_chart_b.setTextSize(16);
+//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tv_chart_b);
 
-                            DataValsA.add(new Entry(newDate.getTime(), rateA));
-                            DataValsB.add(new Entry(newDate.getTime(), rateB));
-                            DataValsC.add(new Entry(newDate.getTime(), rateC));
-                            DataValsD.add(new Entry(newDate.getTime(), rateD));
-                            DataValsP.add(new Entry(newDate.getTime(), rateP));
+        TextView tv_chart_c = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tv_chart_c.setText("Chart C");
+        tv_chart_c.setTextSize(16);
+//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
+        tabLayout.getTabAt(2).setCustomView(tv_chart_c);
 
-                        }
-                    }
-                else {
+        TextView tv_chart_d = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tv_chart_d.setText("Chart D");
+        tv_chart_d.setTextSize(16);
+//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
+        tabLayout.getTabAt(3).setCustomView(tv_chart_d);
 
-                    DataValsA.add(null);
-                    DataValsB.add(null);
-                    DataValsC.add(null);
-                    DataValsD.add(null);
-                    DataValsP.add(null);
-                }
-                ShowChart(DataValsA, DataValsB, DataValsC, DataValsD, DataValsP);
-                }
-
-
-            @Override
-            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
-    public void getDataB(){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-        listRateB = new ArrayList<>();
-        call.enqueue(new Callback<RateRealtimeResponse>() {
-            @Override
-            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-                if (response.body().isSuccess()){
-                    dataRateRealtimes = response.body().getData();
-                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-                    }
-                    Log.i("adaa22", response.body().getData().toString());
-                    for (int i = 0; i < dataRateRealtimes.size(); i++) {
-                        DataRateRealtime x = dataRateRealtimes.get(i);
-
-                        lineDataSetA.setLabel("Rate Air A");
-                        lineDataSetB.setLabel("Rate Air B");
-                        lineDataSetC.setLabel("Rate Air C");
-                        lineDataSetD.setLabel("Rate Air D");
-                        lineDataSetP.setLabel("Rate Air Pusat");
-                        upper = new LimitLine(10f, "Batas Atas");
-                        lower = new LimitLine(0f, "Batas Bawah");
-                        Float rateB = Float.parseFloat(x.getRateB());
-
-                        Date newDate = null;
-                        try {
-                            newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        DataValsB.add(new Entry(newDate.getTime(), rateB));
-
-                    }
-                }
-                else {
-
-                    DataValsB.add(null);
-                }
-                ShowChart(null, DataValsB, null,null, null);
-            }
-
-
-            @Override
-            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-
-            }
-        });
+        TextView tv_chart_p = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tv_chart_p.setText("Chart Pusat");
+        tv_chart_p.setTextSize(16);
+//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
+        tabLayout.getTabAt(4).setCustomView(tv_chart_p);
 
     }
 
-    private void ShowChart(ArrayList<Entry> DataValsA, ArrayList<Entry> DataValsB, ArrayList<Entry> DataValsC, ArrayList<Entry> DataValsD, ArrayList<Entry> DataValsP){
-        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
-        lineChart.setMarkerView(mv);
+    private void setupViewPager(ViewPager viewPager) {
+        viewPagerAdapter= new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFrag(new ChartA(),"Chart A");
+        viewPagerAdapter.addFrag(new ChartB(),"Chart B");
+        viewPagerAdapter.addFrag(new ChartC(),"Chart C");
+        viewPagerAdapter.addFrag(new ChartD(),"Chart D");
+        viewPagerAdapter.addFrag(new ChartPusat(),"Chart Pusat");
+        viewPager.setAdapter(viewPagerAdapter);
 
-        YAxis leftaxisy = lineChart.getAxisLeft();
-        leftaxisy.removeAllLimitLines();
-
-        leftaxisy.enableGridDashedLine(10f,10f,0f);
-        //leftaxisy.setDrawZeroLine(true);
-        leftaxisy.setDrawLimitLinesBehindData(false);
-        leftaxisy.setLabelCount(7,false);
-        leftaxisy.setDrawGridLines(true);
-        leftaxisy.setDrawZeroLine(false);
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularityEnabled(true);
-        xAxis.setGranularity(7f);
-        xAxis.setLabelRotationAngle(315f);
-        xAxis.setDrawGridLines(true);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelCount(6,true);
-        xAxis.setDrawLimitLinesBehindData(true);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                Date date = new Date((long)value);
-                return DateFormatChart.format(date);
-            }
-        });
-
-        int[] color = new int[]{3, 169, 244};
-
-        lineDataSetA.setValues(DataValsA);
-        lineDataSetA.setDrawIcons(false);
-        lineDataSetA.setCircleColor(Color.rgb(3,169,244));
-        lineDataSetA.setLineWidth(2f);
-        lineDataSetA.setCircleRadius(4f);
-        lineDataSetA.setDrawCircleHole(false);
-        lineDataSetA.setValueTextSize(0f);
-        lineDataSetA.setDrawFilled(false);
-        lineDataSetA.setFormLineWidth(1f);
-        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSetA.setFormSize(15.f);
-        lineDataSetA.setFillColor(Color.rgb(3,169,244));
-        lineDataSetA.setColor(Color.rgb(3,169,244));
-
-        lineDataSetB.setValues(DataValsB);
-        lineDataSetB.setDrawIcons(false);
-        lineDataSetB.setCircleColor(Color.BLUE);
-        lineDataSetB.setLineWidth(2f);
-        lineDataSetB.setCircleRadius(4f);
-        lineDataSetB.setDrawCircleHole(false);
-        lineDataSetB.setValueTextSize(0f);
-        lineDataSetB.setDrawFilled(false);
-        lineDataSetB.setFormLineWidth(1f);
-        lineDataSetB.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSetB.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSetB.setFormSize(15.f);
-        lineDataSetB.setFillColor(Color.BLUE);
-        lineDataSetB.setColor(Color.BLUE);
-
-        lineDataSetC.setValues(DataValsC);
-        lineDataSetC.setDrawIcons(false);
-        lineDataSetC.setCircleColor(Color.YELLOW);
-        lineDataSetC.setLineWidth(2f);
-        lineDataSetC.setCircleRadius(4f);
-        lineDataSetC.setDrawCircleHole(false);
-        lineDataSetC.setValueTextSize(0f);
-        lineDataSetC.setDrawFilled(false);
-        lineDataSetC.setFormLineWidth(1f);
-        lineDataSetC.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSetC.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSetC.setFormSize(15.f);
-        lineDataSetC.setFillColor(Color.YELLOW);
-        lineDataSetC.setColor(Color.YELLOW);
-
-        lineDataSetD.setValues(DataValsD);
-        lineDataSetD.setDrawIcons(false);
-        lineDataSetD.setCircleColor(Color.CYAN);
-        lineDataSetD.setLineWidth(2f);
-        lineDataSetD.setCircleRadius(4f);
-        lineDataSetD.setDrawCircleHole(false);
-        lineDataSetD.setValueTextSize(0f);
-        lineDataSetD.setDrawFilled(false);
-        lineDataSetD.setFormLineWidth(1f);
-        lineDataSetD.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSetD.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSetD.setFormSize(15.f);
-        lineDataSetD.setFillColor(Color.CYAN);
-        lineDataSetD.setColor(Color.CYAN);
-
-        lineDataSetP.setValues(DataValsP);
-        lineDataSetP.setDrawIcons(false);
-        lineDataSetP.setCircleColor(Color.MAGENTA);
-        lineDataSetP.setLineWidth(2f);
-        lineDataSetP.setCircleRadius(4f);
-        lineDataSetP.setDrawCircleHole(false);
-        lineDataSetP.setValueTextSize(0f);
-        lineDataSetP.setDrawFilled(false);
-        lineDataSetP.setFormLineWidth(1f);
-        lineDataSetP.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSetP.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSetP.setFormSize(15.f);
-        lineDataSetP.setFillColor(Color.MAGENTA);
-        lineDataSetP.setColor(Color.MAGENTA);
-
-        iLineDataSets.clear();
-        iLineDataSets.add(lineDataSetA);
-        iLineDataSets.add(lineDataSetB);
-        iLineDataSets.add(lineDataSetC);
-        iLineDataSets.add(lineDataSetD);
-        iLineDataSets.add(lineDataSetP);
-        lineData = new LineData(iLineDataSets);
-
-        lineChart.clear();
-        lineChart.setData(lineData);
-        lineChart.setTouchEnabled(true);
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
-        lineChart.setPinchZoom(false);
-        lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.getAxisRight().setEnabled(false);
-        lineChart.animateX(2000, Easing.EaseInOutBounce);
-        lineChart.invalidate();
-
-        lineChartB.clear();
-        lineChartB.setData(lineData);
-        lineChartB.setTouchEnabled(true);
-        lineChartB.setDragEnabled(true);
-        lineChartB.setScaleEnabled(true);
-        lineChartB.setPinchZoom(false);
-        lineChartB.setDrawGridBackground(false);
-        lineChartB.getDescription().setEnabled(false);
-        lineChartB.getAxisRight().setEnabled(false);
-        lineChartB.animateX(2000, Easing.EaseInOutBounce);
-        lineChartB.invalidate();
     }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+//    public void getData(){
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
+//        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
+//        listRateA = new ArrayList<>();
+//        listRateB = new ArrayList<>();
+//        listRateC = new ArrayList<>();
+//        listRateD = new ArrayList<>();
+//        listRateP = new ArrayList<>();
+//        listWaktu = new ArrayList<>();
+//        call.enqueue(new Callback<RateRealtimeResponse>() {
+//            @Override
+//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
+//                if (response.body().isSuccess()){
+//                    dataRateRealtimes = response.body().getData();
+//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+//                        listRateA.add(dataRateRealtimes.get(i).getRateA());
+//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+//                        listRateC.add(dataRateRealtimes.get(i).getRateC());
+//                        listRateD.add(dataRateRealtimes.get(i).getRateD());
+//                        listRateP.add(dataRateRealtimes.get(i).getRateP());
+//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+//                    }
+//                    Log.i("adaa22", response.body().getData().toString());
+//                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
+//                            DataRateRealtime x = dataRateRealtimes.get(i);
+//
+//                            lineDataSetA.setLabel("Rate Air A");
+//                            lineDataSetB.setLabel("Rate Air B");
+//                            lineDataSetC.setLabel("Rate Air C");
+//                            lineDataSetD.setLabel("Rate Air D");
+//                            lineDataSetP.setLabel("Rate Air Pusat");
+//                            upper = new LimitLine(10f, "Batas Atas");
+//                            lower = new LimitLine(0f, "Batas Bawah");
+//                            Float rateA = Float.parseFloat(x.getRateA());
+//                            Float rateB = Float.parseFloat(x.getRateB());
+//                            Float rateC = Float.parseFloat(x.getRateC());
+//                            Float rateD = Float.parseFloat(x.getRateD());
+//                            Float rateP = Float.parseFloat(x.getRateP());
+//
+//                            Date newDate = null;
+//                            try {
+//                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            DataValsA.add(new Entry(newDate.getTime(), rateA));
+//                            DataValsB.add(new Entry(newDate.getTime(), rateB));
+//                            DataValsC.add(new Entry(newDate.getTime(), rateC));
+//                            DataValsD.add(new Entry(newDate.getTime(), rateD));
+//                            DataValsP.add(new Entry(newDate.getTime(), rateP));
+//
+//                        }
+//                    }
+//                else {
+//
+//                    DataValsA.add(null);
+//                    DataValsB.add(null);
+//                    DataValsC.add(null);
+//                    DataValsD.add(null);
+//                    DataValsP.add(null);
+//                }
+//                ShowChart(DataValsA, DataValsB, DataValsC, DataValsD, DataValsP);
+//                }
+//
+//
+//            @Override
+//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+//    public void getDataB(){
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
+//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
+//        listRateB = new ArrayList<>();
+//        call.enqueue(new Callback<RateRealtimeResponse>() {
+//            @Override
+//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
+//                if (response.body().isSuccess()){
+//                    dataRateRealtimes = response.body().getData();
+//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+//                    }
+//                    Log.i("adaa22", response.body().getData().toString());
+//                    for (int i = 0; i < dataRateRealtimes.size(); i++) {
+//                        DataRateRealtime x = dataRateRealtimes.get(i);
+//
+//                        lineDataSetA.setLabel("Rate Air A");
+//                        lineDataSetB.setLabel("Rate Air B");
+//                        lineDataSetC.setLabel("Rate Air C");
+//                        lineDataSetD.setLabel("Rate Air D");
+//                        lineDataSetP.setLabel("Rate Air Pusat");
+//                        upper = new LimitLine(10f, "Batas Atas");
+//                        lower = new LimitLine(0f, "Batas Bawah");
+//                        Float rateB = Float.parseFloat(x.getRateB());
+//
+//                        Date newDate = null;
+//                        try {
+//                            newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        DataValsB.add(new Entry(newDate.getTime(), rateB));
+//
+//                    }
+//                }
+//                else {
+//
+//                    DataValsB.add(null);
+//                }
+//                ShowChart(null, DataValsB, null,null, null);
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+
+//    private void ShowChart(ArrayList<Entry> DataValsA, ArrayList<Entry> DataValsB, ArrayList<Entry> DataValsC, ArrayList<Entry> DataValsD, ArrayList<Entry> DataValsP){
+//        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
+//        lineChart.setMarkerView(mv);
+//
+//        YAxis leftaxisy = lineChart.getAxisLeft();
+//        leftaxisy.removeAllLimitLines();
+//
+//        leftaxisy.enableGridDashedLine(10f,10f,0f);
+//        //leftaxisy.setDrawZeroLine(true);
+//        leftaxisy.setDrawLimitLinesBehindData(false);
+//        leftaxisy.setLabelCount(7,false);
+//        leftaxisy.setDrawGridLines(true);
+//        leftaxisy.setDrawZeroLine(false);
+//
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.enableGridDashedLine(10f, 10f, 0f);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setGranularityEnabled(true);
+//        xAxis.setGranularity(7f);
+//        xAxis.setLabelRotationAngle(315f);
+//        xAxis.setDrawGridLines(true);
+//        xAxis.setCenterAxisLabels(true);
+//        xAxis.setLabelCount(6,true);
+//        xAxis.setDrawLimitLinesBehindData(true);
+//        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                Date date = new Date((long)value);
+//                return DateFormatChart.format(date);
+//            }
+//        });
+//
+//        int[] color = new int[]{3, 169, 244};
+//
+//        lineDataSetA.setValues(DataValsA);
+//        lineDataSetA.setDrawIcons(false);
+//        lineDataSetA.setCircleColor(Color.rgb(3,169,244));
+//        lineDataSetA.setLineWidth(2f);
+//        lineDataSetA.setCircleRadius(4f);
+//        lineDataSetA.setDrawCircleHole(false);
+//        lineDataSetA.setValueTextSize(0f);
+//        lineDataSetA.setDrawFilled(false);
+//        lineDataSetA.setFormLineWidth(1f);
+//        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
+//        lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        lineDataSetA.setFormSize(15.f);
+//        lineDataSetA.setFillColor(Color.rgb(3,169,244));
+//        lineDataSetA.setColor(Color.rgb(3,169,244));
+//
+//        lineDataSetB.setValues(DataValsB);
+//        lineDataSetB.setDrawIcons(false);
+//        lineDataSetB.setCircleColor(Color.BLUE);
+//        lineDataSetB.setLineWidth(2f);
+//        lineDataSetB.setCircleRadius(4f);
+//        lineDataSetB.setDrawCircleHole(false);
+//        lineDataSetB.setValueTextSize(0f);
+//        lineDataSetB.setDrawFilled(false);
+//        lineDataSetB.setFormLineWidth(1f);
+//        lineDataSetB.setMode(LineDataSet.Mode.LINEAR);
+//        lineDataSetB.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        lineDataSetB.setFormSize(15.f);
+//        lineDataSetB.setFillColor(Color.BLUE);
+//        lineDataSetB.setColor(Color.BLUE);
+//
+//        lineDataSetC.setValues(DataValsC);
+//        lineDataSetC.setDrawIcons(false);
+//        lineDataSetC.setCircleColor(Color.YELLOW);
+//        lineDataSetC.setLineWidth(2f);
+//        lineDataSetC.setCircleRadius(4f);
+//        lineDataSetC.setDrawCircleHole(false);
+//        lineDataSetC.setValueTextSize(0f);
+//        lineDataSetC.setDrawFilled(false);
+//        lineDataSetC.setFormLineWidth(1f);
+//        lineDataSetC.setMode(LineDataSet.Mode.LINEAR);
+//        lineDataSetC.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        lineDataSetC.setFormSize(15.f);
+//        lineDataSetC.setFillColor(Color.YELLOW);
+//        lineDataSetC.setColor(Color.YELLOW);
+//
+//        lineDataSetD.setValues(DataValsD);
+//        lineDataSetD.setDrawIcons(false);
+//        lineDataSetD.setCircleColor(Color.CYAN);
+//        lineDataSetD.setLineWidth(2f);
+//        lineDataSetD.setCircleRadius(4f);
+//        lineDataSetD.setDrawCircleHole(false);
+//        lineDataSetD.setValueTextSize(0f);
+//        lineDataSetD.setDrawFilled(false);
+//        lineDataSetD.setFormLineWidth(1f);
+//        lineDataSetD.setMode(LineDataSet.Mode.LINEAR);
+//        lineDataSetD.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        lineDataSetD.setFormSize(15.f);
+//        lineDataSetD.setFillColor(Color.CYAN);
+//        lineDataSetD.setColor(Color.CYAN);
+//
+//        lineDataSetP.setValues(DataValsP);
+//        lineDataSetP.setDrawIcons(false);
+//        lineDataSetP.setCircleColor(Color.MAGENTA);
+//        lineDataSetP.setLineWidth(2f);
+//        lineDataSetP.setCircleRadius(4f);
+//        lineDataSetP.setDrawCircleHole(false);
+//        lineDataSetP.setValueTextSize(0f);
+//        lineDataSetP.setDrawFilled(false);
+//        lineDataSetP.setFormLineWidth(1f);
+//        lineDataSetP.setMode(LineDataSet.Mode.LINEAR);
+//        lineDataSetP.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        lineDataSetP.setFormSize(15.f);
+//        lineDataSetP.setFillColor(Color.MAGENTA);
+//        lineDataSetP.setColor(Color.MAGENTA);
+//
+//        iLineDataSets.clear();
+//        iLineDataSets.add(lineDataSetA);
+//        iLineDataSets.add(lineDataSetB);
+//        iLineDataSets.add(lineDataSetC);
+//        iLineDataSets.add(lineDataSetD);
+//        iLineDataSets.add(lineDataSetP);
+//        lineData = new LineData(iLineDataSets);
+//
+//        lineChart.clear();
+//        lineChart.setData(lineData);
+//        lineChart.setTouchEnabled(true);
+//        lineChart.setDragEnabled(true);
+//        lineChart.setScaleEnabled(true);
+//        lineChart.setPinchZoom(false);
+//        lineChart.setDrawGridBackground(false);
+//        lineChart.getDescription().setEnabled(false);
+//        lineChart.getAxisRight().setEnabled(false);
+//        lineChart.animateX(2000, Easing.EaseInOutBounce);
+//        lineChart.invalidate();
+//
+////        lineChartB.clear();
+////        lineChartB.setData(lineData);
+////        lineChartB.setTouchEnabled(true);
+////        lineChartB.setDragEnabled(true);
+////        lineChartB.setScaleEnabled(true);
+////        lineChartB.setPinchZoom(false);
+////        lineChartB.setDrawGridBackground(false);
+////        lineChartB.getDescription().setEnabled(false);
+////        lineChartB.getAxisRight().setEnabled(false);
+////        lineChartB.animateX(2000, Easing.EaseInOutBounce);
+////        lineChartB.invalidate();
+//    }
 
     public LineDataSet setLineDataSet(ArrayList<Entry> DataVals, String color){
         LineDataSet l = new LineDataSet(null,null);

@@ -105,7 +105,7 @@ public class ChartRateAFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chart_rate_a, container, false);
 
         lineChart = view.findViewById(R.id.chart);
-        lineChartB = view.findViewById(R.id.chartB);
+//        lineChartB = view.findViewById(R.id.chartB);
         // Inflate the layout for this fragment
         return view;
     }

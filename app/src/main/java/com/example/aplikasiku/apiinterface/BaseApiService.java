@@ -1,18 +1,17 @@
 package com.example.aplikasiku.apiinterface;
 
+import com.example.aplikasiku.model.ChartRateRes;
 import com.example.aplikasiku.model.ControllResponse;
 import com.example.aplikasiku.model.KebocoranResponse;
 import com.example.aplikasiku.model.LoginResponse;
 import com.example.aplikasiku.model.RateRealtimeResponse;
-import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
 import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.example.aplikasiku.model.VolumeResponse;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -20,6 +19,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface BaseApiService {
     @FormUrlEncoded
@@ -57,5 +57,9 @@ public interface BaseApiService {
     Call<RateRealtimeResponse>getRealtimeRate();
     @GET("volume.php")
     Call<VolumeResponse>getVolumeChart();
+
+    @GET("realtime-chart.php")
+    Call<ChartRateRes> getRateChart(@Query("column")String column,
+                                    @Query("table")String table);
 
 }
