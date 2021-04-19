@@ -30,6 +30,7 @@ import com.example.aplikasiku.fragment.ChartB;
 import com.example.aplikasiku.fragment.ChartC;
 import com.example.aplikasiku.fragment.ChartD;
 import com.example.aplikasiku.fragment.ChartPusat;
+import com.example.aplikasiku.model.ChartRateRes;
 import com.example.aplikasiku.model.DataRateRealtime;
 import com.example.aplikasiku.model.DataVolume;
 import com.example.aplikasiku.model.RateRealtimeResponse;
@@ -588,5 +589,25 @@ public class RateRealtimeChart extends AppCompatActivity {
         mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
         mOrderDetailsTitleParagraph.setSpacingAfter(7);
         return mOrderDetailsTitleParagraph;
+    }
+
+    private void getDataRateAll(String column, String table,List<ChartRateRes.Datum> list){
+        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+        Call<ChartRateRes> call = service.getRateChart(column,table);
+        call.enqueue(new Callback<ChartRateRes>() {
+            @Override
+            public void onResponse(Call<ChartRateRes> call, Response<ChartRateRes> response) {
+                if(response.code() == 200){
+                    for(ChartRateRes.Datum data : response.body().getData()){
+                        list.add(data);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChartRateRes> call, Throwable t) {
+
+            }
+        });
     }
 }

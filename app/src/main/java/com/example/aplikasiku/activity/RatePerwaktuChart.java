@@ -18,6 +18,7 @@ import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.DataRateRealtime;
 import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
 import com.example.aplikasiku.model.RateItem;
+import com.example.aplikasiku.model.RatePerwaktuRes;
 import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.VolumePerwaktuItem;
@@ -80,64 +81,64 @@ public class RatePerwaktuChart extends AppCompatActivity {
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
         tglIni = DateDataFormat.format(c).toString();
-        getData(gedung, waktu1, waktu2);
+//        getData(gedung, waktu1, waktu2);
     }
-    public void getData(String gedung, String waktu1, String waktu2){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
-        ArrayList<Entry> DataVals = new ArrayList<Entry>();
-        call.enqueue(new Callback<VolumePerwaktuResponse>() {
-            @Override
-            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
-                listRate = new ArrayList<>();
-                listWaktu = new ArrayList<>();
-
-                if (response.body().isSuccess()){
-                    if (response.body().getData() != null) {
-                        dataList = (List<RateItem>) response.body().getData().getRate();
-                        for (int i = 0; i < dataList.size(); i++){
-                            RateItem x = dataList.get(i);
-                            Float air = Float.parseFloat(x.getRate());
-                            if (gedung.equals("rateP")){
-                                lineDataSet.setLabel("Volume Gedung Pusat");
-                            }
-                            else if (gedung.equals("rateA")){
-                                lineDataSet.setLabel("Volume Gedung A");
-                            }
-                            else if (gedung.equals("rateB")){
-                                lineDataSet.setLabel("Volume Gedung B");
-                            }
-                            else if (gedung.equals("rateC")){
-                                lineDataSet.setLabel("Volume Gedung C");
-                            }
-                            else if (gedung.equals("rateD")){
-                                lineDataSet.setLabel("Volume Gedung D");
-                            }
-
-                            Date newDate = null;
-                            try {
-                                newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            DataVals.add(new Entry(newDate.getTime(), air));
-                        }
-                    }
-                    else {
-
-                    }
-                }
-                ShowChart(DataVals, nama);
-            }
-
-            @Override
-            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
+//    public void getData(String gedung, String waktu1, String waktu2){
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<RatePerwaktuRes> call = service.getRatebyDate("rateA", "rate_a", waktu1,waktu2);
+//        ArrayList<Entry> DataVals = new ArrayList<Entry>();
+//        call.enqueue(new Callback<VolumePerwaktuResponse>() {
+//            @Override
+//            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
+//                listRate = new ArrayList<>();
+//                listWaktu = new ArrayList<>();
+//
+//                if (response.body().isSuccess()){
+//                    if (response.body().getData() != null) {
+//                        dataList = (List<RateItem>) response.body().getData().getRate();
+//                        for (int i = 0; i < dataList.size(); i++){
+//                            RateItem x = dataList.get(i);
+//                            Float air = Float.parseFloat(x.getRate());
+//                            if (gedung.equals("rateP")){
+//                                lineDataSet.setLabel("Volume Gedung Pusat");
+//                            }
+//                            else if (gedung.equals("rateA")){
+//                                lineDataSet.setLabel("Volume Gedung A");
+//                            }
+//                            else if (gedung.equals("rateB")){
+//                                lineDataSet.setLabel("Volume Gedung B");
+//                            }
+//                            else if (gedung.equals("rateC")){
+//                                lineDataSet.setLabel("Volume Gedung C");
+//                            }
+//                            else if (gedung.equals("rateD")){
+//                                lineDataSet.setLabel("Volume Gedung D");
+//                            }
+//
+//                            Date newDate = null;
+//                            try {
+//                                newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            DataVals.add(new Entry(newDate.getTime(), air));
+//                        }
+//                    }
+//                    else {
+//
+//                    }
+//                }
+//                ShowChart(DataVals, nama);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
     private void ShowChart(ArrayList<Entry> DataVals, String nama){
         MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
         lineChart.setMarkerView(mv);

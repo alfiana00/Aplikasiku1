@@ -4,6 +4,7 @@ import com.example.aplikasiku.model.ChartRateRes;
 import com.example.aplikasiku.model.ControllResponse;
 import com.example.aplikasiku.model.KebocoranResponse;
 import com.example.aplikasiku.model.LoginResponse;
+import com.example.aplikasiku.model.RatePerwaktuRes;
 import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
@@ -55,11 +56,20 @@ public interface BaseApiService {
                                           @Field("gedung") String idGedung);
     @GET("realtime-chart.php")
     Call<RateRealtimeResponse>getRealtimeRate();
-    @GET("volume.php")
-    Call<VolumeResponse>getVolumeChart();
+//    @GET("volume.php")
+//    Call<VolumeResponse>getVolumeChart();
 
     @GET("realtime-chart.php")
     Call<ChartRateRes> getRateChart(@Query("column")String column,
                                     @Query("table")String table);
+
+    @GET("volume.php")
+    Call<VolumeResponse> getVolumChart(@Query("id_gedung") String id_gedung);
+
+    @GET("rate-air.php")
+    Call<RatePerwaktuRes> getRatebyDate(@Query("column") String column,
+                                        @Query("table") String table,
+                                        @Query("waktu1") String waktu1,
+                                        @Query("waktu2") String waktu2);
 
 }
