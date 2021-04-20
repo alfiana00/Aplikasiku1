@@ -35,11 +35,12 @@ import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataRate;
 import com.example.aplikasiku.model.DataVolumeRatePerwaktu;
-import com.example.aplikasiku.model.RateItem;
+import com.example.aplikasiku.model.perwaktu.RateItem;
 import com.example.aplikasiku.model.RateResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.VolumePerwaktuItem;
 import com.example.aplikasiku.model.VolumePerwaktuResponse;
+import com.example.aplikasiku.model.perwaktu.PerwaktuResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -104,7 +105,7 @@ public class Debit extends AppCompatActivity  {
     List<RateItem> dataList;
     public ArrayList<String> listRate;
     public ArrayList<String> listWaktu;
-    String waktu1, waktu2, gedung, rate;
+    String waktu1, waktu2, gedung, rate, kolom, tabel;
     ProgressDialog progressDialog;
     private int width, height;
     List<String[]> da;
@@ -168,8 +169,9 @@ public class Debit extends AppCompatActivity  {
         waktu1 = "2021-01-01";
         waktu2 = tglIni;
         gedung = "Gedung Pusat";
-        rate = "rateP";
-        showTable(rate, waktu1, waktu2);
+        kolom = "rateP";
+        tabel = "rate_p";
+        showTable(kolom, tabel, waktu1, waktu2);
         cvTglAwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,31 +212,36 @@ public class Debit extends AppCompatActivity  {
                 waktu2 = tvTglAkhir.getText().toString();
                 gedung = listGedung.getSelectedItem().toString();
                 if (gedung.equals("Gedung Pusat")){
-                    rate = "rateP";
-                    showTable(rate, waktu1, waktu2);
+                    kolom = "rateP";
+                    tabel = "rate_p";
+                    showTable(kolom, tabel, waktu1, waktu2);
                     titleRate.setText("Volume Air (Gedung Pusat)");
                 }
                 else if (gedung.equals("Gedung A")){
-                    rate = "rateA";
-                    showTable(rate, waktu1, waktu2);
+                    kolom = "rateA";
+                    tabel = "rate_a";
+                    showTable(kolom, tabel, waktu1, waktu2);
                     titleRate.setText("Volume Air (Gedung A)");
 
                 }
                 else if (gedung.equals("Gedung B")){
-                    rate = "rateB";
-                    showTable(rate, waktu1, waktu2);
+                    kolom = "rateB";
+                    tabel = "rate_b";
+                    showTable(kolom, tabel, waktu1, waktu2);
                     titleRate.setText("Volume Air (Gedung B)");
 
                 }
                 else if (gedung.equals("Gedung C")){
-                    rate = "rateC";
-                    showTable(rate, waktu1, waktu2);
+                    kolom = "rateC";
+                    tabel = "rate_c";
+                    showTable(kolom, tabel, waktu1, waktu2);
                     titleRate.setText("Volume Air (Gedung C)");
 
                 }
                 else if (gedung.equals("Gedung D")){
-                    rate = "rateD";
-                    showTable(rate, waktu1, waktu2);
+                    kolom = "rateD";
+                    tabel = "rate_d";
+                    showTable(kolom, tabel, waktu1, waktu2);
                     titleRate.setText("Volume Air (Gedung D)");
 
                 }
@@ -249,8 +256,8 @@ public class Debit extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Debit.this, RatePerwaktuChart.class);
-                intent.putExtra("nama", gedung);
-                intent.putExtra("gedung", rate);
+                intent.putExtra("table", tabel);
+                intent.putExtra("column", kolom);
                 intent.putExtra("waktu1", waktu1);
                 intent.putExtra("waktu2", waktu2);
                 startActivity(intent);
@@ -258,17 +265,16 @@ public class Debit extends AppCompatActivity  {
         });
 
     }
-
-    public void showTable(String gedung, String waktu1, String waktu2){
+    public void showTable(String kolom, String tabel, String waktu1, String waktu2){
         progressDialog = new ProgressDialog(Debit.this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Memuat Data ...");
         progressDialog.show();
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
-        call.enqueue(new Callback<VolumePerwaktuResponse>() {
+        Call<PerwaktuResponse> call = service.getRatebyDate(kolom, tabel, waktu1, waktu2);
+        call.enqueue(new Callback<PerwaktuResponse>() {
             @Override
-            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
+            public void onResponse(Call<PerwaktuResponse> call, Response<PerwaktuResponse> response) {
                 listRate = new ArrayList<>();
                 listWaktu = new ArrayList<>();
 
@@ -306,7 +312,7 @@ public class Debit extends AppCompatActivity  {
             }
 
             @Override
-            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
+            public void onFailure(Call<PerwaktuResponse> call, Throwable t) {
                 tvTotal.setText(t.getMessage().toString());
                 recyclerView = findViewById(R.id.rv_datarate);
                 tvNull.setVisibility(View.VISIBLE);
@@ -375,12 +381,12 @@ public class Debit extends AppCompatActivity  {
                     }
 
                 })
-        .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                sweetAlertDialog.dismissWithAnimation();
-            }
-        }).show();
+                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                }).show();
 
 
     }
@@ -393,6 +399,140 @@ public class Debit extends AppCompatActivity  {
         mOrderDetailsTitleParagraph.setSpacingAfter(7);
         return mOrderDetailsTitleParagraph;
     }
+//    public void showTable(String gedung, String waktu1, String waktu2){
+//        progressDialog = new ProgressDialog(Debit.this);
+//        progressDialog.setCancelable(false);
+//        progressDialog.setMessage("Memuat Data ...");
+//        progressDialog.show();
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
+//        call.enqueue(new Callback<VolumePerwaktuResponse>() {
+//            @Override
+//            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
+//                listRate = new ArrayList<>();
+//                listWaktu = new ArrayList<>();
+//
+//                if (response.body().isSuccess()){
+//                    String total = response.body().getData().getTotal();
+//                    Log.i("asasa", response.body().getMessage());
+//                    tvTotal.setText("Total : "+total+" Liter");
+//                    if (response.body().getData() != null) {
+//                        dataList = (List<RateItem>) response.body().getData().getRate();
+//                        recyclerView = findViewById(R.id.rv_datarate);
+//                        recyclerView.setVisibility(View.VISIBLE);
+//                        recyclerView.setHasFixedSize(true);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(Debit.this));
+//                        RecyclerDataAdapter adapter = new RecyclerDataAdapter(dataList, getApplicationContext());
+//                        recyclerView.setAdapter(adapter);
+//                        tvNull.setVisibility(View.GONE);
+//
+//                        for (int i = 0; i < dataList.size(); i++){
+//                            listRate.add(dataList.get(i).getRate());
+//                            listWaktu.add(dataList.get(i).getWaktu());
+//                        }
+//
+//                        Log.i("cekdata", listRate.toArray().toString());
+//
+//                    }
+//                    else {
+//                        tvTotal.setText(response.body().getMessage().toString());
+//                        recyclerView = findViewById(R.id.rv_datarate);
+//                        tvNull.setVisibility(View.VISIBLE);
+//                        recyclerView.setVisibility(View.GONE);
+//                    }
+//                }
+//
+//                progressDialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
+//                tvTotal.setText(t.getMessage().toString());
+//                recyclerView = findViewById(R.id.rv_datarate);
+//                tvNull.setVisibility(View.VISIBLE);
+//                recyclerView.setVisibility(View.GONE);
+//
+//                progressDialog.dismiss();
+//            }
+//        });
+//
+//        progressDialog.dismiss();
+//    }
+//
+//    public void pdfdownload(View view) {
+//        new SweetAlertDialog(Debit.this, SweetAlertDialog.NORMAL_TYPE)
+//                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
+//                .setConfirmText("Simpan")
+//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                    @Override
+//                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
+//                        progressDialog = new ProgressDialog(Debit.this);
+//                        progressDialog.setCancelable(false);
+//                        progressDialog.setMessage("Memuat Data ...");
+//                        progressDialog.show();
+//                        Document document = new Document();
+//                        PdfPTable table = new PdfPTable(new float[] { 2, 1 });
+//                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+//                        table.getDefaultCell().setFixedHeight(20);
+//                        table.addCell("Waktu");
+//                        table.addCell("Volume");
+//                        table.setHeaderRows(1);
+//                        PdfPCell[] cells = table.getRow(0).getCells();
+//                        for (int j=0;j<cells.length;j++){
+//                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
+//                            cells[j].setBackgroundColor(myColor);
+//                        }
+//                        for (int i=0;i<listRate.size();i++){
+//                            table.addCell(listWaktu.get(i));
+//                            table.addCell(listRate.get(i));
+//                        }
+//                        try {
+//                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
+//                            if (!folder.exists())
+//                                folder.mkdir();
+//                            final String pdf = folder.toString() + "/Volume Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
+//                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
+//                        } catch (FileNotFoundException fileNotFoundException) {
+//                            fileNotFoundException.printStackTrace();
+//                        } catch (DocumentException e) {
+//                            e.printStackTrace();
+//                        }
+//                        document.open();
+//                        try {
+//
+//                            document.add(JudulText("Data Pemantauan Volume Air"));
+//                            document.add(JudulText(gedung));
+//                            document.add(JudulText(waktu1+ " - " +waktu2));
+//                            document.add(table);
+//                        } catch (DocumentException e) {
+//                            e.printStackTrace();
+//                        }
+//                        document.close();
+//                        progressDialog.dismiss();
+//
+//                        sweetAlertDialog.dismissWithAnimation();
+//                        Toast.makeText(Debit.this, "Data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                })
+//        .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+//            @Override
+//            public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                sweetAlertDialog.dismissWithAnimation();
+//            }
+//        }).show();
+//
+//
+//    }
+//
+//    public Paragraph JudulText(String text){
+//        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
+//        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
+//        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+//        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
+//        mOrderDetailsTitleParagraph.setSpacingAfter(7);
+//        return mOrderDetailsTitleParagraph;
+//    }
 
     public void downloadCsv(View view){
         da = new ArrayList<String[]>();

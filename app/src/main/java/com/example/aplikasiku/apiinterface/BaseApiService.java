@@ -11,6 +11,7 @@ import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
 import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.example.aplikasiku.model.VolumeResponse;
+import com.example.aplikasiku.model.perwaktu.PerwaktuResponse;
 
 import java.util.Map;
 
@@ -66,10 +67,15 @@ public interface BaseApiService {
     @GET("volume.php")
     Call<VolumeResponse> getVolumChart(@Query("id_gedung") String id_gedung);
 
+//    @GET("rate-air.php")
+//    Call<RatePerwaktuRes> getRatebyDate(@Query("column") String column,
+//                                        @Query("table") String table,
+//                                        @Query("waktu1") String waktu1,
+//                                        @Query("waktu2") String waktu2);
     @GET("rate-air.php")
-    Call<RatePerwaktuRes> getRatebyDate(@Query("column") String column,
-                                        @Query("table") String table,
-                                        @Query("waktu1") String waktu1,
-                                        @Query("waktu2") String waktu2);
+    Call<PerwaktuResponse> getRatebyDate(@Query("column") String column,
+                                         @Query("table") String table,
+                                         @Query("waktu1") String waktu1,
+                                         @Query("waktu2") String waktu2);
 
 }

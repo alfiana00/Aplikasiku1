@@ -229,284 +229,85 @@ public class RateRealtimeChart extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-//    public void getData(){
-//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-//        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
-//        listRateA = new ArrayList<>();
-//        listRateB = new ArrayList<>();
-//        listRateC = new ArrayList<>();
-//        listRateD = new ArrayList<>();
-//        listRateP = new ArrayList<>();
-//        listWaktu = new ArrayList<>();
-//        call.enqueue(new Callback<RateRealtimeResponse>() {
-//            @Override
-//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-//                if (response.body().isSuccess()){
-//                    dataRateRealtimes = response.body().getData();
-//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-//                        listRateA.add(dataRateRealtimes.get(i).getRateA());
-//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-//                        listRateC.add(dataRateRealtimes.get(i).getRateC());
-//                        listRateD.add(dataRateRealtimes.get(i).getRateD());
-//                        listRateP.add(dataRateRealtimes.get(i).getRateP());
-//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-//                    }
-//                    Log.i("adaa22", response.body().getData().toString());
-//                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
-//                            DataRateRealtime x = dataRateRealtimes.get(i);
-//
-//                            lineDataSetA.setLabel("Rate Air A");
-//                            lineDataSetB.setLabel("Rate Air B");
-//                            lineDataSetC.setLabel("Rate Air C");
-//                            lineDataSetD.setLabel("Rate Air D");
-//                            lineDataSetP.setLabel("Rate Air Pusat");
-//                            upper = new LimitLine(10f, "Batas Atas");
-//                            lower = new LimitLine(0f, "Batas Bawah");
-//                            Float rateA = Float.parseFloat(x.getRateA());
-//                            Float rateB = Float.parseFloat(x.getRateB());
-//                            Float rateC = Float.parseFloat(x.getRateC());
-//                            Float rateD = Float.parseFloat(x.getRateD());
-//                            Float rateP = Float.parseFloat(x.getRateP());
-//
-//                            Date newDate = null;
-//                            try {
-//                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-//                            } catch (ParseException e) {
-//                                e.printStackTrace();
-//                            }
-//
-//                            DataValsA.add(new Entry(newDate.getTime(), rateA));
-//                            DataValsB.add(new Entry(newDate.getTime(), rateB));
-//                            DataValsC.add(new Entry(newDate.getTime(), rateC));
-//                            DataValsD.add(new Entry(newDate.getTime(), rateD));
-//                            DataValsP.add(new Entry(newDate.getTime(), rateP));
-//
-//                        }
-//                    }
-//                else {
-//
-//                    DataValsA.add(null);
-//                    DataValsB.add(null);
-//                    DataValsC.add(null);
-//                    DataValsD.add(null);
-//                    DataValsP.add(null);
-//                }
-//                ShowChart(DataValsA, DataValsB, DataValsC, DataValsD, DataValsP);
-//                }
-//
-//
-//            @Override
-//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
-//    public void getDataB(){
-//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-//        listRateB = new ArrayList<>();
-//        call.enqueue(new Callback<RateRealtimeResponse>() {
-//            @Override
-//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-//                if (response.body().isSuccess()){
-//                    dataRateRealtimes = response.body().getData();
-//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-//                    }
-//                    Log.i("adaa22", response.body().getData().toString());
-//                    for (int i = 0; i < dataRateRealtimes.size(); i++) {
-//                        DataRateRealtime x = dataRateRealtimes.get(i);
-//
-//                        lineDataSetA.setLabel("Rate Air A");
-//                        lineDataSetB.setLabel("Rate Air B");
-//                        lineDataSetC.setLabel("Rate Air C");
-//                        lineDataSetD.setLabel("Rate Air D");
-//                        lineDataSetP.setLabel("Rate Air Pusat");
-//                        upper = new LimitLine(10f, "Batas Atas");
-//                        lower = new LimitLine(0f, "Batas Bawah");
-//                        Float rateB = Float.parseFloat(x.getRateB());
-//
-//                        Date newDate = null;
-//                        try {
-//                            newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        DataValsB.add(new Entry(newDate.getTime(), rateB));
-//
-//                    }
-//                }
-//                else {
-//
-//                    DataValsB.add(null);
-//                }
-//                ShowChart(null, DataValsB, null,null, null);
-//            }
-//
-//
-//            @Override
-//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
+    public void getData(){
+        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+        Call<RateRealtimeResponse> call = service.getRealtimeRate();
+        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
+        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
+        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
+        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
+        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
+        listRateA = new ArrayList<>();
+        listRateB = new ArrayList<>();
+        listRateC = new ArrayList<>();
+        listRateD = new ArrayList<>();
+        listRateP = new ArrayList<>();
+        listWaktu = new ArrayList<>();
+        call.enqueue(new Callback<RateRealtimeResponse>() {
+            @Override
+            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
+                if (response.body().isSuccess()){
+                    dataRateRealtimes = response.body().getData();
+                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+                        listRateA.add(dataRateRealtimes.get(i).getRateA());
+                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+                        listRateC.add(dataRateRealtimes.get(i).getRateC());
+                        listRateD.add(dataRateRealtimes.get(i).getRateD());
+                        listRateP.add(dataRateRealtimes.get(i).getRateP());
+                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+                    }
+                    Log.i("adaa22", response.body().getData().toString());
+                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
+                            DataRateRealtime x = dataRateRealtimes.get(i);
 
-//    private void ShowChart(ArrayList<Entry> DataValsA, ArrayList<Entry> DataValsB, ArrayList<Entry> DataValsC, ArrayList<Entry> DataValsD, ArrayList<Entry> DataValsP){
-//        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
-//        lineChart.setMarkerView(mv);
-//
-//        YAxis leftaxisy = lineChart.getAxisLeft();
-//        leftaxisy.removeAllLimitLines();
-//
-//        leftaxisy.enableGridDashedLine(10f,10f,0f);
-//        //leftaxisy.setDrawZeroLine(true);
-//        leftaxisy.setDrawLimitLinesBehindData(false);
-//        leftaxisy.setLabelCount(7,false);
-//        leftaxisy.setDrawGridLines(true);
-//        leftaxisy.setDrawZeroLine(false);
-//
-//        XAxis xAxis = lineChart.getXAxis();
-//        xAxis.enableGridDashedLine(10f, 10f, 0f);
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setGranularityEnabled(true);
-//        xAxis.setGranularity(7f);
-//        xAxis.setLabelRotationAngle(315f);
-//        xAxis.setDrawGridLines(true);
-//        xAxis.setCenterAxisLabels(true);
-//        xAxis.setLabelCount(6,true);
-//        xAxis.setDrawLimitLinesBehindData(true);
-//        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                Date date = new Date((long)value);
-//                return DateFormatChart.format(date);
-//            }
-//        });
-//
-//        int[] color = new int[]{3, 169, 244};
-//
-//        lineDataSetA.setValues(DataValsA);
-//        lineDataSetA.setDrawIcons(false);
-//        lineDataSetA.setCircleColor(Color.rgb(3,169,244));
-//        lineDataSetA.setLineWidth(2f);
-//        lineDataSetA.setCircleRadius(4f);
-//        lineDataSetA.setDrawCircleHole(false);
-//        lineDataSetA.setValueTextSize(0f);
-//        lineDataSetA.setDrawFilled(false);
-//        lineDataSetA.setFormLineWidth(1f);
-//        lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//        lineDataSetA.setFormSize(15.f);
-//        lineDataSetA.setFillColor(Color.rgb(3,169,244));
-//        lineDataSetA.setColor(Color.rgb(3,169,244));
-//
-//        lineDataSetB.setValues(DataValsB);
-//        lineDataSetB.setDrawIcons(false);
-//        lineDataSetB.setCircleColor(Color.BLUE);
-//        lineDataSetB.setLineWidth(2f);
-//        lineDataSetB.setCircleRadius(4f);
-//        lineDataSetB.setDrawCircleHole(false);
-//        lineDataSetB.setValueTextSize(0f);
-//        lineDataSetB.setDrawFilled(false);
-//        lineDataSetB.setFormLineWidth(1f);
-//        lineDataSetB.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSetB.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//        lineDataSetB.setFormSize(15.f);
-//        lineDataSetB.setFillColor(Color.BLUE);
-//        lineDataSetB.setColor(Color.BLUE);
-//
-//        lineDataSetC.setValues(DataValsC);
-//        lineDataSetC.setDrawIcons(false);
-//        lineDataSetC.setCircleColor(Color.YELLOW);
-//        lineDataSetC.setLineWidth(2f);
-//        lineDataSetC.setCircleRadius(4f);
-//        lineDataSetC.setDrawCircleHole(false);
-//        lineDataSetC.setValueTextSize(0f);
-//        lineDataSetC.setDrawFilled(false);
-//        lineDataSetC.setFormLineWidth(1f);
-//        lineDataSetC.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSetC.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//        lineDataSetC.setFormSize(15.f);
-//        lineDataSetC.setFillColor(Color.YELLOW);
-//        lineDataSetC.setColor(Color.YELLOW);
-//
-//        lineDataSetD.setValues(DataValsD);
-//        lineDataSetD.setDrawIcons(false);
-//        lineDataSetD.setCircleColor(Color.CYAN);
-//        lineDataSetD.setLineWidth(2f);
-//        lineDataSetD.setCircleRadius(4f);
-//        lineDataSetD.setDrawCircleHole(false);
-//        lineDataSetD.setValueTextSize(0f);
-//        lineDataSetD.setDrawFilled(false);
-//        lineDataSetD.setFormLineWidth(1f);
-//        lineDataSetD.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSetD.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//        lineDataSetD.setFormSize(15.f);
-//        lineDataSetD.setFillColor(Color.CYAN);
-//        lineDataSetD.setColor(Color.CYAN);
-//
-//        lineDataSetP.setValues(DataValsP);
-//        lineDataSetP.setDrawIcons(false);
-//        lineDataSetP.setCircleColor(Color.MAGENTA);
-//        lineDataSetP.setLineWidth(2f);
-//        lineDataSetP.setCircleRadius(4f);
-//        lineDataSetP.setDrawCircleHole(false);
-//        lineDataSetP.setValueTextSize(0f);
-//        lineDataSetP.setDrawFilled(false);
-//        lineDataSetP.setFormLineWidth(1f);
-//        lineDataSetP.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSetP.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//        lineDataSetP.setFormSize(15.f);
-//        lineDataSetP.setFillColor(Color.MAGENTA);
-//        lineDataSetP.setColor(Color.MAGENTA);
-//
-//        iLineDataSets.clear();
-//        iLineDataSets.add(lineDataSetA);
-//        iLineDataSets.add(lineDataSetB);
-//        iLineDataSets.add(lineDataSetC);
-//        iLineDataSets.add(lineDataSetD);
-//        iLineDataSets.add(lineDataSetP);
-//        lineData = new LineData(iLineDataSets);
-//
-//        lineChart.clear();
-//        lineChart.setData(lineData);
-//        lineChart.setTouchEnabled(true);
-//        lineChart.setDragEnabled(true);
-//        lineChart.setScaleEnabled(true);
-//        lineChart.setPinchZoom(false);
-//        lineChart.setDrawGridBackground(false);
-//        lineChart.getDescription().setEnabled(false);
-//        lineChart.getAxisRight().setEnabled(false);
-//        lineChart.animateX(2000, Easing.EaseInOutBounce);
-//        lineChart.invalidate();
-//
-////        lineChartB.clear();
-////        lineChartB.setData(lineData);
-////        lineChartB.setTouchEnabled(true);
-////        lineChartB.setDragEnabled(true);
-////        lineChartB.setScaleEnabled(true);
-////        lineChartB.setPinchZoom(false);
-////        lineChartB.setDrawGridBackground(false);
-////        lineChartB.getDescription().setEnabled(false);
-////        lineChartB.getAxisRight().setEnabled(false);
-////        lineChartB.animateX(2000, Easing.EaseInOutBounce);
-////        lineChartB.invalidate();
-//    }
+                            lineDataSetA.setLabel("Rate Air A");
+                            lineDataSetB.setLabel("Rate Air B");
+                            lineDataSetC.setLabel("Rate Air C");
+                            lineDataSetD.setLabel("Rate Air D");
+                            lineDataSetP.setLabel("Rate Air Pusat");
+                            upper = new LimitLine(10f, "Batas Atas");
+                            lower = new LimitLine(0f, "Batas Bawah");
+                            Float rateA = Float.parseFloat(x.getRateA());
+                            Float rateB = Float.parseFloat(x.getRateB());
+                            Float rateC = Float.parseFloat(x.getRateC());
+                            Float rateD = Float.parseFloat(x.getRateD());
+                            Float rateP = Float.parseFloat(x.getRateP());
 
-    public LineDataSet setLineDataSet(ArrayList<Entry> DataVals, String color){
-        LineDataSet l = new LineDataSet(null,null);
-        return l;
+                            Date newDate = null;
+                            try {
+                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            DataValsA.add(new Entry(newDate.getTime(), rateA));
+                            DataValsB.add(new Entry(newDate.getTime(), rateB));
+                            DataValsC.add(new Entry(newDate.getTime(), rateC));
+                            DataValsD.add(new Entry(newDate.getTime(), rateD));
+                            DataValsP.add(new Entry(newDate.getTime(), rateP));
+
+                        }
+                    }
+                else {
+
+                    DataValsA.add(null);
+                    DataValsB.add(null);
+                    DataValsC.add(null);
+                    DataValsD.add(null);
+                    DataValsP.add(null);
+                }
+                }
+
+
+            @Override
+            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
+
+            }
+        });
+
     }
+
+
     public void pdfdownload(View view) {
         new SweetAlertDialog(RateRealtimeChart.this, SweetAlertDialog.NORMAL_TYPE)
                 .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air ?")

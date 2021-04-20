@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aplikasiku.R;
 import com.example.aplikasiku.model.DataRate;
-import com.example.aplikasiku.model.RateItem;
+import com.example.aplikasiku.model.perwaktu.RateItem;
 import com.example.aplikasiku.model.VolumePerwaktuItem;
 
 import java.text.ParseException;
