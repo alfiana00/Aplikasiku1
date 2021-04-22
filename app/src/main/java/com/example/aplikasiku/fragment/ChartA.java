@@ -1,11 +1,13 @@
 package com.example.aplikasiku.fragment;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.aplikasiku.MyMarkerView;
 import com.example.aplikasiku.R;
+import com.example.aplikasiku.activity.Debit;
 import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.ChartRateRes;
@@ -30,19 +33,38 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.gson.Gson;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.html.WebColors;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.aplikasiku.apiinterface.DataInterface.DateDataFormat;
 import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
+import static com.example.aplikasiku.apiinterface.DataInterface.simpleDateFormat;
 
 public class ChartA extends Fragment {
     LineChart lineChartA;
@@ -51,6 +73,12 @@ public class ChartA extends Fragment {
     LimitLine upper, lower;
     ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
     LineData lineData;
+    ProgressDialog progressDialog;
+    Calendar mCalendar;
+    String tglIni;
+
+    public ArrayList<String> listRate;
+    public ArrayList<String> listWaktu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +87,10 @@ public class ChartA extends Fragment {
         lineChartA = v.findViewById(R.id.chart);
 
         lineDataSetA.setLabel("Rate Air A");
+
+        Date c = Calendar.getInstance().getTime();
+        mCalendar = Calendar.getInstance();
+        tglIni = simpleDateFormat.format(c).toString();
 
         getDataRate();
 
@@ -76,10 +108,17 @@ public class ChartA extends Fragment {
             public void onResponse(Call<ChartRateRes> call, Response<ChartRateRes> response) {
                 ArrayList<Entry> DataValsA = new ArrayList<Entry>();
                 List<ChartRateRes.Datum> datumList = new ArrayList<>();
+                listRate = new ArrayList<>();
+                listWaktu = new ArrayList<>();
                 if(response.code() == 200){
                     for(ChartRateRes.Datum data : response.body().getData()){
                         Float rateA = Float.parseFloat(data.getRate());
-
+//                        for (int i = 0; i < datumList.size(); i++){
+//                            listRate.add(datumList.get(i).getRate());
+//                            listWaktu.add(datumList.get(i).getWaktu());
+//                        }
+                        listRate.add(data.getRate());
+                        listWaktu.add(data.getWaktu());
                         Date newDate = null;
                         try {
                             newDate = DateFormatChart.parse(String.valueOf(data.getWaktu()));
@@ -89,6 +128,7 @@ public class ChartA extends Fragment {
                         DataValsA.add(new Entry(newDate.getTime(),rateA));
                         datumList.add(data);
                     }
+
                     upper = new LimitLine(10f, "Batas Atas");
                     lower = new LimitLine(0f, "Batas Bawah");
 
@@ -158,6 +198,82 @@ public class ChartA extends Fragment {
                 Toast.makeText(getContext(), ""+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void pdfdownload(View view) {
+        new SweetAlertDialog(getActivity().getApplicationContext(), SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air?")
+                .setConfirmText("Simpan")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                        progressDialog = new ProgressDialog(getActivity().getApplicationContext());
+                        progressDialog.setCancelable(false);
+                        progressDialog.setMessage("Memuat Data ...");
+                        progressDialog.show();
+                        Document document = new Document();
+                        PdfPTable table = new PdfPTable(new float[] { 2, 1 });
+                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.getDefaultCell().setFixedHeight(20);
+                        table.addCell("Waktu");
+                        table.addCell("Volume");
+                        table.setHeaderRows(1);
+                        PdfPCell[] cells = table.getRow(0).getCells();
+                        for (int j=0;j<cells.length;j++){
+                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
+                            cells[j].setBackgroundColor(myColor);
+                        }
+                        for (int i=0;i<listRate.size();i++){
+                            table.addCell(listWaktu.get(i));
+                            table.addCell(listRate.get(i));
+                            Log.i("hah", "rate "+listRate.toArray());
+                        }
+                        try {
+                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
+                            if (!folder.exists())
+                                folder.mkdir();
+                            final String pdf = folder.toString() + "/Rate Air "+tglIni+".pdf";
+                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
+                        } catch (FileNotFoundException fileNotFoundException) {
+                            fileNotFoundException.printStackTrace();
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.open();
+                        try {
+
+                            document.add(JudulText("Data Pemantauan Volume Air"));
+                            document.add(JudulText("gedung A"));
+                            document.add(JudulText("Realtime "+tglIni));
+                            document.add(table);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        }
+                        document.close();
+                        progressDialog.dismiss();
+
+                        sweetAlertDialog.dismissWithAnimation();
+                        Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                    }
+
+                })
+                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                }).show();
+
+
+    }
+
+    public Paragraph JudulText(String text){
+        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
+        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
+        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
+        mOrderDetailsTitleParagraph.setSpacingAfter(7);
+        return mOrderDetailsTitleParagraph;
     }
 
 }
