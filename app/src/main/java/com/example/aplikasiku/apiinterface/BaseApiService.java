@@ -4,14 +4,14 @@ import com.example.aplikasiku.model.ChartRateRes;
 import com.example.aplikasiku.model.ControllResponse;
 import com.example.aplikasiku.model.KebocoranResponse;
 import com.example.aplikasiku.model.LoginResponse;
-import com.example.aplikasiku.model.RatePerwaktuRes;
-import com.example.aplikasiku.model.RateRealtimeResponse;
 import com.example.aplikasiku.model.RealtimeResponse;
 import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
 import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.example.aplikasiku.model.VolumeResponse;
 import com.example.aplikasiku.model.perwaktu.PerwaktuResponse;
+import com.example.aplikasiku.model.raterealtime.RateRealtimeResponse;
+import com.example.aplikasiku.model.volumerealtime.VolumeRealtimeResponse;
 
 import java.util.Map;
 
@@ -77,5 +77,11 @@ public interface BaseApiService {
                                          @Query("table") String table,
                                          @Query("waktu1") String waktu1,
                                          @Query("waktu2") String waktu2);
+    @GET("realtime-chart.php")
+    Call<RateRealtimeResponse> getRateRealtime(@Query("column")String column,
+                                            @Query("table")String table);
+
+    @GET("volume.php")
+    Call<VolumeRealtimeResponse> getVolumeRealtime(@Query("id_gedung") String id_gedung);
 
 }

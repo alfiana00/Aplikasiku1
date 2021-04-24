@@ -96,7 +96,7 @@ public class ChartRateAFragment extends Fragment {
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
         tglIni = myDateFormat.format(c).toString();
-        getData();
+        //getData();
     }
 
     @Override
@@ -110,119 +110,5 @@ public class ChartRateAFragment extends Fragment {
         return view;
     }
 
-    public void getData(){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
-        listRate = new ArrayList<>();
-        listWaktu = new ArrayList<>();
-        call.enqueue(new Callback<RateRealtimeResponse>() {
-            @Override
-            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-                if (response.body().isSuccess()){
-                    dataRateRealtimes = response.body().getData();
-                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-                        listRate.add(dataRateRealtimes.get(i).getRateA());
-                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-                    }
-                    Log.i("adaa22", response.body().getData().toString());
-                    for (int i = 0; i < dataRateRealtimes.size(); i++) {
-                        DataRateRealtime x = dataRateRealtimes.get(i);
 
-                        lineDataSetA.setLabel("Rate Air A");
-                        upper = new LimitLine(10f, "Batas Atas");
-                        lower = new LimitLine(0f, "Batas Bawah");
-                        Float rateA = Float.parseFloat(x.getRateA());
-
-                        Date newDate = null;
-                        try {
-                            newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        DataValsA.add(new Entry(newDate.getTime(), rateA));
-
-                    }
-                }
-                else {
-
-                    DataValsA.add(null);
-                }
-                ShowChart(DataValsA);
-            }
-            private void ShowChart(ArrayList<Entry> DataVals){
-                MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), R.layout.my_marker_view);
-                lineChart.setMarkerView(mv);
-
-                YAxis leftaxisy = lineChart.getAxisLeft();
-                leftaxisy.removeAllLimitLines();
-
-                leftaxisy.enableGridDashedLine(10f,10f,0f);
-                //leftaxisy.setDrawZeroLine(true);
-                leftaxisy.setDrawLimitLinesBehindData(false);
-                leftaxisy.setLabelCount(7,false);
-                leftaxisy.setDrawGridLines(true);
-                leftaxisy.setDrawZeroLine(false);
-
-                XAxis xAxis = lineChart.getXAxis();
-                xAxis.enableGridDashedLine(10f, 10f, 0f);
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setGranularityEnabled(true);
-                xAxis.setGranularity(7f);
-                xAxis.setLabelRotationAngle(315f);
-                xAxis.setDrawGridLines(true);
-                xAxis.setCenterAxisLabels(true);
-                xAxis.setLabelCount(6,true);
-                xAxis.setDrawLimitLinesBehindData(true);
-                xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value) {
-                        Date date = new Date((long)value);
-                        return DateFormatChart.format(date);
-                    }
-                });
-
-                int[] color = new int[]{3, 169, 244};
-
-                lineDataSetA.setValues(DataValsA);
-                lineDataSetA.setDrawIcons(false);
-                lineDataSetA.setCircleColor(Color.rgb(3,169,244));
-                lineDataSetA.setLineWidth(2f);
-                lineDataSetA.setCircleRadius(4f);
-                lineDataSetA.setDrawCircleHole(false);
-                lineDataSetA.setValueTextSize(0f);
-                lineDataSetA.setDrawFilled(false);
-                lineDataSetA.setFormLineWidth(1f);
-                lineDataSetA.setMode(LineDataSet.Mode.LINEAR);
-                lineDataSetA.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-                lineDataSetA.setFormSize(15.f);
-                lineDataSetA.setFillColor(Color.rgb(3,169,244));
-                lineDataSetA.setColor(Color.rgb(3,169,244));
-
-                iLineDataSets.clear();
-                iLineDataSets.add(lineDataSetA);
-                lineData = new LineData(iLineDataSets);
-
-                lineChart.clear();
-                lineChart.setData(lineData);
-                lineChart.setTouchEnabled(true);
-                lineChart.setDragEnabled(true);
-                lineChart.setScaleEnabled(true);
-                lineChart.setPinchZoom(false);
-                lineChart.setDrawGridBackground(false);
-                lineChart.getDescription().setEnabled(false);
-                lineChart.getAxisRight().setEnabled(false);
-                lineChart.animateX(2000, Easing.EaseInOutBounce);
-                lineChart.invalidate();
-
-            }
-
-            @Override
-            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
 }

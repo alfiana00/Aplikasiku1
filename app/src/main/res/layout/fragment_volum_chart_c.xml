@@ -5,11 +5,39 @@
     android:layout_height="match_parent"
     tools:context=".fragment.VolumChartC">
 
+    <Button
+        android:id="@+id/btn_cetak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UNDUH"
+        android:drawableLeft="@drawable/ic_baseline_cloud_download_24"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="6dp"
+        android:backgroundTint="#95D698"/>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grafik Volume Air"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="6dp"
+        android:textColor="#5e5e5e"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/label"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/label"
+        android:padding="3dp">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 
 
 </RelativeLayout>

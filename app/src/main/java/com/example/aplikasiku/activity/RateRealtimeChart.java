@@ -229,83 +229,83 @@ public class RateRealtimeChart extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-    public void getData(){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
-        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
-        listRateA = new ArrayList<>();
-        listRateB = new ArrayList<>();
-        listRateC = new ArrayList<>();
-        listRateD = new ArrayList<>();
-        listRateP = new ArrayList<>();
-        listWaktu = new ArrayList<>();
-        call.enqueue(new Callback<RateRealtimeResponse>() {
-            @Override
-            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-                if (response.body().isSuccess()){
-                    dataRateRealtimes = response.body().getData();
-                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-                        listRateA.add(dataRateRealtimes.get(i).getRateA());
-                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-                        listRateC.add(dataRateRealtimes.get(i).getRateC());
-                        listRateD.add(dataRateRealtimes.get(i).getRateD());
-                        listRateP.add(dataRateRealtimes.get(i).getRateP());
-                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-                    }
-                    Log.i("adaa22", response.body().getData().toString());
-                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
-                            DataRateRealtime x = dataRateRealtimes.get(i);
-
-                            lineDataSetA.setLabel("Rate Air A");
-                            lineDataSetB.setLabel("Rate Air B");
-                            lineDataSetC.setLabel("Rate Air C");
-                            lineDataSetD.setLabel("Rate Air D");
-                            lineDataSetP.setLabel("Rate Air Pusat");
-                            upper = new LimitLine(10f, "Batas Atas");
-                            lower = new LimitLine(0f, "Batas Bawah");
-                            Float rateA = Float.parseFloat(x.getRateA());
-                            Float rateB = Float.parseFloat(x.getRateB());
-                            Float rateC = Float.parseFloat(x.getRateC());
-                            Float rateD = Float.parseFloat(x.getRateD());
-                            Float rateP = Float.parseFloat(x.getRateP());
-
-                            Date newDate = null;
-                            try {
-                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            DataValsA.add(new Entry(newDate.getTime(), rateA));
-                            DataValsB.add(new Entry(newDate.getTime(), rateB));
-                            DataValsC.add(new Entry(newDate.getTime(), rateC));
-                            DataValsD.add(new Entry(newDate.getTime(), rateD));
-                            DataValsP.add(new Entry(newDate.getTime(), rateP));
-
-                        }
-                    }
-                else {
-
-                    DataValsA.add(null);
-                    DataValsB.add(null);
-                    DataValsC.add(null);
-                    DataValsD.add(null);
-                    DataValsP.add(null);
-                }
-                }
-
-
-            @Override
-            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
+//    public void getData(){
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
+//        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
+//        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
+//        listRateA = new ArrayList<>();
+//        listRateB = new ArrayList<>();
+//        listRateC = new ArrayList<>();
+//        listRateD = new ArrayList<>();
+//        listRateP = new ArrayList<>();
+//        listWaktu = new ArrayList<>();
+//        call.enqueue(new Callback<RateRealtimeResponse>() {
+//            @Override
+//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
+//                if (response.body().isSuccess()){
+//                    dataRateRealtimes = response.body().getData();
+//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
+//                        listRateA.add(dataRateRealtimes.get(i).getRateA());
+//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
+//                        listRateC.add(dataRateRealtimes.get(i).getRateC());
+//                        listRateD.add(dataRateRealtimes.get(i).getRateD());
+//                        listRateP.add(dataRateRealtimes.get(i).getRateP());
+//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
+//                    }
+//                    Log.i("adaa22", response.body().getData().toString());
+//                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
+//                            DataRateRealtime x = dataRateRealtimes.get(i);
+//
+//                            lineDataSetA.setLabel("Rate Air A");
+//                            lineDataSetB.setLabel("Rate Air B");
+//                            lineDataSetC.setLabel("Rate Air C");
+//                            lineDataSetD.setLabel("Rate Air D");
+//                            lineDataSetP.setLabel("Rate Air Pusat");
+//                            upper = new LimitLine(10f, "Batas Atas");
+//                            lower = new LimitLine(0f, "Batas Bawah");
+//                            Float rateA = Float.parseFloat(x.getRateA());
+//                            Float rateB = Float.parseFloat(x.getRateB());
+//                            Float rateC = Float.parseFloat(x.getRateC());
+//                            Float rateD = Float.parseFloat(x.getRateD());
+//                            Float rateP = Float.parseFloat(x.getRateP());
+//
+//                            Date newDate = null;
+//                            try {
+//                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            DataValsA.add(new Entry(newDate.getTime(), rateA));
+//                            DataValsB.add(new Entry(newDate.getTime(), rateB));
+//                            DataValsC.add(new Entry(newDate.getTime(), rateC));
+//                            DataValsD.add(new Entry(newDate.getTime(), rateD));
+//                            DataValsP.add(new Entry(newDate.getTime(), rateP));
+//
+//                        }
+//                    }
+//                else {
+//
+//                    DataValsA.add(null);
+//                    DataValsB.add(null);
+//                    DataValsC.add(null);
+//                    DataValsD.add(null);
+//                    DataValsP.add(null);
+//                }
+//                }
+//
+//
+//            @Override
+//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
 
 //
 //    public void pdfdownload(View view) {
