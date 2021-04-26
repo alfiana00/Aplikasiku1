@@ -57,13 +57,11 @@ import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
 
 public class RatePerwaktuChart extends AppCompatActivity {
     LineChart lineChart;
-    LineDataSet lineDataSet = new LineDataSet(null,null);
-    ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
-    ArrayList<IBarDataSet> barDataSets = new ArrayList<>();
-    BarData barData;
-    LineData lineData;
     BarChart barChart;
-    BarDataSet barDataSet = new BarDataSet(null,null);
+//    LineDataSet lineDataSet = new LineDataSet(null,null);
+//    BarDataSet barDataSet = new BarDataSet(null, "tes");
+//    ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
+//    LineData lineData;
     float yvalue;
     String gedung, waktu1, waktu2, tglIni, nama, kolom, tabel;
     LimitLine upper, lower;
@@ -93,7 +91,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
     public void getDataBar(String tabel, String kolom, String waktu1, String waktu2){
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
         Call<PerwaktuResponse> call = service.getRatebyDate(tabel, kolom, waktu1,waktu2);
-        ArrayList<BarEntry> DataVals = new ArrayList<BarEntry>();
+        ArrayList<BarEntry> DataVals = new ArrayList<>();
         call.enqueue(new Callback<PerwaktuResponse>() {
             @Override
             public void onResponse(Call<PerwaktuResponse> call, Response<PerwaktuResponse> response) {
@@ -105,23 +103,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
                         dataList = (List<RateItem>) response.body().getData().getRate();
                         for (int i = 0; i < dataList.size(); i++){
                             RateItem x = dataList.get(i);
-                            Float air = Float.parseFloat(x.getRate());
-                            if (kolom.equals("rateP")){
-                                barDataSet.setLabel("Volume Gedung Pusat");
-                            }
-                            else if (kolom.equals("rateA")){
-                                barDataSet.setLabel("Volume Gedung A");
-                            }
-                            else if (kolom.equals("rateB")){
-                                barDataSet.setLabel("Volume Gedung B");
-                            }
-                            else if (kolom.equals("rateC")){
-                                barDataSet.setLabel("Volume Gedung C");
-                            }
-                            else if (kolom.equals("rateD")){
-                                barDataSet.setLabel("Volume Gedung D");
-                            }
-
+                            Float air = Float.parseFloat((x.getRate()).replace(",",""));
                             Date newDate = null;
                             try {
                                 newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
@@ -147,6 +129,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
 
     }
     private void ShowChartBar(ArrayList<BarEntry> DataVals){
+        ArrayList<IBarDataSet> iBarDataSets = new ArrayList<>();
         MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
         barChart.setMarkerView(mv);
 
@@ -164,7 +147,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.enableGridDashedLine(1f, 1f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
         xAxis.setGranularityEnabled(true);
@@ -177,20 +160,36 @@ public class RatePerwaktuChart extends AppCompatActivity {
             }
         });
         int[] color = new int[]{3, 169, 244};
-
-        barData.setBarWidth(2);
+        String label = null;
+        if (kolom.equals("rateP")){
+            label = "Volume Gedung Pusat";
+        }
+        else if (kolom.equals("rateA")){
+            label = "Volume Gedung A";
+        }
+        else if (kolom.equals("rateB")){
+            label = "Volume Gedung B";
+        }
+        else if (kolom.equals("rateC")){
+            label = "Volume Gedung C";
+        }
+        else if (kolom.equals("rateD")){
+            label = "Volume Gedung D";
+        }
+        BarDataSet barDataSet = new BarDataSet(DataVals, label);
+        BarData barData = new BarData(barDataSet);
+        barData.setBarWidth(0.5f);
         barData.setDrawValues(true);
-        barDataSet.setValues(DataVals);
+//        barDataSet.setValues(DataVals);
         barDataSet.setDrawIcons(false);
         barDataSet.setValueTextSize(0f);
         barDataSet.setFormLineWidth(1f);
         barDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        barDataSet.setFormSize(15.f);
+        barDataSet.setFormSize(3f);
         barDataSet.setColor(Color.rgb(3,169,244));
 
-        barDataSets.clear();
-        barDataSets.add(barDataSet);
-        barData = new BarData(barDataSet);
+        iBarDataSets.clear();
+        iBarDataSets.add(barDataSet);
 
         barChart.clear();
         barChart.setData(barData);
@@ -204,124 +203,124 @@ public class RatePerwaktuChart extends AppCompatActivity {
         barChart.animateX(2000, Easing.EaseInOutBounce);
         barChart.invalidate();
     }
-    public void getData(String tabel, String kolom, String waktu1, String waktu2){
-        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<PerwaktuResponse> call = service.getRatebyDate(tabel, kolom, waktu1,waktu2);
-        ArrayList<Entry> DataVals = new ArrayList<Entry>();
-        call.enqueue(new Callback<PerwaktuResponse>() {
-            @Override
-            public void onResponse(Call<PerwaktuResponse> call, Response<PerwaktuResponse> response) {
-                listRate = new ArrayList<>();
-                listWaktu = new ArrayList<>();
-
-                if (response.body().isSuccess()){
-                    if (response.body().getData() != null) {
-                        dataList = (List<RateItem>) response.body().getData().getRate();
-                        for (int i = 0; i < dataList.size(); i++){
-                            RateItem x = dataList.get(i);
-                            Float air = Float.parseFloat(x.getRate());
-                            if (kolom.equals("rateP")){
-                                lineDataSet.setLabel("Volume Gedung Pusat");
-                            }
-                            else if (kolom.equals("rateA")){
-                                lineDataSet.setLabel("Volume Gedung A");
-                            }
-                            else if (kolom.equals("rateB")){
-                                lineDataSet.setLabel("Volume Gedung B");
-                            }
-                            else if (kolom.equals("rateC")){
-                                lineDataSet.setLabel("Volume Gedung C");
-                            }
-                            else if (kolom.equals("rateD")){
-                                lineDataSet.setLabel("Volume Gedung D");
-                            }
-
-                            Date newDate = null;
-                            try {
-                                newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            DataVals.add(new Entry(newDate.getTime(), air));
-                        }
-                    }
-                    else {
-
-                    }
-                }
-                ShowChart(DataVals, nama);
-            }
-
-            @Override
-            public void onFailure(Call<PerwaktuResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
-    private void ShowChart(ArrayList<Entry> DataVals, String nama){
-        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
-        lineChart.setMarkerView(mv);
-
-        YAxis leftaxisy = lineChart.getAxisLeft();
-        leftaxisy.removeAllLimitLines();
-
-//        leftaxisy.setAxisMaximum(100f);
-//        leftaxisy.setAxisMinimum(0f);
-
-        leftaxisy.enableGridDashedLine(10f,10f,0f);
-        leftaxisy.setDrawZeroLine(true);
-        leftaxisy.setDrawLimitLinesBehindData(true);
-        leftaxisy.setLabelCount(7,false);
-        leftaxisy.setDrawGridLines(true);
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
-        xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(7,true);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                Date date = new Date((long)value);
-                return DateFormat.format(date);
-            }
-        });
-        int[] color = new int[]{3, 169, 244};
-
-        lineDataSet.setValues(DataVals);
-        lineDataSet.setDrawIcons(false);
-        lineDataSet.setCircleColor(Color.rgb(3,169,244));
-        lineDataSet.setLineWidth(2f);
-        lineDataSet.setCircleRadius(4f);
-        lineDataSet.setDrawCircleHole(false);
-        lineDataSet.setValueTextSize(0f);
-        lineDataSet.setDrawFilled(false);
-        lineDataSet.setFormLineWidth(1f);
-        lineDataSet.setMode(LineDataSet.Mode.LINEAR);
-        lineDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        lineDataSet.setFormSize(15.f);
-        lineDataSet.setFillColor(Color.rgb(3,169,244));
-        lineDataSet.setColor(Color.rgb(3,169,244));
-
-        iLineDataSets.clear();
-        iLineDataSets.add(lineDataSet);
-        lineData = new LineData(iLineDataSets);
-
-        lineChart.clear();
-        lineChart.setData(lineData);
-        lineChart.setTouchEnabled(true);
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
-        lineChart.setPinchZoom(false);
-        lineChart.setDrawGridBackground(false);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.getAxisRight().setEnabled(false);
-        lineChart.animateX(2000, Easing.EaseInOutBounce);
-        lineChart.invalidate();
-    }
+//    public void getData(String tabel, String kolom, String waktu1, String waktu2){
+//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+//        Call<PerwaktuResponse> call = service.getRatebyDate(tabel, kolom, waktu1,waktu2);
+//        ArrayList<BarEntry> DataVals = new ArrayList<BarEntry>();
+//        call.enqueue(new Callback<PerwaktuResponse>() {
+//            @Override
+//            public void onResponse(Call<PerwaktuResponse> call, Response<PerwaktuResponse> response) {
+//                listRate = new ArrayList<>();
+//                listWaktu = new ArrayList<>();
+//
+//                if (response.body().isSuccess()){
+//                    if (response.body().getData() != null) {
+//                        dataList = (List<RateItem>) response.body().getData().getRate();
+//                        for (int i = 0; i < dataList.size(); i++){
+//                            RateItem x = dataList.get(i);
+//                            Float air = Float.parseFloat(x.getRate());
+//                            if (kolom.equals("rateP")){
+//                                barDataSet.setLabel("Volume Gedung Pusat");
+//                            }
+//                            else if (kolom.equals("rateA")){
+//                                barDataSet.setLabel("Volume Gedung A");
+//                            }
+//                            else if (kolom.equals("rateB")){
+//                                barDataSet.setLabel("Volume Gedung B");
+//                            }
+//                            else if (kolom.equals("rateC")){
+//                                barDataSet.setLabel("Volume Gedung C");
+//                            }
+//                            else if (kolom.equals("rateD")){
+//                                barDataSet.setLabel("Volume Gedung D");
+//                            }
+//
+//                            Date newDate = null;
+//                            try {
+//                                newDate = DateFormat.parse(String.valueOf(dataList.get(i).getWaktu()));
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            DataVals.add(new BarEntry(newDate.getTime(), air));
+//                        }
+//                    }
+//                    else {
+//
+//                    }
+//                }
+//                ShowChart(DataVals, nama);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PerwaktuResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+//    private void ShowChart(ArrayList<BarEntry> DataVals, String nama){
+//        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
+//        barChart.setMarkerView(mv);
+//
+//        YAxis leftaxisy = barChart.getAxisLeft();
+//        leftaxisy.removeAllLimitLines();
+//
+////        leftaxisy.setAxisMaximum(100f);
+////        leftaxisy.setAxisMinimum(0f);
+//
+//        leftaxisy.enableGridDashedLine(10f,10f,0f);
+//        leftaxisy.setDrawZeroLine(true);
+//        leftaxisy.setDrawLimitLinesBehindData(true);
+//        leftaxisy.setLabelCount(7,false);
+//        leftaxisy.setDrawGridLines(true);
+//
+//        XAxis xAxis = barChart.getXAxis();
+//        xAxis.setGranularity(1f);
+//        xAxis.enableGridDashedLine(10f, 10f, 0f);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setDrawGridLines(true);
+//        xAxis.setGranularityEnabled(true);
+//        xAxis.setLabelCount(7,true);
+//        xAxis.setValueFormatter(new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value) {
+//                Date date = new Date((long)value);
+//                return DateFormat.format(date);
+//            }
+//        });
+//        int[] color = new int[]{3, 169, 244};
+//
+//        barDataSet.setValues(DataVals);
+//        barDataSet.setDrawIcons(false);
+////        barDataSet.setCircleColor(Color.rgb(3,169,244));
+////        barDataSet.setLineWidth(2f);
+////        barDataSet.setCircleRadius(4f);
+////        barDataSet.setDrawCircleHole(false);
+//        barDataSet.setValueTextSize(0f);
+////        barDataSet.setDrawFilled(false);
+//        barDataSet.setFormLineWidth(1f);
+////        barDataSet.setMode(LineDataSet.Mode.LINEAR);
+//        barDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//        barDataSet.setFormSize(15.f);
+////        barDataSet.setFillColor(Color.rgb(3,169,244));
+//        barDataSet.setColor(Color.rgb(3,169,244));
+//
+//        iBarDataSets.clear();
+//        iBarDataSets.add(barDataSet);
+//        barData = new BarData(iBarDataSets);
+//
+//        barChart.clear();
+//        barChart.setData(barData);
+//        barChart.setTouchEnabled(true);
+//        barChart.setDragEnabled(true);
+//        barChart.setScaleEnabled(true);
+//        barChart.setPinchZoom(false);
+//        barChart.setDrawGridBackground(false);
+//        barChart.getDescription().setEnabled(false);
+//        barChart.getAxisRight().setEnabled(false);
+//        barChart.animateX(2000, Easing.EaseInOutBounce);
+//        barChart.invalidate();
+//    }
 
 }
