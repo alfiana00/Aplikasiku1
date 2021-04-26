@@ -254,6 +254,7 @@ public class VolumChartA extends Fragment {
         lineData = new LineData(iLineDataSets);
 
         lineChart.clear();
+        lineChart.setScaleX(0.95f);
         lineChart.setData(lineData);
         lineChart.setTouchEnabled(true);
         lineChart.setDragEnabled(true);
