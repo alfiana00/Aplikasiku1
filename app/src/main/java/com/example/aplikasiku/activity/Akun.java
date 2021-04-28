@@ -17,6 +17,8 @@ import android.widget.Toolbar;
 
 import com.example.aplikasiku.R;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Akun extends AppCompatActivity {
     Button btn_logout;
     TextView txt_id, txt_user, txt_nama;
@@ -82,12 +84,12 @@ public class Akun extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Akun.this);
-                builder.setMessage("Apakah Anda yakin untuk keluar?");
-                builder.setPositiveButton("Ya",
-                        new DialogInterface.OnClickListener() {
+                new SweetAlertDialog(Akun.this, SweetAlertDialog.NORMAL_TYPE)
+                        .setTitleText("Apakah anda yakin untuk keluar?")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
+                            public void onClick(final SweetAlertDialog sweetAlertDialog) {
 
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean("sudahLogin", false);
@@ -100,15 +102,13 @@ public class Akun extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                        });
-                builder.setNegativeButton("Tidak",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                        })
+                        .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
                             }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                        }).show();
             }
         });
     }

@@ -154,7 +154,6 @@ public class VolumChartD extends Fragment {
         return v;
     }
 
-
     public void getData(String idGedung){
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
         Call<VolumeRealtimeResponse> call = service.getVolumeRealtime(idGedung);

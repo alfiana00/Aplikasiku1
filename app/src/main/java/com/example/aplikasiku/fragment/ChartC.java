@@ -160,9 +160,6 @@ public class ChartC extends Fragment {
         return v;
     }
 
-
-//
-
     public void getData(String kolom, String tabel){
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
         Call<com.example.aplikasiku.model.raterealtime.RateRealtimeResponse> call = service.getRateRealtime(kolom, tabel);

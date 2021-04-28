@@ -164,7 +164,6 @@ public class ChartB extends Fragment {
         return v;
     }
 
-
 //
 
     public void getData(String kolom, String tabel){

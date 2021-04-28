@@ -55,8 +55,7 @@
                 android:layout_marginRight="15dp"
                 android:gravity="fill_vertical"
                 android:justificationMode="inter_word"
-                android:text="Aplikasi ini merupakan aplikasi yang memliki kegunaan mengendalikan dan memantau penggunaan air pada gedung-gedung . Hal ini bertujuan untuk menghindari terjadinya pemborosan air dan kebocoran pada pipa air. Menu utama pada aplikasi ini adalah menu pengendalian dan menu pemantauan. Pada menu pemantauan akan disajikan beberapa pilihan pemantauan diantaranya  : Pemantauan laju air secara real-time yang disajikan dalam bentuk grafik, Pemantauan banyaknya dan berapa lama air mengalir, yang juga disajikan dalam bentuk grafik, Pemantauan terjadinya kebocoran air dalam kurun waktu yang diinginkan. Sedangkan untuk menu pengendalian, aplikasi  menyajikan tombol ON/OFF yang dapat digunakan sebagai kendali aliran air apabila diduga telah terjadi kebocoran pada gedung."/>
-
+                android:text="@string/tentang"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,6 +104,7 @@
                 android:linksClickable="true"
                 android:textColorLink="#2D70F3"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"/>
 
         </LinearLayout>
