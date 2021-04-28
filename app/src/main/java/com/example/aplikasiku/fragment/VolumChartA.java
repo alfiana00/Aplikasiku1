@@ -62,6 +62,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.aplikasiku.R.layout.fragment_volum_chart_a;
 import static com.example.aplikasiku.R.layout.my_marker_view;
 import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
 import static com.example.aplikasiku.apiinterface.DataInterface.myDateFormat;
@@ -150,7 +151,7 @@ public class VolumChartA extends Fragment {
             public void run() {
                 // Do something
                 getData(idGedung);
-                handler.postDelayed(refresh, 5000);
+                handler.postDelayed(refresh, 10000);
             }
         };
         handler.post(refresh);
@@ -186,6 +187,7 @@ public class VolumChartA extends Fragment {
                             }
 
                             DataVals.add(new Entry(newDate.getTime(), air));
+
                         }
                     }
                     else {
@@ -203,8 +205,10 @@ public class VolumChartA extends Fragment {
 
     }
     private void ShowChart(ArrayList<Entry> DataVals, String nama){
-        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
-        lineChart.setMarkerView(mv);
+//        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
+//        lineChart.setMarkerView(mv);
+//        lineChart.setMarker(mv);
+        lineChart.setDrawMarkers(true);
         lineChart.setHorizontalScrollBarEnabled(true);
         lineChart.setScaleXEnabled(true);
         lineChart.getScrollBarSize();
@@ -223,7 +227,7 @@ public class VolumChartA extends Fragment {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         xAxis.setDrawGridLines(true);
         xAxis.setLabelCount(10, true);
         xAxis.setValueFormatter(new ValueFormatter() {
@@ -235,12 +239,13 @@ public class VolumChartA extends Fragment {
         });
 
         lineDataSet.setValues(DataVals);
-        lineDataSet.setDrawIcons(false);
+        lineDataSet.setDrawIcons(true);
         lineDataSet.setCircleColor(Color.rgb(3,169,244));
         lineDataSet.setLineWidth(1f);
         lineDataSet.setCircleRadius(4f);
         lineDataSet.setDrawCircleHole(false);
-        lineDataSet.setValueTextSize(0f);
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setLabel(myDateFormat.toString());
         lineDataSet.setDrawFilled(false);
         lineDataSet.setFormLineWidth(0.5f);
         lineDataSet.setMode(LineDataSet.Mode.LINEAR);

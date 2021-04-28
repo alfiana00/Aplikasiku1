@@ -130,8 +130,6 @@ public class RatePerwaktuChart extends AppCompatActivity {
     }
     private void ShowChartBar(ArrayList<BarEntry> DataVals){
         ArrayList<IBarDataSet> iBarDataSets = new ArrayList<>();
-        MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.my_marker_view);
-        barChart.setMarkerView(mv);
 
         YAxis leftaxisy = barChart.getAxisLeft();
         leftaxisy.removeAllLimitLines();
@@ -140,7 +138,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
 //        leftaxisy.setAxisMinimum(0f);
 
         leftaxisy.enableGridDashedLine(10f,10f,0f);
-        leftaxisy.setDrawZeroLine(true);
+        leftaxisy.setDrawZeroLine(false);
         leftaxisy.setDrawLimitLinesBehindData(true);
         leftaxisy.setLabelCount(7,false);
         leftaxisy.setDrawGridLines(true);
@@ -178,11 +176,16 @@ public class RatePerwaktuChart extends AppCompatActivity {
         }
         BarDataSet barDataSet = new BarDataSet(DataVals, label);
         BarData barData = new BarData(barDataSet);
-        barData.setBarWidth(0.5f);
+        barData.setBarWidth(10f);
+        barData.setHighlightEnabled(true);
         barData.setDrawValues(true);
-//        barDataSet.setValues(DataVals);
-        barDataSet.setDrawIcons(false);
-        barDataSet.setValueTextSize(0f);
+        barDataSet.setValues(DataVals);
+        barDataSet.getEntryCount();
+        barDataSet.setBarBorderWidth(20f);
+        barDataSet.setBarBorderColor(Color.rgb(3,169,244));
+        barDataSet.setVisible(true);
+        barDataSet.setDrawIcons(true);
+        barDataSet.setValueTextSize(9f);
         barDataSet.setFormLineWidth(1f);
         barDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         barDataSet.setFormSize(3f);
@@ -190,9 +193,9 @@ public class RatePerwaktuChart extends AppCompatActivity {
 
         iBarDataSets.clear();
         iBarDataSets.add(barDataSet);
-
         barChart.clear();
         barChart.setData(barData);
+        barChart.setHorizontalScrollBarEnabled(true);
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
@@ -200,7 +203,7 @@ public class RatePerwaktuChart extends AppCompatActivity {
         barChart.setDrawGridBackground(false);
         barChart.getDescription().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
-        barChart.animateX(2000, Easing.EaseInOutBounce);
+        barChart.animateY(2000, Easing.EaseInOutBounce);
         barChart.invalidate();
     }
 //    public void getData(String tabel, String kolom, String waktu1, String waktu2){

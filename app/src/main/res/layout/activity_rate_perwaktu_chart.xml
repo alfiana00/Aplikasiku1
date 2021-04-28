@@ -9,7 +9,7 @@
     android:background="@color/cardview_shadow_end_color">
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 </RelativeLayout>

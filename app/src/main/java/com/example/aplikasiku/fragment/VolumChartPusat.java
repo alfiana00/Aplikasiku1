@@ -199,8 +199,8 @@ public class VolumChartPusat extends Fragment {
 
     }
     private void ShowChart(ArrayList<Entry> DataVals){
-        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
-        lineChart.setMarkerView(mv);
+//        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
+//        lineChart.setMarkerView(mv);
         lineChart.setHorizontalScrollBarEnabled(true);
         lineChart.setScaleXEnabled(true);
         lineChart.getScrollBarSize();
@@ -236,7 +236,7 @@ public class VolumChartPusat extends Fragment {
         lineDataSet.setLineWidth(1f);
         lineDataSet.setCircleRadius(4f);
         lineDataSet.setDrawCircleHole(false);
-        lineDataSet.setValueTextSize(0f);
+        lineDataSet.setValueTextSize(10f);
         lineDataSet.setDrawFilled(false);
         lineDataSet.setFormLineWidth(0.5f);
         lineDataSet.setMode(LineDataSet.Mode.LINEAR);
