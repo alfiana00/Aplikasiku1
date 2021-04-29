@@ -342,6 +342,8 @@ public class ChartA extends Fragment {
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
+        xAxis.setSpaceMin(20f);
+        xAxis.setLabelRotationAngle(30);
         xAxis.setLabelCount(10, true);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override

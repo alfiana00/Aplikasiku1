@@ -214,7 +214,7 @@ public class ChartD extends Fragment {
                     xAxis.setLabelRotationAngle(315f);
                     xAxis.setDrawGridLines(true);
                     xAxis.setCenterAxisLabels(true);
-                    xAxis.setLabelCount(response.body().getData().size(),true);
+                    xAxis.setLabelCount(10,true);
                     xAxis.setDrawLimitLinesBehindData(true);
                     xAxis.setValueFormatter(new IndexAxisValueFormatter() {
                         @Override
@@ -329,8 +329,10 @@ public class ChartD extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setSpaceMin(20f);
+        xAxis.setLabelRotationAngle(30);
         xAxis.setDrawGridLines(true);
-        xAxis.setLabelCount(10, true);
+        xAxis.setLabelCount(10, false);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {

@@ -329,6 +329,8 @@ public class ChartPusat extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setSpaceMin(20f);
+        xAxis.setLabelRotationAngle(30);
         xAxis.setDrawGridLines(true);
         xAxis.setLabelCount(10, true);
         xAxis.setValueFormatter(new ValueFormatter() {

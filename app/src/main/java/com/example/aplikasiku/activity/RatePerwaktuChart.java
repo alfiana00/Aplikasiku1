@@ -110,7 +110,10 @@ public class RatePerwaktuChart extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
+                            for (int j = 0; j < dataList.size(); j++){
+                                listRate.add(dataList.get(j).getRate());
+                                listWaktu.add(dataList.get(j).getWaktu());
+                            }
                             DataVals.add(new BarEntry(newDate.getTime(), air));
                         }
                     }
@@ -130,33 +133,6 @@ public class RatePerwaktuChart extends AppCompatActivity {
     }
     private void ShowChartBar(ArrayList<BarEntry> DataVals){
         ArrayList<IBarDataSet> iBarDataSets = new ArrayList<>();
-
-        YAxis leftaxisy = barChart.getAxisLeft();
-        leftaxisy.removeAllLimitLines();
-
-//        leftaxisy.setAxisMaximum(100f);
-//        leftaxisy.setAxisMinimum(0f);
-
-        leftaxisy.enableGridDashedLine(10f,10f,0f);
-        leftaxisy.setDrawZeroLine(false);
-        leftaxisy.setDrawLimitLinesBehindData(true);
-        leftaxisy.setLabelCount(7,false);
-        leftaxisy.setDrawGridLines(true);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.enableGridDashedLine(1f, 1f, 0f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
-        xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(7,true);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                Date date = new Date((long)value);
-                return DateFormat.format(date);
-            }
-        });
         int[] color = new int[]{3, 169, 244};
         String label = null;
         if (kolom.equals("rateP")){
@@ -184,12 +160,51 @@ public class RatePerwaktuChart extends AppCompatActivity {
         barDataSet.setBarBorderWidth(20f);
         barDataSet.setBarBorderColor(Color.rgb(3,169,244));
         barDataSet.setVisible(true);
-        barDataSet.setDrawIcons(true);
+        barDataSet.setDrawIcons(false);
         barDataSet.setValueTextSize(9f);
         barDataSet.setFormLineWidth(1f);
         barDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        barDataSet.setFormSize(3f);
+        barDataSet.setFormSize(10f);
         barDataSet.setColor(Color.rgb(3,169,244));
+
+        YAxis leftaxisy = barChart.getAxisLeft();
+        leftaxisy.removeAllLimitLines();
+
+//        leftaxisy.setAxisMaximum(100f);
+//        leftaxisy.setAxisMinimum(0f);
+
+        leftaxisy.enableGridDashedLine(10f,10f,0f);
+        leftaxisy.setDrawZeroLine(true);
+        leftaxisy.setDrawLimitLinesBehindData(true);
+        leftaxisy.setLabelCount(10,true);
+        leftaxisy.setDrawGridLines(true);
+        leftaxisy.setCenterAxisLabels(true);
+        leftaxisy.setSpaceBottom(0);
+        leftaxisy.setXOffset(3f);
+        leftaxisy.setDrawTopYLabelEntry(true);
+        leftaxisy.setSpaceMax(3f);
+        leftaxisy.isForceLabelsEnabled();
+
+        XAxis xAxis = barChart.getXAxis();
+ //       xAxis.setGranularity(1f);
+        xAxis.enableGridDashedLine(1f, 1f, 0f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(true);
+ //       xAxis.setGranularityEnabled(true);
+        xAxis.setLabelCount(10,false);
+        Log.i("gugug", "size"+listWaktu.size());
+        xAxis.isCenterAxisLabelsEnabled();
+        xAxis.isForceLabelsEnabled();
+        xAxis.setLabelRotationAngle(30f);
+        xAxis.setSpaceMax(2f);
+        xAxis.setAxisMinValue(barDataSet.getXMin());
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                Date date = new Date((long)value);
+                return DateFormat.format(date);
+            }
+        });
 
         iBarDataSets.clear();
         iBarDataSets.add(barDataSet);
