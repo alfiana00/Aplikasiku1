@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -151,6 +152,10 @@ public class VolumChartC extends Fragment {
             }
         };
         handler.post(refresh);
+        String url = "https://pantaukendaliair.com/volumeC.php";
+        WebView view = (WebView) v.findViewById(R.id.webView);
+        view.getSettings().setJavaScriptEnabled(true);
+        view.loadUrl(url);
         return v;
     }
 

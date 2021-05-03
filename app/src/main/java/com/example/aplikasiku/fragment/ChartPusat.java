@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -94,6 +95,27 @@ public class ChartPusat extends Fragment {
         View v = inflater.inflate(R.layout.fragment_chart_pusat, container, false);
         lineChart = v.findViewById(R.id.chart);
         btnDownload = v.findViewById(R.id.btn_cetak);
+
+        lineDataSet.setLabel("Rate Air Pusat");
+
+        Date c = Calendar.getInstance().getTime();
+        mCalendar = Calendar.getInstance();
+        tglIni = simpleDateFormat.format(c).toString();
+        column = "rateP";
+        table = "rate_p";
+        getData(column, table);
+        refresh = new Runnable() {
+            public void run() {
+                // Do something
+                getData(column, table);
+                handler.postDelayed(refresh, 5000);
+            }
+        };
+        handler.post(refresh);
+        String url = "https://pantaukendaliair.com/chartPusat.php";
+        WebView view = (WebView) v.findViewById(R.id.webView);
+        view.getSettings().setJavaScriptEnabled(true);
+        view.loadUrl(url);
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,23 +162,6 @@ public class ChartPusat extends Fragment {
 
             }
         });
-
-        lineDataSet.setLabel("Rate Air Pusat");
-
-        Date c = Calendar.getInstance().getTime();
-        mCalendar = Calendar.getInstance();
-        tglIni = simpleDateFormat.format(c).toString();
-        column = "rateP";
-        table = "rate_p";
-        getData(column, table);
-        refresh = new Runnable() {
-            public void run() {
-                // Do something
-                getData(column, table);
-                handler.postDelayed(refresh, 5000);
-            }
-        };
-        handler.post(refresh);
 
         return v;
     }
