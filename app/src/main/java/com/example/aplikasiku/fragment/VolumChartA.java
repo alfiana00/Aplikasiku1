@@ -102,7 +102,7 @@ public class VolumChartA extends Fragment {
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.getDefaultCell().setFixedHeight(20);
                 table.addCell("Waktu");
-                table.addCell("Volume");
+                table.addCell("Volume(liter)");
                 table.setHeaderRows(1);
                 PdfPCell[] cells = table.getRow(0).getCells();
                 for (int j=0;j<cells.length;j++){
@@ -118,7 +118,7 @@ public class VolumChartA extends Fragment {
                     File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
                     if (!folder.exists())
                         folder.mkdir();
-                    final String pdf = folder.toString() + "/Rate Air Gedung A "+tglIni+".pdf";
+                    final String pdf = folder.toString() + "/Volume Air Gedung A "+ tglIni+".pdf";
                     PdfWriter.getInstance(document, new FileOutputStream(pdf));
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
@@ -128,9 +128,9 @@ public class VolumChartA extends Fragment {
                 document.open();
                 try {
 
-                    document.add(JudulText("Data Pemantauan Volume Air"));
-                    document.add(JudulText("gedung A"));
-                    document.add(JudulText("Realtime "+tglIni));
+                    document.add(JudulText("Data Pemantauan Volume Penggunaan Air"));
+                    document.add(JudulText("Gedung A"));
+                    document.add(JudulText("Realtime "+ tglIni));
                     document.add(table);
                 } catch (DocumentException e) {
                     e.printStackTrace();

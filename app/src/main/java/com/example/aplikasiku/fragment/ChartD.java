@@ -122,7 +122,7 @@ public class ChartD extends Fragment {
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.getDefaultCell().setFixedHeight(20);
                 table.addCell("Waktu");
-                table.addCell("Rate");
+                table.addCell("Debit(liter/menit)");
                 table.setHeaderRows(1);
                 PdfPCell[] cells = table.getRow(0).getCells();
                 for (int j=0;j<cells.length;j++){
@@ -138,7 +138,7 @@ public class ChartD extends Fragment {
                     File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
                     if (!folder.exists())
                         folder.mkdir();
-                    final String pdf = folder.toString() + "/Rate Air Gedung D "+tglIni+".pdf";
+                    final String pdf = folder.toString() + "/Realtime Laju Air Gedung D "+ tglIni+".pdf";
                     PdfWriter.getInstance(document, new FileOutputStream(pdf));
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
@@ -148,9 +148,9 @@ public class ChartD extends Fragment {
                 document.open();
                 try {
 
-                    document.add(JudulText("Data Pemantauan Rate Air"));
-                    document.add(JudulText("gedung D"));
-                    document.add(JudulText("Realtime "+tglIni));
+                    document.add(JudulText("Data Pemantauan Laju Penggunaan Air"));
+                    document.add(JudulText("Gedung D"));
+                    document.add(JudulText("Realtime "+ tglIni));
                     document.add(table);
                 } catch (DocumentException e) {
                     e.printStackTrace();
