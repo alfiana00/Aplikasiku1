@@ -116,8 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="6dp"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,7 +145,7 @@
                             android:gravity="left|center_vertical"
                             android:layout_marginLeft="6dp"
                             android:text="--Pilih Tanggal Awal--"
-                            android:textSize="12dp" />
+                            android:textSize="10dp" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -179,7 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="--Pilih Tanggal Akhir--"
-                            android:textSize="12dp"
+                            android:textSize="10dp"
                             android:drawableRight="@drawable/ic_date_range"
                             android:padding="3dp"
                             android:background="@drawable/bg_spinner"
@@ -225,7 +224,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_light_background"
-        android:layout_margin="6dp"
         android:layout_below="@id/lypilihan"
         app:cardCornerRadius="3dp"
         app:cardElevation="2dp">
@@ -267,7 +265,6 @@
         android:id="@+id/rv_datarate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="7dp"
         android:layout_marginBottom="?attr/actionBarSize"
         android:layout_below="@+id/lb_tabel"/>
     <TextView
@@ -277,7 +274,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="7dp"
         android:layout_below="@+id/lb_tabel"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_total"

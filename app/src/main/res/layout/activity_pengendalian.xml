@@ -19,22 +19,22 @@
             android:minHeight="?attr/actionBarSize"
             android:outlineAmbientShadowColor="@color/black"
             app:theme='@style/ThemeOverlay.AppCompat.Dark'/>
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="PENGENDALIAN"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="20dp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            />-->
-<!--        <ImageView-->
-<!--            android:id="@+id/btn_back"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_alignParentLeft="true"-->
-<!--            android:src="@drawable/ic_baseline_arrow_back_ios_24"-->
-<!--            android:layout_marginStart="16dp"/>-->
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="PENGENDALIAN"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="20dp"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/btn_back"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_alignParentLeft="true"-->
+        <!--            android:src="@drawable/ic_baseline_arrow_back_ios_24"-->
+        <!--            android:layout_marginStart="16dp"/>-->
         <!--        <ImageView-->
         <!--            android:id="@+id/btn_home"-->
         <!--            android:layout_width="wrap_content"-->
@@ -52,304 +52,361 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/lytoolbar">
-
-        <LinearLayout
-            android:id="@+id/lyutama"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/lytoolbar"
-            android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Pusat"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
-
-            <RelativeLayout
+            android:layout_below="@+id/lytoolbar">
+            <LinearLayout
+                android:id="@+id/lyutama"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_kontrol"/>
-
-                <TextView
+                android:layout_height="match_parent"
+                android:layout_below="@+id/lytoolbar"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
-                    android:text="PUSAT"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBtnP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="20dp"
-                    android:textOn="ON"
-                    android:textOff="OFF"
-                    app:showText="true"
-                    android:thumb="@drawable/thumb1"
-                    app:track="@drawable/switch_track_custom"/>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/Pusat"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="3dp">
 
-            </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/ic_kontrol"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginLeft="20dp"
+                                android:text="PUSAT"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/GedungA"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switchBtnP"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="20dp"
+                                android:textOn="ON"
+                                android:textOff="OFF"
+                                app:showText="true"
+                                android:thumb="@drawable/thumb1"
+                                app:track="@drawable/switch_track_custom"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                        </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_kontrol"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="GEDUNG A"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBtnA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:textOn="ON"
-                    android:textOff="OFF"
-                    app:showText="true"
-                    android:thumb="@drawable/thumb1"
-                    app:track="@drawable/switch_track_custom"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/GedungA"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="3dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/GedungB"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/ic_kontrol"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="GEDUNG A"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginLeft="20dp"/>
 
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_kontrol"/>
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switchBtnA"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="20dp"
+                                android:textOn="ON"
+                                android:textOff="OFF"
+                                app:showText="true"
+                                android:thumb="@drawable/thumb1"
+                                app:track="@drawable/switch_track_custom"/>
 
-                <TextView
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="GEDUNG B"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBtnB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:textOn="ON"
-                    android:textOff="OFF"
-                    app:showText="true"
-                    android:thumb="@drawable/thumb1"
-                    app:track="@drawable/switch_track_custom"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/GedungB"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="3dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/GedungC"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/ic_kontrol"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="GEDUNG B"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginLeft="20dp"/>
 
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_kontrol"/>
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switchBtnB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="20dp"
+                                android:textOn="ON"
+                                android:textOff="OFF"
+                                app:showText="true"
+                                android:thumb="@drawable/thumb1"
+                                app:track="@drawable/switch_track_custom"/>
 
-                <TextView
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="GEDUNG C"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBtnC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:textOn="ON"
-                    android:textOff="OFF"
-                    app:showText="true"
-                    android:thumb="@drawable/thumb1"
-                    app:track="@drawable/switch_track_custom"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/GedungC"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="3dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/GedungD"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/ic_kontrol"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="GEDUNG C"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginLeft="20dp"/>
 
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_kontrol"/>
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switchBtnC"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="20dp"
+                                android:textOn="ON"
+                                android:textOff="OFF"
+                                app:showText="true"
+                                android:thumb="@drawable/thumb1"
+                                app:track="@drawable/switch_track_custom"/>
 
-                <TextView
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                    android:text="GEDUNG D"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"/>
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBtnD"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:textOn="ON"
-                    android:textOff="OFF"
-                    app:showText="true"
-                    android:thumb="@drawable/thumb1"
-                    app:track="@drawable/switch_track_custom"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/GedungD"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="3dp"
+                        app:cardElevation="3dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/ic_kontrol"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="GEDUNG D"
+                                android:textSize="18dp"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginLeft="20dp"/>
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switchBtnD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="20dp"
+                                android:textOn="ON"
+                                android:textOff="OFF"
+                                app:showText="true"
+                                android:thumb="@drawable/thumb1"
+                                app:track="@drawable/switch_track_custom"/>
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Keterangan: "
+                            android:textStyle="bold"
+                            android:textSize="16dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="35dp"
+                            android:layout_marginLeft="80dp"
+                            android:text="Selenoid ON, Air Mengalir"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginLeft="12dp"
+                            android:src="@drawable/ic_on"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="65dp"
+                            android:layout_marginLeft="80dp"
+                            android:text="Selenoid OFF, Air Berhenti Mengalir"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="60dp"
+                            android:layout_marginLeft="12dp"
+                            android:src="@drawable/ic_off"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

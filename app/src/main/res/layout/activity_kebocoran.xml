@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
     tools:context=".activity.Kebocoran">
     <RelativeLayout
         android:id="@+id/lytoolbar"
@@ -151,7 +150,7 @@
                             android:gravity="left|center_vertical"
                             android:layout_marginLeft="6dp"
                             android:text="--Pilih Tanggal Awal--"
-                            android:textSize="12dp" />
+                            android:textSize="10dp" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
                 <RelativeLayout
@@ -184,7 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="--Pilih Tanggal Akhir--"
-                            android:textSize="12dp"
+                            android:textSize="10dp"
                             android:drawableRight="@drawable/ic_date_range"
                             android:padding="3dp"
                             android:background="@drawable/bg_spinner"
