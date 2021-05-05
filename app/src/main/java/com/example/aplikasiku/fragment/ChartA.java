@@ -104,7 +104,7 @@ public class ChartA extends Fragment {
 
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
-        tglIni = simpleDateFormat.format(c).toString();
+        tglIni = myDateFormat.format(c).toString();
         column = "rateA";
         table = "rate_a";
         getData(column, table);

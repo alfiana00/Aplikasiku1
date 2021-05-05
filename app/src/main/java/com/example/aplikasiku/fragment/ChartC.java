@@ -64,6 +64,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
+import static com.example.aplikasiku.apiinterface.DataInterface.myDateFormat;
 import static com.example.aplikasiku.apiinterface.DataInterface.simpleDateFormat;
 
 public class ChartC extends Fragment {
@@ -97,7 +98,7 @@ public class ChartC extends Fragment {
 
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
-        tglIni = simpleDateFormat.format(c).toString();
+        tglIni = myDateFormat.format(c).toString();
         column = "rateC";
         table = "rate_c";
         getData(column, table);

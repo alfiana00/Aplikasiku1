@@ -141,7 +141,7 @@ public class VolumChartD extends Fragment {
 
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
-        tglIni = simpleDateFormat.format(c).toString();
+        tglIni = myDateFormat.format(c).toString();
         idGedung = "4";
         getData(idGedung);
         refresh = new Runnable() {
