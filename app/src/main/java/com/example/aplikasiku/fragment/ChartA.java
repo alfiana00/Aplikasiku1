@@ -207,6 +207,7 @@ public class ChartA extends Fragment {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         DataValsA.add(new Entry(newDate.getTime(),rateA));
                         datumList.add(data);
                     }
@@ -307,8 +308,11 @@ public class ChartA extends Fragment {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
-                            DataVals.add(new Entry(newDate.getTime(), air));
+                            if (newDate==null){
+                            }
+                            else {
+                                DataVals.add(new Entry(newDate.getTime(), air));
+                            }
                         }
                     }
                     else {

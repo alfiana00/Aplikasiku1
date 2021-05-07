@@ -188,9 +188,11 @@ public class VolumChartA extends Fragment {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
-                            DataVals.add(new Entry(newDate.getTime(), air));
-
+                            if (newDate==null){
+                            }
+                            else {
+                                DataVals.add(new Entry(newDate.getTime(), air));
+                            }
                         }
                     }
                     else {
