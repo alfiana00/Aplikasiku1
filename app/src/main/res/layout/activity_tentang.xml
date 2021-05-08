@@ -73,7 +73,7 @@
                 android:autoLink="phone"
                 android:linksClickable="true"
                 android:textColorLink="#2D70F3"
-                android:text="Phone: 085700797441" />
+                android:text="Phone   : 085700797441" />
 
             <TextView
                 android:id="@+id/textemail"
@@ -84,7 +84,7 @@
                 android:autoLink="email"
                 android:linksClickable="true"
                 android:textColorLink="#2D70F3"
-                android:text="Email: rizwanakumalasari05@gmail.com" />
+                android:text="Email     : rizwanakumalasari05@gmail.com" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:linksClickable="true"
                 android:textColorLink="#2D70F3"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"/>
 
         </LinearLayout>

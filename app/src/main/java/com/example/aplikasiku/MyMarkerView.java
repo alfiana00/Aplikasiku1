@@ -1,19 +1,19 @@
 package com.example.aplikasiku;
 
-import android.content.Context;
-import android.text.Html;
-import android.widget.TextView;
+        import android.content.Context;
+        import android.text.Html;
+        import android.widget.TextView;
 
-import com.github.mikephil.charting.components.MarkerView;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.utils.MPPointF;
+        import com.github.mikephil.charting.components.MarkerView;
+        import com.github.mikephil.charting.data.Entry;
+        import com.github.mikephil.charting.highlight.Highlight;
+        import com.github.mikephil.charting.utils.MPPointF;
 
-import java.util.Date;
-import java.util.TimeZone;
+        import java.util.Date;
+        import java.util.TimeZone;
 
-import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
-import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
+        import static com.example.aplikasiku.apiinterface.DataInterface.DateFormatChart;
+        import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 
 public class MyMarkerView extends MarkerView {
     private final TextView tvContent;
@@ -24,9 +24,7 @@ public class MyMarkerView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        Date date = new Date((long)e.getX());
-        DateFormatChart.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        tvContent.setText(Html.fromHtml(DateFormatChart.format(date)+ " |\n\n" +e.getY()));
+        tvContent.setText(Html.fromHtml( "\n\n" +e.getY()));
         super.refreshContent(e, highlight);
     }
 
