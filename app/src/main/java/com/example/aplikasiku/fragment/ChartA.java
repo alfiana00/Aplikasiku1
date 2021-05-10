@@ -308,7 +308,14 @@ public class ChartA extends Fragment {
                                 e.printStackTrace();
                             }
 
-                            DataVals.add(new Entry(newDate.getTime(), air));
+                            if (newDate==null){
+                                Toast.makeText(getActivity().getApplicationContext(), "Data tidak tersedia", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+
+                                DataVals.add(new Entry(newDate.getTime(), air));
+                            }
+
                         }
                     }
                     else {
