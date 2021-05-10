@@ -197,7 +197,11 @@ public class ChartB extends Fragment {
                                 e.printStackTrace();
                             }
 
-                            DataVals.add(new Entry(newDate.getTime(), air));
+                            if (newDate==null){
+                            }
+                            else {
+                                DataVals.add(new Entry(newDate.getTime(), air));
+                            }
                         }
                     }
                     else {

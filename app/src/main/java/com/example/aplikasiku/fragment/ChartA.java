@@ -207,6 +207,7 @@ public class ChartA extends Fragment {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+
                         DataValsA.add(new Entry(newDate.getTime(),rateA));
                         datumList.add(data);
                     }
@@ -307,15 +308,11 @@ public class ChartA extends Fragment {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
                             if (newDate==null){
-                                Toast.makeText(getActivity().getApplicationContext(), "Data tidak tersedia", Toast.LENGTH_LONG).show();
                             }
                             else {
-
                                 DataVals.add(new Entry(newDate.getTime(), air));
                             }
-
                         }
                     }
                     else {
