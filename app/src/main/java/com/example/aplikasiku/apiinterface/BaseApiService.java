@@ -45,8 +45,8 @@ public interface BaseApiService {
     Call<VolumePerwaktuResponse>getVolumeAir(@Query("gedung")String gedung,
                                            @Query("waktu1")String waktu1,
                                            @Query("waktu2")String waktu2);
-    @GET("bocor.php")
-    Call<KebocoranResponse>getKebocoranAir(@Query("gedung")String gedung,
+    @GET("kebocoran.php")
+    Call<KebocoranResponseNew>getKebocoranAir(@Query("gedung")String gedung,
                                                  @Query("waktu1")String waktu1,
                                                  @Query("waktu2")String waktu2);
     @GET("status-button.php")
