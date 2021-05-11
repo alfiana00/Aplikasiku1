@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aplikasiku.R;
 import com.example.aplikasiku.model.DataKebocoran;
+import com.example.aplikasiku.model.kebocoran.RateItem;
 
 import java.util.List;
 
 public class RecyclerKebocoranDataAdapter extends RecyclerView.Adapter<RecyclerKebocoranDataAdapter.ViewHolder> {
-    private List<DataKebocoran> listdata;
+    private List<RateItem> listdata;
     private Context mcontext;
 
-    public RecyclerKebocoranDataAdapter(List<DataKebocoran> listdata, Context context) {
+    public RecyclerKebocoranDataAdapter(List<RateItem> listdata, Context context) {
         this.listdata = listdata;
         this.mcontext = context;
     }
@@ -34,9 +35,11 @@ public class RecyclerKebocoranDataAdapter extends RecyclerView.Adapter<RecyclerK
     public void onBindViewHolder(@NonNull RecyclerKebocoranDataAdapter.ViewHolder holder, final int position) {
         final String dataBocor = listdata.get(position).getStatus();
         final String Waktu = listdata.get(position).getWaktu();
+        final String gedung = listdata.get(position).getGedung();
 
         holder.data.setText(dataBocor);
         holder.waktu.setText(Waktu);
+        holder.gedung.setText(gedung);
     }
 
     @Override
@@ -45,12 +48,13 @@ public class RecyclerKebocoranDataAdapter extends RecyclerView.Adapter<RecyclerK
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView waktu, data;
+        private TextView waktu, data, gedung;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             waktu = itemView.findViewById(R.id.txtwaktu);
             data = itemView.findViewById(R.id.txtdatabocor);
+            gedung = itemView.findViewById(R.id.txtdatagedung);
         }
     }
 }

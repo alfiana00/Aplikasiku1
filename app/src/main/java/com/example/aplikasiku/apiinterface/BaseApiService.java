@@ -9,6 +9,7 @@ import com.example.aplikasiku.model.StatusButtonResponse;
 import com.example.aplikasiku.model.UpdatePasswordResponse;
 import com.example.aplikasiku.model.VolumePerwaktuResponse;
 import com.example.aplikasiku.model.VolumeResponse;
+import com.example.aplikasiku.model.kebocoran.KebocoranResponseNew;
 import com.example.aplikasiku.model.perwaktu.PerwaktuResponse;
 import com.example.aplikasiku.model.raterealtime.RateRealtimeResponse;
 import com.example.aplikasiku.model.volumerealtime.VolumeRealtimeResponse;
@@ -44,8 +45,8 @@ public interface BaseApiService {
     Call<VolumePerwaktuResponse>getVolumeAir(@Query("gedung")String gedung,
                                            @Query("waktu1")String waktu1,
                                            @Query("waktu2")String waktu2);
-    @GET("bocor.php")
-    Call<KebocoranResponse>getKebocoranAir(@Query("gedung")String gedung,
+    @GET("kebocoran.php")
+    Call<KebocoranResponseNew>getKebocoranAir(@Query("gedung")String gedung,
                                                  @Query("waktu1")String waktu1,
                                                  @Query("waktu2")String waktu2);
     @GET("status-button.php")
@@ -83,5 +84,8 @@ public interface BaseApiService {
 
     @GET("volume.php")
     Call<VolumeRealtimeResponse> getVolumeRealtime(@Query("id_gedung") String id_gedung);
+    @GET("kebocoran.php")
+    Call<KebocoranResponseNew> getKebocoranNew(@Query("waktu1") String waktu1,
+                                               @Query("waktu2") String waktu2);
 
 }

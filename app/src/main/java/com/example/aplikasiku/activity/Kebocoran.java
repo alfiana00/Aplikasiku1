@@ -30,6 +30,9 @@ import com.example.aplikasiku.apihelper.RetrofitClient;
 import com.example.aplikasiku.apiinterface.BaseApiService;
 import com.example.aplikasiku.model.DataKebocoran;
 import com.example.aplikasiku.model.KebocoranResponse;
+import com.example.aplikasiku.model.kebocoran.Data;
+import com.example.aplikasiku.model.kebocoran.KebocoranResponseNew;
+import com.example.aplikasiku.model.kebocoran.RateItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -49,6 +52,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,6 +66,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.aplikasiku.apiinterface.DataInterface.DateDataFormat;
+import static com.example.aplikasiku.apiinterface.DataInterface.DateFormat;
 
 public class Kebocoran extends AppCompatActivity {
     @BindView(R.id.tglawal)
@@ -83,8 +88,10 @@ public class Kebocoran extends AppCompatActivity {
     LayoutInflater layoutInflater;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView, rvContainer;
-    List<DataKebocoran> dataList;
+    List<RateItem>dataList2;
+    List<RateItem> dataList;
     private ArrayList<String> listBocor;
+    private ArrayList<String> daftarGedung;
     private ArrayList<String> listWaktu;
     String waktu1, waktu2, gedung;
     ProgressDialog progressDialog;
@@ -144,11 +151,15 @@ public class Kebocoran extends AppCompatActivity {
                 R.layout.list_item_spn, listGdg);
         arrayAdapter.setDropDownViewResource(R.layout.list_item_spn);
         listGedung.setAdapter(arrayAdapter);
+        Calendar date = Calendar.getInstance();
+        int month = date.get(Calendar.MONTH)+1;
+        int tahun = date.get(Calendar.YEAR);
 
-        waktu1 = tglIni;
+        waktu1 = String.valueOf(tahun)+"-"+String.valueOf(month)+"-01";
         waktu2 = tglIni;
         gedung = "Gedung Pusat";
-        showTable("5", waktu1, waktu2);
+        showTable(waktu1, waktu2);
+        Log.i("waku1", "waktu 1 : "+waktu1);
         cvTglAwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,32 +199,33 @@ public class Kebocoran extends AppCompatActivity {
                 waktu1 = tvTglAwal.getText().toString();
                 waktu2 = tvTglAkhir.getText().toString();
                 gedung = listGedung.getSelectedItem().toString();
+                showTable(waktu1, waktu2);
                 if (gedung.equals("Gedung Pusat")){
-                    showTable("5", waktu1, waktu2);
+                    showTable2("5", waktu1, waktu2);
                     titleBocor.setText("Status (Gedung Pusat)");
                 }
                 else if (gedung.equals("Gedung A")){
-                    showTable("1", waktu1, waktu2);
+                    showTable2("1", waktu1, waktu2);
                     titleBocor.setText("Status (Gedung A)");
 
                 }
                 else if (gedung.equals("Gedung B")){
-                    showTable("2", waktu1, waktu2);
+                    showTable2("2", waktu1, waktu2);
                     titleBocor.setText("Status (Gedung B)");
 
                 }
                 else if (gedung.equals("Gedung C")){
-                    showTable("3", waktu1, waktu2);
+                    showTable2("3", waktu1, waktu2);
                     titleBocor.setText("Status (Gedung C)");
 
                 }
                 else if (gedung.equals("Gedung D")){
-                    showTable("4", waktu1, waktu2);
+                    showTable2("4", waktu1, waktu2);
                     titleBocor.setText("Status (Gedung D)");
 
                 }
                 else {
-                    Toast.makeText(Kebocoran.this, "Silakan pilih gedung terlebih dahulu!", Toast.LENGTH_SHORT).show();
+                    showTable(waktu1, waktu2);
                 }
                 Log.i("aaaa", gedung+":"+waktu1 + "/" + waktu2);
             }
@@ -221,22 +233,23 @@ public class Kebocoran extends AppCompatActivity {
 
     }
 
-    public void showTable(String gedung, String waktu1, String waktu2) {
+    public void showTable(String waktu1, String waktu2){
         progressDialog = new ProgressDialog(Kebocoran.this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Memuat Data ...");
         progressDialog.show();
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-        Call<KebocoranResponse> call = service.getKebocoranAir(gedung, waktu1, waktu2);
-        call.enqueue(new Callback<KebocoranResponse>() {
+        Call<KebocoranResponseNew> call = service.getKebocoranNew(waktu1, waktu2);
+        call.enqueue(new Callback<KebocoranResponseNew>() {
             @Override
-            public void onResponse(Call<KebocoranResponse> call, Response<KebocoranResponse> response) {
+            public void onResponse(Call<KebocoranResponseNew> call, Response<KebocoranResponseNew> response) {
                 listBocor = new ArrayList<>();
+                daftarGedung = new ArrayList<>();
                 listWaktu = new ArrayList<>();
 
                 if (response.body().isSuccess()) {
                     if (response.body().getData() != null) {
-                        dataList = response.body().getData();
+                        dataList = (List<RateItem>) response.body().getData().getRate();
                         recyclerView = findViewById(R.id.rv_databocor);
                         recyclerView.setVisibility(View.VISIBLE);
                         recyclerView.setHasFixedSize(true);
@@ -247,6 +260,7 @@ public class Kebocoran extends AppCompatActivity {
 
                         for (int i = 0; i < dataList.size(); i++) {
                             listBocor.add(dataList.get(i).getStatus());
+                            daftarGedung.add(dataList.get(i).getGedung());
                             listWaktu.add(dataList.get(i).getWaktu());
                         }
 
@@ -263,7 +277,64 @@ public class Kebocoran extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<KebocoranResponse> call, Throwable t) {
+            public void onFailure(Call<KebocoranResponseNew> call, Throwable t) {
+                recyclerView = findViewById(R.id.rv_databocor);
+                tvNull.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+
+                progressDialog.dismiss();
+            }
+        });
+
+
+        progressDialog.dismiss();
+    }
+
+    public void showTable2(String gedung, String waktu1, String waktu2) {
+        progressDialog = new ProgressDialog(Kebocoran.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Memuat Data ...");
+        progressDialog.show();
+        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
+        Call<KebocoranResponseNew> call = service.getKebocoranAir(gedung, waktu1, waktu2);
+        call.enqueue(new Callback<KebocoranResponseNew>() {
+            @Override
+            public void onResponse(Call<KebocoranResponseNew> call, Response<KebocoranResponseNew> response) {
+                listBocor = new ArrayList<>();
+                listWaktu = new ArrayList<>();
+                daftarGedung = new ArrayList<>();
+
+                if (response.body().isSuccess()) {
+                    if (response.body().getData() != null) {
+                        dataList2 = response.body().getData().getRate();
+                        recyclerView = findViewById(R.id.rv_databocor);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(Kebocoran.this));
+                        RecyclerKebocoranDataAdapter adapter = new RecyclerKebocoranDataAdapter(dataList2, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
+                        tvNull.setVisibility(View.GONE);
+
+                        for (int i = 0; i < dataList2.size(); i++) {
+                            listBocor.add(dataList2.get(i).getStatus());
+                            daftarGedung.add(dataList2.get(i).getGedung());
+                            listWaktu.add(dataList2.get(i).getWaktu());
+                        }
+
+                        Log.i("cekdata", listBocor.toArray().toString());
+
+                    } else {
+                        recyclerView = findViewById(R.id.rv_databocor);
+                        tvNull.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }
+                }
+
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<KebocoranResponseNew> call, Throwable t) {
                 recyclerView = findViewById(R.id.rv_databocor);
                 tvNull.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
@@ -288,10 +359,11 @@ public class Kebocoran extends AppCompatActivity {
                         progressDialog.setMessage("Memuat Data ...");
                         progressDialog.show();
                         Document document = new Document();
-                        PdfPTable table = new PdfPTable(new float[] { 2, 1 });
+                        PdfPTable table = new PdfPTable(new float[] { 2, 1, 1 });
                         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                         table.getDefaultCell().setFixedHeight(20);
                         table.addCell("Waktu");
+                        table.addCell("Gedung");
                         table.addCell("Status");
                         table.setHeaderRows(1);
                         PdfPCell[] cells = table.getRow(0).getCells();
@@ -301,6 +373,7 @@ public class Kebocoran extends AppCompatActivity {
                         }
                         for (int i=0;i<listBocor.size();i++){
                             table.addCell(listWaktu.get(i));
+                            table.addCell(daftarGedung.get(i));
                             table.addCell(listBocor.get(i));
                         }
                         try {
