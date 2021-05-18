@@ -349,7 +349,7 @@ public class Kebocoran extends AppCompatActivity {
 
     public void pdfdownload(View view) {
         new SweetAlertDialog(Kebocoran.this, SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("Anda yakin untuk menyimpan data pemantauan Kebocoran Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
+                .setTitleText("Anda yakin untuk menyimpan data Pemantauan Kebocoran Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
                 .setConfirmText("Simpan")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -401,7 +401,7 @@ public class Kebocoran extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(Kebocoran.this, "Data pemantauan Kebocoran Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Kebocoran.this, "Data Pemantauan Kebocoran Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Berhasil di Simpan. Silahkan Lihat di Penyimpanan Internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })

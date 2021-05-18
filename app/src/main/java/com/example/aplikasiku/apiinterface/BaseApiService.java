@@ -37,10 +37,7 @@ public interface BaseApiService {
 
     @GET("realtime.php")
     Call<RealtimeResponse>getRealtime(@Query("gedung")String gedung);
-//    @GET("rate-air.php")
-//    Call<RateResponse>getRateAir(@Query("gedung")String gedung,
-//                                       @Query("waktu1")String waktu1,
-//                                       @Query("waktu2")String waktu2);
+
     @GET("rate-air.php")
     Call<VolumePerwaktuResponse>getVolumeAir(@Query("gedung")String gedung,
                                            @Query("waktu1")String waktu1,
@@ -58,8 +55,6 @@ public interface BaseApiService {
                                           @Field("gedung") String idGedung);
     @GET("realtime-chart.php")
     Call<RateRealtimeResponse>getRealtimeRate();
-//    @GET("volume.php")
-//    Call<VolumeResponse>getVolumeChart();
 
     @GET("realtime-chart.php")
     Call<ChartRateRes> getRateChart(@Query("column")String column,
@@ -68,11 +63,6 @@ public interface BaseApiService {
     @GET("volume.php")
     Call<VolumeResponse> getVolumChart(@Query("id_gedung") String id_gedung);
 
-//    @GET("rate-air.php")
-//    Call<RatePerwaktuRes> getRatebyDate(@Query("column") String column,
-//                                        @Query("table") String table,
-//                                        @Query("waktu1") String waktu1,
-//                                        @Query("waktu2") String waktu2);
     @GET("rate-air.php")
     Call<PerwaktuResponse> getRatebyDate(@Query("column") String column,
                                          @Query("table") String table,

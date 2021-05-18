@@ -132,7 +132,7 @@ public class VolumChartC extends Fragment {
                     e.printStackTrace();
                 }
                 document.close();
-                Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan Internal /Fluid", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -207,17 +207,12 @@ public class VolumChartC extends Fragment {
 
     }
     private void ShowChart(ArrayList<Entry> DataVals){
-//        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
-//        lineChart.setMarkerView(mv);
         lineChart.setHorizontalScrollBarEnabled(true);
         lineChart.setScaleXEnabled(true);
         lineChart.getScrollBarSize();
 
         YAxis leftaxisy = lineChart.getAxisLeft();
         leftaxisy.removeAllLimitLines();
-
-//        leftaxisy.setAxisMaximum(100f);
-//        leftaxisy.setAxisMinimum(0f);
 
         leftaxisy.enableGridDashedLine(10f,10f,0f);
         leftaxisy.setDrawZeroLine(true);
@@ -272,7 +267,7 @@ public class VolumChartC extends Fragment {
 
     public void pdfdownload() {
         new SweetAlertDialog(getActivity().getApplicationContext(), SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air?")
+                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air?")
                 .setConfirmText("Simpan")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -298,7 +293,7 @@ public class VolumChartC extends Fragment {
                             File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
                             if (!folder.exists())
                                 folder.mkdir();
-                            final String pdf = folder.toString() + "/Rate Air "+tglIni+".pdf";
+                            final String pdf = folder.toString() + "/Volume Air Gedung C "+tglIni+".pdf";
                             PdfWriter.getInstance(document, new FileOutputStream(pdf));
                         } catch (FileNotFoundException fileNotFoundException) {
                             fileNotFoundException.printStackTrace();
@@ -308,8 +303,8 @@ public class VolumChartC extends Fragment {
                         document.open();
                         try {
 
-                            document.add(JudulText("Data Pemantauan Volume Air"));
-                            document.add(JudulText("gedung C"));
+                            document.add(JudulText("Data Pemantauan Volume Penggunaan Air"));
+                            document.add(JudulText("Gedung C"));
                             document.add(JudulText("Realtime "+tglIni));
                             document.add(table);
                         } catch (DocumentException e) {
@@ -318,7 +313,7 @@ public class VolumChartC extends Fragment {
                         document.close();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })

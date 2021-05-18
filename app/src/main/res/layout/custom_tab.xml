@@ -5,6 +5,4 @@
     android:id="@+id/tab"
     android:textSize="14sp"
     android:textColor="@color/black"
-    android:gravity="center"
-
-    />
+    android:gravity="center" />

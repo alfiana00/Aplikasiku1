@@ -136,31 +136,26 @@ public class VolumeChart extends AppCompatActivity {
         TextView tv_chart_a = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_a.setText("Chart A");
         tv_chart_a.setTextSize(16);
-//        tv_chart_a.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_koupon, 0, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tv_chart_a);
 
         TextView tv_chart_b = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_b.setText("Chart B");
         tv_chart_b.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tv_chart_b);
 
         TextView tv_chart_c = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_c.setText("Chart C");
         tv_chart_c.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tv_chart_c);
 
         TextView tv_chart_d = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_d.setText("Chart D");
         tv_chart_d.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tv_chart_d);
 
         TextView tv_chart_p = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_p.setText("Chart Pusat");
         tv_chart_p.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(4).setCustomView(tv_chart_p);
 
     }
@@ -203,83 +198,6 @@ public class VolumeChart extends AppCompatActivity {
         }
     }
 
-
-
-//    public void pdfdownload(View view) {
-//        new SweetAlertDialog(VolumeChart.this, SweetAlertDialog.NORMAL_TYPE)
-//                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air ?")
-//                .setConfirmText("Simpan")
-//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
-//                        progressDialog = new ProgressDialog(VolumeChart.this);
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.setMessage("Memuat Data ...");
-//                        progressDialog.show();
-//                        Document document = new Document();
-//                        PdfPTable table = new PdfPTable(new float[] { 5, 2,2,2,2,2 });
-//                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        table.getDefaultCell().setFixedHeight(20);
-//                        table.addCell("Waktu");
-//                        table.addCell("GedungA");
-//                        table.addCell("GedungB");
-//                        table.addCell("GedungC");
-//                        table.addCell("GedungD");
-//                        table.addCell("Pusat");
-//                        table.setHeaderRows(1);
-//                        PdfPCell[] cells = table.getRow(0).getCells();
-//                        for (int j=0;j<cells.length;j++){
-//                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
-//                            cells[j].setBackgroundColor(myColor);
-//                        }
-//                        for (int i=0;i<listWaktu.size();i++){
-//
-//                            Log.i("dddd", listWaktu.get(i));
-//
-//                            table.addCell(listWaktu.get(i));
-//                            table.addCell(listVolumeA.get(i));
-//                            table.addCell(listVolumeB.get(i));
-//                            table.addCell(listVolumeC.get(i));
-//                            table.addCell(listVolumeD.get(i));
-//                            table.addCell(listVolumeP.get(i));
-//                        }
-//                        try {
-//                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
-//                            if (!folder.exists())
-//                                folder.mkdir();
-//                            final String pdf = folder.toString() + "/Volume Air_" +tglIni+ ".pdf";
-//                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
-//                        } catch (FileNotFoundException fileNotFoundException) {
-//                            fileNotFoundException.printStackTrace();
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.open();
-//                        try {
-//
-//                            document.add(JudulText("Data Pemantauan Volume Penggunaan Air"));
-//                            document.add(JudulText(tglIni));
-//                            document.add(table);
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.close();
-//                        progressDialog.dismiss();
-//
-//                        sweetAlertDialog.dismissWithAnimation();
-//                        Toast.makeText(VolumeChart.this, "Data pemantauan Volume Air Tanggal "+tglIni+" berhasil disimpan , Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
-//                    }
-//
-//                })
-//                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                        sweetAlertDialog.dismissWithAnimation();
-//                    }
-//                }).show();
-//
-//
-//    }
     public Paragraph JudulText(String text){
         Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
         Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);

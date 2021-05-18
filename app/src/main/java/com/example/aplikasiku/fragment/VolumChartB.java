@@ -132,7 +132,7 @@ public class VolumChartB extends Fragment {
                     e.printStackTrace();
                 }
                 document.close();
-                Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan Internal /Fluid", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -209,17 +209,12 @@ public class VolumChartB extends Fragment {
 
     }
     private void ShowChart(ArrayList<Entry> DataVals){
-//        MyMarkerView mv = new MyMarkerView(getActivity().getApplicationContext(), my_marker_view);
-//        lineChart.setMarkerView(mv);
         lineChart.setHorizontalScrollBarEnabled(true);
         lineChart.setScaleXEnabled(true);
         lineChart.getScrollBarSize();
 
         YAxis leftaxisy = lineChart.getAxisLeft();
         leftaxisy.removeAllLimitLines();
-
-//        leftaxisy.setAxisMaximum(100f);
-//        leftaxisy.setAxisMinimum(0f);
 
         leftaxisy.enableGridDashedLine(10f,10f,0f);
         leftaxisy.setDrawZeroLine(true);
@@ -311,7 +306,7 @@ public class VolumChartB extends Fragment {
                         try {
 
                             document.add(JudulText("Data Pemantauan Volume Air"));
-                            document.add(JudulText("gedung B"));
+                            document.add(JudulText("Gedung B"));
                             document.add(JudulText("Realtime "+tglIni));
                             document.add(table);
                         } catch (DocumentException e) {
@@ -320,7 +315,7 @@ public class VolumChartB extends Fragment {
                         document.close();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })

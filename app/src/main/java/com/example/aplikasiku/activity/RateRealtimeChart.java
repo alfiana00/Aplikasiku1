@@ -83,8 +83,7 @@ import static com.example.aplikasiku.apiinterface.DataInterface.formatwaktu;
 import static com.example.aplikasiku.apiinterface.DataInterface.myDateFormat;
 
 public class RateRealtimeChart extends AppCompatActivity {
-//    LineChart lineChart;
-//    LineChart lineChartB;
+
     LineDataSet lineDataSetA = new LineDataSet(null,null);
     LineDataSet lineDataSetB = new LineDataSet(null,null);
     LineDataSet lineDataSetC = new LineDataSet(null,null);
@@ -109,19 +108,10 @@ public class RateRealtimeChart extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
     int index;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_realtime_chart);
-
-//        lineChart = findViewById(R.id.chart);
-////        lineChartB = findViewById(R.id.chartB);
-//        lineChart.setNoDataText("Data Grafik Tidak Tersedia.");
-//        lineChart.setNoDataTextColor(Color.rgb(3,169,244));
-
-//        lineChartB.setNoDataText("Data Grafik Tidak Tersedia.");
-//        lineChartB.setNoDataTextColor(Color.rgb(3,169,244));
 
         tabLayout = findViewById(R.id.tabLayoutKode);
         viewPager = findViewById(R.id.viewPagerKode);
@@ -154,7 +144,6 @@ public class RateRealtimeChart extends AppCompatActivity {
         Date c = Calendar.getInstance().getTime();
         mCalendar = Calendar.getInstance();
         tglIni = myDateFormat.format(c).toString();
-//        getData();
 
 
     }
@@ -163,31 +152,26 @@ public class RateRealtimeChart extends AppCompatActivity {
         TextView tv_chart_a = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_a.setText("Chart A");
         tv_chart_a.setTextSize(16);
-//        tv_chart_a.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_koupon, 0, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tv_chart_a);
 
         TextView tv_chart_b = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_b.setText("Chart B");
         tv_chart_b.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tv_chart_b);
 
         TextView tv_chart_c = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_c.setText("Chart C");
         tv_chart_c.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tv_chart_c);
 
         TextView tv_chart_d = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_d.setText("Chart D");
         tv_chart_d.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tv_chart_d);
 
         TextView tv_chart_p = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tv_chart_p.setText("Chart Pusat");
         tv_chart_p.setTextSize(16);
-//        tv_chart_b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refferal, 0, 0, 0);
         tabLayout.getTabAt(4).setCustomView(tv_chart_p);
 
     }
@@ -229,168 +213,6 @@ public class RateRealtimeChart extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-//    public void getData(){
-//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-//        Call<RateRealtimeResponse> call = service.getRealtimeRate();
-//        ArrayList<Entry> DataValsA = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsB = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsC = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsD = new ArrayList<Entry>();
-//        ArrayList<Entry> DataValsP = new ArrayList<Entry>();
-//        listRateA = new ArrayList<>();
-//        listRateB = new ArrayList<>();
-//        listRateC = new ArrayList<>();
-//        listRateD = new ArrayList<>();
-//        listRateP = new ArrayList<>();
-//        listWaktu = new ArrayList<>();
-//        call.enqueue(new Callback<RateRealtimeResponse>() {
-//            @Override
-//            public void onResponse(Call<RateRealtimeResponse> call, Response<RateRealtimeResponse> response) {
-//                if (response.body().isSuccess()){
-//                    dataRateRealtimes = response.body().getData();
-//                    for (int i = 0; i < dataRateRealtimes.size(); i++){
-//                        listRateA.add(dataRateRealtimes.get(i).getRateA());
-//                        listRateB.add(dataRateRealtimes.get(i).getRateB());
-//                        listRateC.add(dataRateRealtimes.get(i).getRateC());
-//                        listRateD.add(dataRateRealtimes.get(i).getRateD());
-//                        listRateP.add(dataRateRealtimes.get(i).getRateP());
-//                        listWaktu.add(String.format(dataRateRealtimes.get(i).getWaktu(), myDateFormat));
-//                    }
-//                    Log.i("adaa22", response.body().getData().toString());
-//                        for (int i = 0; i < dataRateRealtimes.size(); i++) {
-//                            DataRateRealtime x = dataRateRealtimes.get(i);
-//
-//                            lineDataSetA.setLabel("Rate Air A");
-//                            lineDataSetB.setLabel("Rate Air B");
-//                            lineDataSetC.setLabel("Rate Air C");
-//                            lineDataSetD.setLabel("Rate Air D");
-//                            lineDataSetP.setLabel("Rate Air Pusat");
-//                            upper = new LimitLine(10f, "Batas Atas");
-//                            lower = new LimitLine(0f, "Batas Bawah");
-//                            Float rateA = Float.parseFloat(x.getRateA());
-//                            Float rateB = Float.parseFloat(x.getRateB());
-//                            Float rateC = Float.parseFloat(x.getRateC());
-//                            Float rateD = Float.parseFloat(x.getRateD());
-//                            Float rateP = Float.parseFloat(x.getRateP());
-//
-//                            Date newDate = null;
-//                            try {
-//                                newDate = DateFormatChart.parse(String.valueOf(x.getWaktu()));
-//                            } catch (ParseException e) {
-//                                e.printStackTrace();
-//                            }
-//
-//                            DataValsA.add(new Entry(newDate.getTime(), rateA));
-//                            DataValsB.add(new Entry(newDate.getTime(), rateB));
-//                            DataValsC.add(new Entry(newDate.getTime(), rateC));
-//                            DataValsD.add(new Entry(newDate.getTime(), rateD));
-//                            DataValsP.add(new Entry(newDate.getTime(), rateP));
-//
-//                        }
-//                    }
-//                else {
-//
-//                    DataValsA.add(null);
-//                    DataValsB.add(null);
-//                    DataValsC.add(null);
-//                    DataValsD.add(null);
-//                    DataValsP.add(null);
-//                }
-//                }
-//
-//
-//            @Override
-//            public void onFailure(Call<RateRealtimeResponse> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
-
-//
-//    public void pdfdownload(View view) {
-//        new SweetAlertDialog(RateRealtimeChart.this, SweetAlertDialog.NORMAL_TYPE)
-//                .setTitleText("Anda yakin untuk menyimpan data pemantauan Rate Air ?")
-//                .setConfirmText("Simpan")
-//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
-//                        progressDialog = new ProgressDialog(RateRealtimeChart.this);
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.setMessage("Memuat Data ...");
-//                        progressDialog.show();
-//                        Document document = new Document();
-//                        PdfPTable table = new PdfPTable(new float[] { 5, 2,2,2,2,2 });
-//                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        table.getDefaultCell().setFixedHeight(20);
-//                        table.addCell("Waktu");
-//                        table.addCell("GedungA");
-//                        table.addCell("GedungB");
-//                        table.addCell("GedungC");
-//                        table.addCell("GedungD");
-//                        table.addCell("Pusat");
-//                        table.setHeaderRows(1);
-//                        PdfPCell[] cells = table.getRow(0).getCells();
-//                        for (int j=0;j<cells.length;j++){
-//                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
-//                            cells[j].setBackgroundColor(myColor);
-//                        }
-//                        for (int i=0;i<listWaktu.size();i++){
-//
-//                            Log.i("dddd", listWaktu.get(i));
-//
-//                            table.addCell(listWaktu.get(i));
-//                            table.addCell(listRateA.get(i));
-//                            table.addCell(listRateB.get(i));
-//                            table.addCell(listRateC.get(i));
-//                            table.addCell(listRateD.get(i));
-//                            table.addCell(listRateP.get(i));
-//                        }
-//                        try {
-//                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
-//                            if (!folder.exists())
-//                                folder.mkdir();
-//                            final String pdf = folder.toString() + "/Rate Air_" +tglIni+ ".pdf";
-//                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
-//                        } catch (FileNotFoundException fileNotFoundException) {
-//                            fileNotFoundException.printStackTrace();
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.open();
-//                        try {
-//
-//                            document.add(JudulText("Data Pemantauan Laju Penggunaan Air"));
-//                            document.add(JudulText(tglIni));
-//                            document.add(table);
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.close();
-//                        progressDialog.dismiss();
-//
-//                        sweetAlertDialog.dismissWithAnimation();
-//                        Toast.makeText(RateRealtimeChart.this, "Data pemantauan Volume Air Tanggal "+tglIni+" berhasil disimpan , Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
-//                    }
-//
-//                })
-//                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                        sweetAlertDialog.dismissWithAnimation();
-//                    }
-//                }).show();
-//
-//
-//    }
-//    public Paragraph JudulText(String text){
-//        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
-//        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
-//        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
-//        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
-//        mOrderDetailsTitleParagraph.setSpacingAfter(7);
-//        return mOrderDetailsTitleParagraph;
-//    }
 
     private void getDataRateAll(String column, String table,List<ChartRateRes.Datum> list){
         BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);

@@ -97,7 +97,7 @@ public class Debit extends AppCompatActivity  {
     TextView tvTgl1, tvTgl2, titleRate, tvTotal;
     TextView tvNull;
     Spinner listGedung;
-//    private String[] judul = {"Rate Air (m³/s)"};
+
     private String[] judul = {"Volume Air (liter)"};
     LayoutInflater layoutInflater;
     RecyclerView.LayoutManager layoutManager;
@@ -327,7 +327,7 @@ public class Debit extends AppCompatActivity  {
 
     public void pdfdownload(View view) {
         new SweetAlertDialog(Debit.this, SweetAlertDialog.NORMAL_TYPE)
-                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
+                .setTitleText("Anda yakin untuk menyimpan data Pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
                 .setConfirmText("Simpan")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -356,7 +356,7 @@ public class Debit extends AppCompatActivity  {
                             File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
                             if (!folder.exists())
                                 folder.mkdir();
-                            final String pdf = folder.toString() + "/Volume Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
+                            final String pdf = folder.toString() + "/Pemantauan Perwaktu Penggunaan Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
                             PdfWriter.getInstance(document, new FileOutputStream(pdf));
                         } catch (FileNotFoundException fileNotFoundException) {
                             fileNotFoundException.printStackTrace();
@@ -366,7 +366,7 @@ public class Debit extends AppCompatActivity  {
                         document.open();
                         try {
 
-                            document.add(JudulText("Data Pemantauan Volume Air"));
+                            document.add(JudulText("Data Pemantauan Perwaktu Penggunaan Air"));
                             document.add(JudulText(gedung));
                             document.add(JudulText(waktu1+ " - " +waktu2));
                             document.add(table);
@@ -377,7 +377,7 @@ public class Debit extends AppCompatActivity  {
                         progressDialog.dismiss();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(Debit.this, "Data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Debit.this, "Data Pemantauan Perwaktu "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Berhasil di Simpan. Silahkan Lihat di Penyimpanan Internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })
@@ -399,140 +399,6 @@ public class Debit extends AppCompatActivity  {
         mOrderDetailsTitleParagraph.setSpacingAfter(7);
         return mOrderDetailsTitleParagraph;
     }
-//    public void showTable(String gedung, String waktu1, String waktu2){
-//        progressDialog = new ProgressDialog(Debit.this);
-//        progressDialog.setCancelable(false);
-//        progressDialog.setMessage("Memuat Data ...");
-//        progressDialog.show();
-//        BaseApiService service = RetrofitClient.getClient1().create(BaseApiService.class);
-//        Call<VolumePerwaktuResponse> call = service.getVolumeAir(gedung, waktu1, waktu2);
-//        call.enqueue(new Callback<VolumePerwaktuResponse>() {
-//            @Override
-//            public void onResponse(Call<VolumePerwaktuResponse> call, Response<VolumePerwaktuResponse> response) {
-//                listRate = new ArrayList<>();
-//                listWaktu = new ArrayList<>();
-//
-//                if (response.body().isSuccess()){
-//                    String total = response.body().getData().getTotal();
-//                    Log.i("asasa", response.body().getMessage());
-//                    tvTotal.setText("Total : "+total+" Liter");
-//                    if (response.body().getData() != null) {
-//                        dataList = (List<RateItem>) response.body().getData().getRate();
-//                        recyclerView = findViewById(R.id.rv_datarate);
-//                        recyclerView.setVisibility(View.VISIBLE);
-//                        recyclerView.setHasFixedSize(true);
-//                        recyclerView.setLayoutManager(new LinearLayoutManager(Debit.this));
-//                        RecyclerDataAdapter adapter = new RecyclerDataAdapter(dataList, getApplicationContext());
-//                        recyclerView.setAdapter(adapter);
-//                        tvNull.setVisibility(View.GONE);
-//
-//                        for (int i = 0; i < dataList.size(); i++){
-//                            listRate.add(dataList.get(i).getRate());
-//                            listWaktu.add(dataList.get(i).getWaktu());
-//                        }
-//
-//                        Log.i("cekdata", listRate.toArray().toString());
-//
-//                    }
-//                    else {
-//                        tvTotal.setText(response.body().getMessage().toString());
-//                        recyclerView = findViewById(R.id.rv_datarate);
-//                        tvNull.setVisibility(View.VISIBLE);
-//                        recyclerView.setVisibility(View.GONE);
-//                    }
-//                }
-//
-//                progressDialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<VolumePerwaktuResponse> call, Throwable t) {
-//                tvTotal.setText(t.getMessage().toString());
-//                recyclerView = findViewById(R.id.rv_datarate);
-//                tvNull.setVisibility(View.VISIBLE);
-//                recyclerView.setVisibility(View.GONE);
-//
-//                progressDialog.dismiss();
-//            }
-//        });
-//
-//        progressDialog.dismiss();
-//    }
-//
-//    public void pdfdownload(View view) {
-//        new SweetAlertDialog(Debit.this, SweetAlertDialog.NORMAL_TYPE)
-//                .setTitleText("Anda yakin untuk menyimpan data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" ?")
-//                .setConfirmText("Simpan")
-//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(final SweetAlertDialog sweetAlertDialog) {
-//                        progressDialog = new ProgressDialog(Debit.this);
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.setMessage("Memuat Data ...");
-//                        progressDialog.show();
-//                        Document document = new Document();
-//                        PdfPTable table = new PdfPTable(new float[] { 2, 1 });
-//                        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-//                        table.getDefaultCell().setFixedHeight(20);
-//                        table.addCell("Waktu");
-//                        table.addCell("Volume");
-//                        table.setHeaderRows(1);
-//                        PdfPCell[] cells = table.getRow(0).getCells();
-//                        for (int j=0;j<cells.length;j++){
-//                            BaseColor myColor = WebColors.getRGBColor("#87D2F3");
-//                            cells[j].setBackgroundColor(myColor);
-//                        }
-//                        for (int i=0;i<listRate.size();i++){
-//                            table.addCell(listWaktu.get(i));
-//                            table.addCell(listRate.get(i));
-//                        }
-//                        try {
-//                            File folder = new File(Environment.getExternalStorageDirectory()+ "/Fluid");
-//                            if (!folder.exists())
-//                                folder.mkdir();
-//                            final String pdf = folder.toString() + "/Volume Air_" +gedung+ "_" +waktu1+ "_" +waktu2+ ".pdf";
-//                            PdfWriter.getInstance(document, new FileOutputStream(pdf));
-//                        } catch (FileNotFoundException fileNotFoundException) {
-//                            fileNotFoundException.printStackTrace();
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.open();
-//                        try {
-//
-//                            document.add(JudulText("Data Pemantauan Volume Air"));
-//                            document.add(JudulText(gedung));
-//                            document.add(JudulText(waktu1+ " - " +waktu2));
-//                            document.add(table);
-//                        } catch (DocumentException e) {
-//                            e.printStackTrace();
-//                        }
-//                        document.close();
-//                        progressDialog.dismiss();
-//
-//                        sweetAlertDialog.dismissWithAnimation();
-//                        Toast.makeText(Debit.this, "Data pemantauan Volume Air "+gedung+" Tanggal "+waktu1+" sampai "+waktu2+" Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
-//                    }
-//
-//                })
-//        .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-//            @Override
-//            public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                sweetAlertDialog.dismissWithAnimation();
-//            }
-//        }).show();
-//
-//
-//    }
-//
-//    public Paragraph JudulText(String text){
-//        Font mOrderDetailsTitleFont = new Font(Font.FontFamily.HELVETICA, 16.0f, Font.NORMAL, BaseColor.BLACK);
-//        Chunk mOrderDetailsTitleChunk = new Chunk(text, mOrderDetailsTitleFont);
-//        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
-//        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
-//        mOrderDetailsTitleParagraph.setSpacingAfter(7);
-//        return mOrderDetailsTitleParagraph;
-//    }
 
     public void downloadCsv(View view){
         da = new ArrayList<String[]>();

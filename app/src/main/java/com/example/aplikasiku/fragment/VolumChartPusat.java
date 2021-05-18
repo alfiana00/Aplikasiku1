@@ -132,7 +132,7 @@ public class VolumChartPusat extends Fragment {
                     e.printStackTrace();
                 }
                 document.close();
-                Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan Internal /Fluid", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -307,7 +307,7 @@ public class VolumChartPusat extends Fragment {
                         try {
 
                             document.add(JudulText("Data Pemantauan Volume Air"));
-                            document.add(JudulText("gedung Pusat"));
+                            document.add(JudulText("Gedung Pusat"));
                             document.add(JudulText("Realtime "+tglIni));
                             document.add(table);
                         } catch (DocumentException e) {
@@ -316,7 +316,7 @@ public class VolumChartPusat extends Fragment {
                         document.close();
 
                         sweetAlertDialog.dismissWithAnimation();
-                        Toast.makeText(getActivity().getApplicationContext(), "Data pemantauan Berhasil disimpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Data Pemantauan Realtime Berhasil di Simpan. Silahkan Lihat di Penyimpanan internal /Fluid", Toast.LENGTH_LONG).show();
                     }
 
                 })
